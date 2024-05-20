@@ -1,5 +1,4 @@
 import 'package:appflowy_board/appflowy_board.dart';
-import 'package:flextras/flextras.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:iconly/iconly.dart';
 import 'package:omifit/utils/utils.dart';
@@ -57,249 +56,263 @@ class _DesktopLeadViewState extends ConsumerState<DesktopLeadView> {
 
   @override
   Widget build(BuildContext context) {
-    HomeViewModel homeViewModel = ref.watch(homeViewModelProvider);
+    final HomeViewModel homeViewModel = ref.watch(homeViewModelProvider);
     return Scaffold(
-        backgroundColor: darkBlack,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(70.0),
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            height: double.infinity,
-            color: darkBlack,
-            child: Row(
-              children: [
-                IconButton(
-                    icon: const Icon(
-                      Icons.menu,
-                      color: kWhite,
+      backgroundColor: darkBlack,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(70.0),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+          height: double.infinity,
+          color: darkBlack,
+          child: Row(
+            children: [
+              IconButton(
+                icon: const Icon(
+                  Icons.menu,
+                  color: kWhite,
+                ),
+                onPressed: () => homeViewModel.openDrawer(),
+              ),
+              const SizedBox(width: 10),
+              const Text(
+                'Leads',
+                style: TextStyle(
+                  color: kWhite,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              const Spacer(),
+              SizedBox(
+                height: double.infinity,
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    foregroundColor: primaryColor,
+                    iconColor: secondaryColor,
+                    backgroundColor: const Color(0xFF57483E),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                    onPressed: () => homeViewModel.openDrawer()),
-                const SizedBox(width: 10),
-                const Text(
-                  'Leads',
-                  style: TextStyle(
-                      color: kWhite, fontSize: 18, fontWeight: FontWeight.w700),
+                  ),
+                  onPressed: () {},
+                  icon: const Icon(CupertinoIcons.folder_badge_plus),
+                  label: const Text(
+                    "Add Category",
+                    style: TextStyle(
+                      color: secondaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
-                const Spacer(),
-                SizedBox(
-                  height: double.infinity,
-                  child: TextButton.icon(
-                      style: TextButton.styleFrom(
-                          foregroundColor: primaryColor,
-                          iconColor: secondaryColor,
-                          backgroundColor: const Color(0xFF57483E),
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50))),
+              ),
+              const SizedBox(width: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+                decoration: BoxDecoration(
+                  color: lightBlack,
+                  borderRadius: BorderRadius.circular(90),
+                ),
+                child: Row(
+                  children: [
+                    IconButton(
+                      tooltip: 'Send Message',
+                      icon: const Icon(IconlyLight.send, color: kWhite),
+                      hoverColor: primaryColor,
                       onPressed: () {},
-                      icon: const Icon(CupertinoIcons.folder_badge_plus),
-                      label: const Text(
-                        "Add Category",
-                        style: TextStyle(
-                          color: secondaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      )),
+                    ),
+                    const SizedBox(width: 5),
+                    IconButton(
+                      tooltip: 'Add Member',
+                      icon: const Icon(IconlyLight.add_user, color: kWhite),
+                      hoverColor: primaryColor,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(width: 5),
+                    IconButton(
+                      tooltip: 'Mark Attendance',
+                      icon: const Icon(CupertinoIcons.qrcode, color: kWhite),
+                      hoverColor: primaryColor,
+                      onPressed: () {},
+                    ),
+                    const SizedBox(width: 5),
+                    const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
+                  ],
                 ),
-                const SizedBox(width: 16),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: lightBlack,
-                    borderRadius: BorderRadius.circular(90),
-                  ),
-                  child: Row(
-                    children: [
-                      IconButton(
-                        tooltip: 'Send Message',
-                        icon: const Icon(IconlyLight.send, color: kWhite),
-                        hoverColor: primaryColor,
-                        onPressed: () {},
-                      ),
-                      const SizedBox(width: 5),
-                      IconButton(
-                        tooltip: 'Add Member',
-                        icon: const Icon(IconlyLight.add_user, color: kWhite),
-                        hoverColor: primaryColor,
-                        onPressed: () {},
-                      ),
-                      const SizedBox(width: 5),
-                      IconButton(
-                        tooltip: 'Mark Attendance',
-                        icon: const Icon(CupertinoIcons.qrcode, color: kWhite),
-                        hoverColor: primaryColor,
-                        onPressed: () {},
-                      ),
-                      const SizedBox(width: 5),
-                      const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png")
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-        body: Container(
-          decoration: const BoxDecoration(
-            color: lightBlack,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
+      ),
+      body: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: lightBlack,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: AppFlowyBoard(
-              background: Container(
-                color: bg,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          child: AppFlowyBoard(
+            background: Container(
+              color: bg,
+            ),
+            config: const AppFlowyBoardConfig(
+              groupBackgroundColor: darkBlack,
+              groupItemPadding:
+                  EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              cornerRadius: 38,
+            ),
+            headerBuilder: (context, groupData) => ListTile(
+              contentPadding:
+                  const EdgeInsets.only(left: 25, right: 10, top: 8),
+              title: Text(
+                groupData.id,
+                style: const TextStyle(
+                  color: kWhite,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              config: const AppFlowyBoardConfig(
-                groupBackgroundColor: darkBlack,
-                groupItemPadding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                cornerRadius: 38,
+              trailing: IconButton(
+                icon: const Icon(
+                  IconlyBold.filter,
+                  color: kWhite,
+                  size: 18,
+                ),
+                onPressed: () {},
               ),
-              headerBuilder: (context, groupData) => ListTile(
-                contentPadding:
-                    const EdgeInsets.only(left: 25, right: 10, top: 8),
-                title: Text(
-                  groupData.id,
-                  style: const TextStyle(
-                    color: kWhite,
-                    fontWeight: FontWeight.bold,
+            ),
+            footerBuilder: (context, groupData) => SizedBox(
+              height: 70,
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 15,
+                ),
+                child: SizedBox(
+                  child: OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: darkBlack,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    onPressed: () {
+                      controller.addGroupItem(
+                        groupData.id,
+                        TextItem("New Card"),
+                      );
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.add,
+                      color: primaryColor,
+                    ),
+                    label: const Text(
+                      "Add Lead",
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                 ),
-                trailing: IconButton(
-                    icon: const Icon(
-                      IconlyBold.filter,
-                      color: kWhite,
-                      size: 18,
-                    ),
-                    onPressed: () {}),
               ),
-              footerBuilder: (context, groupData) => SizedBox(
-                height: 70,
-                width: double.infinity,
-                child: Padding(
+            ),
+            controller: controller,
+            cardBuilder: (context, group, groupItem) {
+              return AppFlowyGroupCard(
+                decoration: BoxDecoration(
+                  color: lightBlack,
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                key: ObjectKey(groupItem),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: PaddedColumn(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 15),
-                    child: SizedBox(
-                        child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: darkBlack,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                      ),
-                      onPressed: () {
-                        controller.addGroupItem(
-                            groupData.id, TextItem("New Card"));
-                      },
-                      icon: const Icon(
-                        CupertinoIcons.add,
-                        color: primaryColor,
-                      ),
-                      label: const Text(
-                        "Add Lead",
-                        style: TextStyle(
-                          color: primaryColor,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ))),
-              ),
-              controller: controller,
-              cardBuilder: (context, group, groupItem) {
-                return AppFlowyGroupCard(
-                  decoration: BoxDecoration(
-                    color: lightBlack,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  key: ObjectKey(groupItem),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: PaddedColumn(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 0),
-                      children: [
-                        const ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(
-                            "Ryush Maji",
-                            style: TextStyle(
-                              color: kWhite,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          subtitle: Text(
-                            "27sep 2001",
-                            style: TextStyle(
-                              color: kWhite,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          trailing: ProfileImg(
-                            url: "https://i.imgur.com/UnWWlu3.png",
-                            height: 30,
-                            width: 30,
-                          ),
-                        ),
-                        const Text(
-                          "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful",
+                      horizontal: 16,
+                    ),
+                    children: [
+                      const ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        title: Text(
+                          "Ryush Maji",
                           style: TextStyle(
-                            color: Color.fromARGB(161, 230, 236, 240),
-                            fontSize: 14,
+                            color: kWhite,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "27sep 2001",
+                          style: TextStyle(
+                            color: kWhite,
+                            fontSize: 12,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
-                        const SizedBox(height: 15),
-                        Wrap(
-                          clipBehavior: Clip.none,
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.start,
-                          spacing: 2,
-                          children: [
-                            Chip(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              backgroundColor: const Color(0xFF57483E),
-                              label: const Text("9749003015",
-                                  style: TextStyle(color: primaryColor)),
-                              side: const BorderSide(
-                                color: bg,
-                              ),
-                            ),
-                            const SizedBox(width: 2),
-                            Chip(
-                              backgroundColor: const Color(0xFF57483E),
-                              label: const Text(
-                                "ayushmaji20@gmail.com",
-                                style: TextStyle(color: primaryColor),
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              side: const BorderSide(
-                                color: bg,
-                              ),
-                            ),
-                          ],
+                        trailing: ProfileImg(
+                          url: "https://i.imgur.com/UnWWlu3.png",
+                          height: 30,
+                          width: 30,
                         ),
-                        const SizedBox(height: 15),
-                      ],
-                    ),
+                      ),
+                      const Text(
+                        "In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful",
+                        style: TextStyle(
+                          color: Color.fromARGB(161, 230, 236, 240),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Wrap(
+                        spacing: 2,
+                        children: [
+                          Chip(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            backgroundColor: const Color(0xFF57483E),
+                            label: const Text(
+                              "9749003015",
+                              style: TextStyle(color: primaryColor),
+                            ),
+                            side: const BorderSide(
+                              color: bg,
+                            ),
+                          ),
+                          const SizedBox(width: 2),
+                          Chip(
+                            backgroundColor: const Color(0xFF57483E),
+                            label: const Text(
+                              "ayushmaji20@gmail.com",
+                              style: TextStyle(color: primaryColor),
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            side: const BorderSide(
+                              color: bg,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                    ],
                   ),
-                );
-              },
-              groupConstraints: const BoxConstraints.tightFor(width: 400),
-            ),
+                ),
+              );
+            },
+            groupConstraints: const BoxConstraints.tightFor(width: 400),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 

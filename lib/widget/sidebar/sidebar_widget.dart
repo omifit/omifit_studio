@@ -25,6 +25,7 @@ class _SidebarWidgetState extends State<SidebarWidget> {
       indicatorColor: primaryColor,
       selectedIndex: widget.selectedIndex,
       onDestinationSelected: (int index) {
+        print(index);
         widget.onDestinationSelected(index);
       },
       children: [
@@ -75,11 +76,6 @@ class _SidebarWidgetState extends State<SidebarWidget> {
         const NavigationDrawerDestination(
           icon: Icon(IconlyLight.document),
           label: Text('Plans'),
-        ),
-        const SizedBox(height: 4),
-        const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.send),
-          label: Text('Messages'),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(

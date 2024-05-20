@@ -17,7 +17,6 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
         physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(
               height: 60,
@@ -71,9 +70,6 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                           dialogBackgroundColor: darkBlack,
                           initialSelection: 'IN',
                           favorite: const ['+92', 'IN'],
-                          showCountryOnly: false,
-                          showOnlyCountryWhenClosed: false,
-                          alignLeft: false,
                           textStyle: const TextStyle(
                             color: kWhite,
                             fontSize: 16,
@@ -95,13 +91,15 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                       height: 40,
                     ),
                     SizedBox(
-                        width: double.infinity,
-                        height: 60,
-                        child: FilledBtn(
-                            text: "Sign In",
-                            onPressed: () {
-                              context.goNamed(AppRoute.home.name);
-                            })),
+                      width: double.infinity,
+                      height: 60,
+                      child: FilledBtn(
+                        text: "Sign In",
+                        onPressed: () {
+                          context.goNamed(AppRoute.home.name);
+                        },
+                      ),
+                    ),
                     const Spacer(),
                     Column(
                       children: [
@@ -142,17 +140,18 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                           width: double.infinity,
                           height: 60,
                           child: OutlinedBtn(
-                              onPressed: () {
-                                context.goNamed(AppRoute.signup.name);
-                              },
-                              text: "Create my Account"),
+                            onPressed: () {
+                              context.goNamed(AppRoute.signup.name);
+                            },
+                            text: "Create my Account",
+                          ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

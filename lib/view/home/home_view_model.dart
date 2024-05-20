@@ -18,7 +18,7 @@ class HomeViewModel extends ChangeNotifier {
 
   void onDestinationSelected(int index) {
     selectedIndex = index;
-    Future.delayed(const Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 110), () {
       closeDrawer();
     });
     notifyListeners();

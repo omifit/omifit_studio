@@ -7,8 +7,12 @@ class ProfileImg extends StatelessWidget {
   final double? height;
   final double? width;
 
-  const ProfileImg(
-      {super.key, required this.url, this.height = 40, this.width = 40});
+  const ProfileImg({
+    super.key,
+    required this.url,
+    this.height = 40,
+    this.width = 40,
+  });
 
   @override
   Widget build(BuildContext context) {

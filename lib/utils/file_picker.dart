@@ -3,13 +3,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:omifit/core/constants.dart';
 import 'package:omifit/core/endpoints.dart';
-import 'package:omifit/utils/colors.dart';
 import 'package:omifit/utils/utils.dart';
 
 //! step-1 // pick img from gallery or camera
@@ -43,11 +41,12 @@ Future<File?> openPickImageModalSheet(BuildContext context) async {
               if (file == null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      backgroundColor: kGreen,
-                      content: Text(
-                        "Failed to capture image from camera",
-                        style: TextStyle(color: kWhite),
-                      )),
+                    backgroundColor: kGreen,
+                    content: Text(
+                      "Failed to capture image from camera",
+                      style: TextStyle(color: kWhite),
+                    ),
+                  ),
                 );
               }
               Navigator.pop(context);
@@ -56,11 +55,13 @@ Future<File?> openPickImageModalSheet(BuildContext context) async {
               children: [
                 const Icon(Icons.camera_alt, size: 24),
                 const SizedBox(width: 16),
-                Text("Camera",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontSize: 16)),
+                Text(
+                  "Camera",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
               ],
             ),
           ),
@@ -85,11 +86,13 @@ Future<File?> openPickImageModalSheet(BuildContext context) async {
               children: [
                 const Icon(Icons.image, size: 24),
                 const SizedBox(width: 16),
-                Text("Gallery",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontSize: 16)),
+                Text(
+                  "Gallery",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: 16),
+                ),
               ],
             ),
           ),
@@ -203,8 +206,12 @@ Future<String> uploadImage(File? picture) async {
   );
 
   final request = http.MultipartRequest('POST', url);
-  request.files.add(await http.MultipartFile.fromPath(
-      'image', picture.path)); // `image` from postman parameter
+  request.files.add(
+    await http.MultipartFile.fromPath(
+      'image',
+      picture.path,
+    ),
+  ); // `image` from postman parameter
 
   try {
     final response = await request.send();
@@ -216,7 +223,8 @@ Future<String> uploadImage(File? picture) async {
       return imageUrl;
     } else {
       Fluttertoast.showToast(
-          msg: "Failed to upload image. Status code: ${response.statusCode}");
+        msg: "Failed to upload image. Status code: ${response.statusCode}",
+      );
       return "";
     }
   } catch (e) {

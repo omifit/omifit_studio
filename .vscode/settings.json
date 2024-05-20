@@ -27,7 +27,7 @@
         "windows" :true,
         "linux" :true,
         "ios" :false,
-        "build" : true
+        "build" : true,
     },
     // exclude  problems from error checking and search bricks folder
     "search.exclude": {

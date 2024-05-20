@@ -1,17 +1,21 @@
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
-import 'package:omifit/routes/app_routes.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/home/home_view_model.dart';
 import 'package:omifit/widget/imgIcon/profile_img.dart';
 
-class DesktopDashboardView extends ConsumerWidget {
+class DesktopDashboardView extends ConsumerStatefulWidget {
   const DesktopDashboardView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    HomeViewModel homeViewModel = ref.watch(homeViewModelProvider);
+  ConsumerState<DesktopDashboardView> createState() =>
+      _DesktopDashboardViewState();
+}
+
+class _DesktopDashboardViewState extends ConsumerState<DesktopDashboardView> {
+  @override
+  Widget build(BuildContext context) {
+    final HomeViewModel homeViewModel = ref.watch(homeViewModelProvider);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -22,11 +26,12 @@ class DesktopDashboardView extends ConsumerWidget {
           child: Row(
             children: [
               IconButton(
-                  icon: const Icon(
-                    Icons.menu,
-                    color: kWhite,
-                  ),
-                  onPressed: () => homeViewModel.openDrawer()),
+                icon: const Icon(
+                  Icons.menu,
+                  color: kWhite,
+                ),
+                onPressed: () => homeViewModel.openDrawer(),
+              ),
               const SizedBox(width: 10),
               const Text(
                 'Dashboard',
@@ -97,7 +102,7 @@ class DesktopDashboardView extends ConsumerWidget {
                       onPressed: () {},
                     ),
                     const SizedBox(width: 5),
-                    const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png")
+                    const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
                   ],
                 ),
               ),

@@ -1,14 +1,17 @@
 import 'package:omifit/utils/utils.dart';
 
-class TabletSigninView extends StatelessWidget {
+class TabletSigninView extends StatefulWidget {
   const TabletSigninView({super.key});
 
   @override
+  State<TabletSigninView> createState() => _TabletSigninViewState();
+}
+
+class _TabletSigninViewState extends State<TabletSigninView> {
+  @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text('Tablet Signin View'),
-      ),
+      body: Text("new mason page"),
     );
   }
 }

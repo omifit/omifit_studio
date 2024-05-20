@@ -8,7 +8,6 @@
         "**/dist": true,
         "**/build": false,
         "**/coverage": true,
-        "**/brick": false,
         "**/bricks" : true,
         // flutter files ==>
         ".idea" : true,
@@ -39,6 +38,7 @@
         "**/brick": true,
         "**/bricks" : true
     },
-    
+    "dart.analysisExcludedFolders": ["bricks", "android"],
     
 }
+

@@ -14,5 +14,5 @@ class SigninView extends StatelessWidget {
       desktop: DesktopSigninView(),
       tv: DesktopSigninView(),
     );
-  }
+}
 }

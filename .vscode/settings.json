@@ -23,7 +23,7 @@
         "mason.yaml" : true,
         "README.md" : true,
         "test" :true,
-        "web" :true,
+        "web" :false,
         "windows" :true,
         "linux" :true,
         "ios" :false,

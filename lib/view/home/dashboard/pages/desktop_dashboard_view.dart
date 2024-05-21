@@ -102,7 +102,10 @@ class _DesktopDashboardViewState extends ConsumerState<DesktopDashboardView> {
                       onPressed: () {},
                     ),
                     const SizedBox(width: 5),
-                    const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
+                    const Hero(
+                      tag: "loading",
+                      child: ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
+                    ),
                   ],
                 ),
               ),

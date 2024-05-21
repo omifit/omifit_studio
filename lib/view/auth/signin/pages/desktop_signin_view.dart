@@ -10,6 +10,7 @@ class DesktopSigninView extends StatefulWidget {
 }
 
 class _DesktopSigninViewState extends State<DesktopSigninView> {
+  TextEditingController phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +97,7 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                       child: FilledBtn(
                         text: "Sign In",
                         onPressed: () {
-                          context.goNamed(AppRoute.home.name);
+                          GoRouter.of(context).pushNamed(AppRoute.verify.name);
                         },
                       ),
                     ),

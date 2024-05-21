@@ -1,6 +1,7 @@
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/auth/signin/signin_view.dart';
 import 'package:omifit/view/auth/signup/signup_view.dart';
+import 'package:omifit/view/auth/verify/verify_view.dart';
 import 'package:omifit/view/home/home_view.dart';
 import 'package:omifit/view/splash/splash_view.dart';
 
@@ -8,6 +9,7 @@ enum AppRoute {
   splash,
   signin,
   signup,
+  verify,
   home,
   search,
 }
@@ -22,23 +24,18 @@ final routers = [
     path: '/auth/signin',
     name: AppRoute.signin.name,
     builder: (context, state) => const SigninView(),
-    // pageBuilder: (context, state) => CustomTransitionPage<void>(
-    //   key: state.pageKey,
-    //   transitionDuration: const Duration(milliseconds: 500),
-    //   barrierColor: lightBlack,
-    //   child: const SignInView(),
-    //   transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-    //       FadeTransition(
-    //     opacity: animation,
-    //     child: child,
-    //   ),
-    // ),
   ),
   GoRoute(
     path: '/auth/signup',
     name: AppRoute.signup.name,
     builder: (context, state) => const SignupView(),
   ),
+  GoRoute(
+    path: '/auth/verify',
+    name: AppRoute.verify.name,
+    builder: (context, state) => const VerifyView(),
+  ),
+
   GoRoute(
     path: '/dashboard',
     name: AppRoute.home.name,
@@ -61,5 +58,4 @@ final routers = [
   //       child: child,
   //     ),
   //   ),
-  // ),
 ];

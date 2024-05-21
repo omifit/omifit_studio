@@ -1,3 +1,4 @@
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:omifit/utils/utils.dart';
 
 class SplashView extends StatefulWidget {
@@ -10,7 +11,7 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 4), () {
       context.goNamed(AppRoute.signin.name);
     });
 
@@ -20,30 +21,37 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            colors: [
-              Color(0xffC3B39C),
-              Color(0xffB9A27F),
-            ],
-            radius: 1.0,
+      backgroundColor: darkBlack,
+      body: Center(
+        child: AvatarGlow(
+          glowColor: kGrey,
+          child: const Material(
+            elevation: 8.0,
+            shape: CircleBorder(),
+            child: CircleAvatar(
+              backgroundColor: lightBlack,
+              backgroundImage: AssetImage('assets/icons/logo.png'),
+              radius: 80.0,
+            ),
           ),
         ),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                image: const AssetImage('assets/icons/logo.png'),
-                height: ResponsiveDashboard.isMobile(context) ? 120 : 200,
-                fit: BoxFit.contain,
-              ),
-            ],
-          ),
-        ),
+        // Stack(
+        //   alignment: Alignment.center,
+        //   children: [
+        //     const SizedBox(
+        //       height: 160,
+        //       width: 160,
+        //       child: CircularProgressIndicator(
+        //         color: secondaryColor,
+        //       ),
+        //     ),
+        //     Image(
+        //       image: const AssetImage('assets/icons/logo.png'),
+        //       height: ResponsiveDashboard.isMobile(context) ? 110 : 140,
+        //       fit: BoxFit.contain,
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

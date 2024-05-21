@@ -5,6 +5,10 @@ class AppThemes {
   AppThemes._();
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: primaryColor,
+    ),
+    indicatorColor: primaryColor,
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: primaryColor,
       selectionColor: primaryColor,

@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:shimmer/shimmer.dart';
 
 class ProfileImg extends StatelessWidget {
   final String url;
@@ -17,22 +16,35 @@ class ProfileImg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipOval(
-      child: CachedNetworkImage(
-        imageUrl: url,
+      child:
+          // GetPlatform.isWeb?
+          Image.network(
+        url,
         height: height,
         width: width,
         fit: BoxFit.cover,
-        progressIndicatorBuilder: (context, url, downloadProgress) =>
-            Shimmer.fromColors(
-          baseColor: darkBlack.withOpacity(0.2),
-          highlightColor: kWhite.withOpacity(0.4),
-          child: const CircleAvatar(),
-        ),
-        errorWidget: (context, url, error) => const Icon(
+        errorBuilder: (context, error, stackTrace) => const Icon(
           Icons.error,
           color: primaryColor,
         ),
-      ),
+      )
+      // : CachedNetworkImage(
+      //     imageUrl: url,
+      //     height: height,
+      //     width: width,
+      //     fit: BoxFit.cover,
+      //     progressIndicatorBuilder: (context, url, downloadProgress) =>
+      //         Shimmer.fromColors(
+      //       baseColor: darkBlack.withOpacity(0.2),
+      //       highlightColor: kWhite.withOpacity(0.4),
+      //       child: const CircleAvatar(),
+      //     ),
+      //     errorWidget: (context, url, error) => const Icon(
+      //       Icons.error,
+      //       color: primaryColor,
+      //     ),
+      //   ),
+      ,
     );
   }
 }

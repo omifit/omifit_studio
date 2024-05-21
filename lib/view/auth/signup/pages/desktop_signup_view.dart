@@ -1,4 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/services.dart';
 import 'package:omifit/utils/utils.dart';
 
@@ -35,10 +36,10 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Sign Up',
+                      'Create an Account',
                       style: TextStyle(
                         color: kWhite,
-                        fontSize: 30,
+                        fontSize: 28,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -53,9 +54,23 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    const SizedBox(
-                      height: 40,
+                    gapH25,
+                    TextField(
+                      cursorColor: primaryColor,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Your Name',
+                        hintStyle: const TextStyle(
+                          color: kGrey,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
+                    gapH25,
                     TextField(
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(10),
@@ -72,14 +87,12 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                           favorite: const ['+92', 'IN'],
                           textStyle: const TextStyle(
                             color: kWhite,
-                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         hintText: 'Enter Your Phone Number',
                         hintStyle: const TextStyle(
                           color: kGrey,
-                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                         border: OutlineInputBorder(
@@ -87,16 +100,54 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 40,
+                    gapH25,
+                    TextField(
+                      cursorColor: primaryColor,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Your Date of Birth',
+                        hintStyle: const TextStyle(
+                          color: kGrey,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
+                    gapH25,
+                    CustomSlidingSegmentedControl<int>(
+                      isStretch: true,
+                      initialValue: 2,
+                      height: 50,
+                      children: const {
+                        1: Text('Male'),
+                        2: Text('Female'),
+                        3: Text('Others'),
+                      },
+                      decoration: BoxDecoration(
+                        color: lightBlack,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      thumbDecoration: BoxDecoration(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInToLinear,
+                      onValueChanged: (v) {
+                        print(v);
+                      },
+                    ),
+                    gapH36,
                     SizedBox(
                       width: double.infinity,
                       height: 60,
                       child: FilledBtn(
-                        text: 'Sign Up',
+                        text: "Continue",
                         onPressed: () {
-                          context.goNamed(AppRoute.home.name);
+                          context.goNamed(AppRoute.verify.name);
                         },
                       ),
                     ),
@@ -140,7 +191,7 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                           width: double.infinity,
                           height: 60,
                           child: OutlinedBtn(
-                            text: 'Sign In',
+                            text: 'Login',
                             onPressed: () {
                               context.goNamed(AppRoute.signin.name);
                             },

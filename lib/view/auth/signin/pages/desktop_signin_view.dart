@@ -31,8 +31,10 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                   borderRadius: BorderRadius.all(Radius.circular(36)),
                 ),
                 child: PaddedColumn(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 35, horizontal: 30),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 35,
+                    horizontal: 30,
+                  ),
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
@@ -97,7 +99,7 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                       child: FilledBtn(
                         text: "Sign In",
                         onPressed: () {
-                          GoRouter.of(context).pushNamed(AppRoute.verify.name);
+                          context.pushReplacementNamed(AppRoute.verify.name);
                         },
                       ),
                     ),

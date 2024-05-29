@@ -20,11 +20,11 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SizedBox(
-              height: 60,
+              height: 30,
             ),
             Align(
               child: Container(
-                height: 828,
+                height: 908,
                 width: 723,
                 decoration: const BoxDecoration(
                   color: darkBlack,
@@ -120,7 +120,7 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                     CustomSlidingSegmentedControl<int>(
                       isStretch: true,
                       initialValue: 2,
-                      height: 50,
+                      height: 45,
                       children: const {
                         1: Text('Male'),
                         2: Text('Female'),
@@ -128,11 +128,11 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                       },
                       decoration: BoxDecoration(
                         color: lightBlack,
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       thumbDecoration: BoxDecoration(
                         color: primaryColor,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInToLinear,
@@ -141,13 +141,29 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                       },
                     ),
                     gapH36,
+                    TextField(
+                      cursorColor: primaryColor,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Your Location',
+                        hintStyle: const TextStyle(
+                          color: kGrey,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    gapH25,
                     SizedBox(
                       width: double.infinity,
                       height: 60,
                       child: FilledBtn(
                         text: "Continue",
                         onPressed: () {
-                          context.goNamed(AppRoute.verify.name);
+                          context.pushNamed(AppRoute.verify.name);
                         },
                       ),
                     ),

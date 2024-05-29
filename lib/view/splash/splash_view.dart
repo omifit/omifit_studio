@@ -12,7 +12,7 @@ class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 4), () {
-      context.goNamed(AppRoute.signin.name);
+      context.pushReplacementNamed(AppRoute.signin.name);
     });
 
     super.initState();

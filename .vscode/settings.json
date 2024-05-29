@@ -1,44 +1,43 @@
 {
-    "files.autoSave": "afterDelay",
-    "material-icon-theme.folders.color": "#fff",
-    "editor.minimap.sectionHeaderFontSize": 9,
-    // exclude folder from error checking and search bricks folder
-    "files.exclude": {
-        "**/node_modules": true,
-        "**/dist": true,
-        "**/build": false,
-        "**/coverage": true,
-        "**/bricks" : true,
-        // flutter files ==>
-        ".idea" : true,
-        ".dart_tool" : true,
-        ".mason" : true,
-        ".flutter-plugins": true,
-        "analysis_options.yaml" : true,
-        ".flutter-plugins-dependencies" :true,
-        ".metadata" : true,
-        "mason-lock.json" : true,
-        "pubspec.lock" : true,
-        "omifit.iml" : true,
-        "mason.yaml" : true,
-        "README.md" : true,
-        "test" :true,
-        "web" :false,
-        "windows" :true,
-        "linux" :true,
-        "ios" :false,
-        "build" : true,
-    },
-    // exclude  problems from error checking and search bricks folder
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/dist": true,
-        "**/build": true,
-        "**/coverage": true,
-        "**/brick": true,
-        "**/bricks" : true
-    },
-    "dart.analysisExcludedFolders": ["bricks", "android"],
-    
+  "files.autoSave": "afterDelay",
+  "material-icon-theme.folders.color": "#fff",
+  "editor.minimap.sectionHeaderFontSize": 9,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": false,
+    "**/coverage": true,
+    "**/bricks": true,
+    ".idea": true,
+    ".dart_tool": true,
+    ".mason": true,
+    ".flutter-plugins": true,
+    "analysis_options.yaml": true,
+    ".flutter-plugins-dependencies": true,
+    ".metadata": true,
+    "mason-lock.json": true,
+    "pubspec.lock": true,
+    "omifit.iml": true,
+    "mason.yaml": true,
+    "README.md": true,
+    "test": true,
+    "web": false,
+    "windows": false,
+    "linux": false,
+    "ios": false,
+    "build": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/brick": true,
+    "**/bricks": true
+  },
+  "dart.analysisExcludedFolders": [
+    "bricks",
+    "android"
+  ],
+ // "dart.flutterSdkPath": ".fvm/versions/3.13.3"
 }
-

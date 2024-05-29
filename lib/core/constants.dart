@@ -1,5 +1,6 @@
 class AppConstants {
   static const String baseUrl = devUrl;
+  static const String profilepic = "https://i.imgur.com/UnWWlu3.png";
   static const String devUrl =
       "https://z2tbmjixu6.us-east-1.awsapprunner.com/v1/";
   static const String prodUrl =

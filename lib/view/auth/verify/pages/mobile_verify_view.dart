@@ -47,6 +47,9 @@ class _MobileVerifyViewState extends State<MobileVerifyView> {
             gapHR30,
             Align(
               child: Pinput(
+                onTapOutside: (value) {
+                  FocusScope.of(context).unfocus();
+                },
                 defaultPinTheme: PinTheme(
                   width: 70,
                   height: 70,
@@ -83,7 +86,7 @@ class _MobileVerifyViewState extends State<MobileVerifyView> {
               child: FilledBtn(
                 text: "Next",
                 onPressed: () {
-                  context.goNamed(AppRoute.home.name);
+                  context.goNamed(AppRoute.profile.name);
                 },
               ),
             ),

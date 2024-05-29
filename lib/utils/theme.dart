@@ -35,8 +35,8 @@ class AppThemes {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(primaryColor),
-        shape: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(primaryColor),
+        shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -45,14 +45,14 @@ class AppThemes {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
-        overlayColor: MaterialStateProperty.all(primaryColor.withOpacity(0.05)),
-        backgroundColor: MaterialStateProperty.all(Colors.transparent),
-        shape: MaterialStateProperty.all(
+        overlayColor: WidgetStateProperty.all(primaryColor.withOpacity(0.05)),
+        backgroundColor: WidgetStateProperty.all(Colors.transparent),
+        shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
         ),
-        side: MaterialStateProperty.all(
+        side: WidgetStateProperty.all(
           const BorderSide(
             color: primaryColor,
           ),
@@ -79,5 +79,6 @@ class AppThemes {
         borderRadius: BorderRadius.all(Radius.circular(6)),
       ),
     ),
+    datePickerTheme: const DatePickerThemeData(),
   );
 }

@@ -83,7 +83,7 @@ class _TabletVerifyViewState extends State<TabletVerifyView> {
               child: FilledBtn(
                 text: "Next",
                 onPressed: () {
-                  context.pushNamed(AppRoute.verify.name);
+                  context.pushNamed(AppRoute.profile.name);
                 },
               ),
             ),

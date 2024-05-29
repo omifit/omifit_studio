@@ -25,11 +25,13 @@ class MyApp extends ConsumerWidget {
         routeInformationParser: goRouter.routeInformationParser,
         routerDelegate: goRouter.routerDelegate,
         routeInformationProvider: goRouter.routeInformationProvider,
+        backButtonDispatcher: RootBackButtonDispatcher(),
         theme: AppThemes.darkTheme,
         debugShowCheckedModeBanner: false,
         builder: (context, child) {
           return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
+            data: MediaQuery.of(context)
+                .copyWith(textScaler: const TextScaler.linear(1)),
             child: ResponsiveBreakpoints.builder(
               child: child!,
               breakpoints: Responsive.breakpoints,

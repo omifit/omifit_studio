@@ -86,6 +86,9 @@ class _MobileSigninViewState extends State<MobileSigninView> {
             ),
             gapHR25,
             TextField(
+              onTapOutside: (event) {
+                FocusScope.of(context).unfocus();
+              },
               inputFormatters: [
                 LengthLimitingTextInputFormatter(10),
                 FilteringTextInputFormatter.digitsOnly,

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:iconly/iconly.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/home/home_view_model.dart';
-import 'package:omifit/widget/imgIcon/profile_img.dart';
+import 'package:omifit/widget/imageicon/profile_img.dart';
 
 class DesktopLeadView extends ConsumerStatefulWidget {
   const DesktopLeadView({super.key});

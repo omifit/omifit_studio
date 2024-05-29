@@ -13,7 +13,6 @@ import 'package:omifit/widget/sidebar/sidebar_widget.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
-
   @override
   ConsumerState<HomeView> createState() => _HomeViewState();
 }

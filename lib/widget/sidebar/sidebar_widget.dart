@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:omifit/utils/colors.dart';
-import 'package:omifit/widget/imgIcon/imgicon_widget.dart';
+import 'package:omifit/widget/imageicon/imgicon_widget.dart';
 
 class SidebarWidget extends StatefulWidget {
   final int selectedIndex;

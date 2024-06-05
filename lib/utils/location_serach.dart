@@ -7,9 +7,8 @@ class PlaceSearch {
     final String apiUrl =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$query&key=$apiKey';
     final response = await Dio().get(apiUrl);
-
     if (response.statusCode == 200) {
-      final data = response.data;
+      final  data = response.data;
       if (data['status'] == 'OK') {
         final predictions = data['predictions'];
         final List<String> suggestions = [];

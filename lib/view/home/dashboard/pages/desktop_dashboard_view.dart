@@ -46,7 +46,7 @@ class _DesktopDashboardViewState extends ConsumerState<DesktopDashboardView> {
                 child: TextField(
                   readOnly: true,
                   onTap: () {
-                    context.pushNamed(AppRoute.search.name);
+                    //context.pushNamed(AppRoute.search.name);
                   },
                   decoration: const InputDecoration(
                     hintText: 'Search',

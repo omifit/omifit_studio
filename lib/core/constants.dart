@@ -15,3 +15,5 @@ class AppConstants {
   static const String terms =
       "https://docs.google.com/document/d/1AyyLOFDupdu0Poswi73HJC_Ii3jWOU-xk9uOkl1WEiY";
 }
+
+enum Gender { male, female, others }

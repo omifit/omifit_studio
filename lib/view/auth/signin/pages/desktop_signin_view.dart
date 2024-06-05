@@ -1,18 +1,21 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
+import 'package:omifit/utils/snacbar.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/auth/auth_view_model.dart';
 
-class DesktopSigninView extends StatefulWidget {
+class DesktopSigninView extends ConsumerStatefulWidget {
   const DesktopSigninView({super.key});
 
   @override
-  State<DesktopSigninView> createState() => _DesktopSigninViewState();
+  ConsumerState<DesktopSigninView> createState() => _DesktopSigninViewState();
 }
 
-class _DesktopSigninViewState extends State<DesktopSigninView> {
-  TextEditingController phoneController = TextEditingController();
+class _DesktopSigninViewState extends ConsumerState<DesktopSigninView> {
+  final TextEditingController _phoneCotroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final AuthViewModel authViewModel = ref.watch(authViewModelProvider);
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -60,6 +63,7 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                       height: 40,
                     ),
                     TextField(
+                      controller: authViewModel.phoneSigninController,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(10),
                         FilteringTextInputFormatter.digitsOnly,
@@ -93,13 +97,22 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                     const SizedBox(
                       height: 40,
                     ),
+                    //=== btn
                     SizedBox(
                       width: double.infinity,
                       height: 60,
                       child: FilledBtn(
                         text: "Sign In",
                         onPressed: () {
-                          context.pushReplacementNamed(AppRoute.verify.name);
+                          if (authViewModel.phoneSigninController.text.length ==
+                              10) {
+                            context.pushNamed(AppRoute.verify.name);
+                          } else {
+                            Ksnackbar.warning(
+                              "Enter your phone number",
+                              context,
+                            );
+                          }
                         },
                       ),
                     ),
@@ -110,7 +123,9 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                           padding: EdgeInsets.symmetric(horizontal: 50),
                           children: [
                             Expanded(
-                              child: Divider(),
+                              child: Divider(
+                                color: kGrey,
+                              ),
                             ),
                             Text(
                               '    OR   ',
@@ -121,7 +136,9 @@ class _DesktopSigninViewState extends State<DesktopSigninView> {
                               ),
                             ),
                             Expanded(
-                              child: Divider(),
+                              child: Divider(
+                                color: kGrey,
+                              ),
                             ),
                           ],
                         ),

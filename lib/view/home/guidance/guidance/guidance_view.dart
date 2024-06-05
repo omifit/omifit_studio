@@ -1,7 +1,7 @@
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/home/guidance/pages/desktop_guidance_view.dart';
-import 'package:omifit/view/home/guidance/pages/mobile_guidance_view.dart';
-import 'package:omifit/view/home/guidance/pages/tablet_guidance_view.dart';
+import 'package:omifit/view/home/guidance/guidance/pages/desktop_guidance_view.dart';
+import 'package:omifit/view/home/guidance/guidance/pages/mobile_guidance_view.dart';
+import 'package:omifit/view/home/guidance/guidance/pages/tablet_guidance_view.dart';
 
 
 class GuidanceView extends StatelessWidget {

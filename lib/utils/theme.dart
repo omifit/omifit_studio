@@ -4,6 +4,13 @@ import 'package:omifit/utils/colors.dart';
 class AppThemes {
   AppThemes._();
   static final ThemeData darkTheme = ThemeData(
+    colorScheme: const ColorScheme.dark(
+      primary: primaryColor,
+      secondary: secondaryColor,
+      onPrimary: lightBlack,
+      onSecondary: lightBlack,
+      surface: lightBlack,
+    ),
     brightness: Brightness.dark,
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: primaryColor,

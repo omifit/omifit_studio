@@ -6,14 +6,14 @@ import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 
-class DesktopProfileView extends StatefulWidget {
+class DesktopProfileView extends ConsumerStatefulWidget {
   const DesktopProfileView({super.key});
 
   @override
-  State<DesktopProfileView> createState() => _DesktopProfileViewState();
+  ConsumerState<DesktopProfileView> createState() => _DesktopProfileViewState();
 }
 
-class _DesktopProfileViewState extends State<DesktopProfileView> {
+class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
@@ -40,7 +40,7 @@ class _DesktopProfileViewState extends State<DesktopProfileView> {
                   right: 16,
                   child: BouncingWidget(
                     onPressed: () {
-                      editProfileDialog(context);
+                      editProfileDialog(context,ref);
                     },
                     child: const CircleAvatar(
                       radius: 22,
@@ -99,4 +99,5 @@ class _DesktopProfileViewState extends State<DesktopProfileView> {
       return 2;
     }
   }
+
 }

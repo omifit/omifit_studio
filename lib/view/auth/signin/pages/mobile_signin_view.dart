@@ -1,17 +1,19 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/auth/auth_view_model.dart';
 
-class MobileSigninView extends StatefulWidget {
+class MobileSigninView extends ConsumerStatefulWidget {
   const MobileSigninView({super.key});
 
   @override
-  State<MobileSigninView> createState() => _MobileSigninViewState();
+  ConsumerState<MobileSigninView> createState() => _MobileSigninViewState();
 }
 
-class _MobileSigninViewState extends State<MobileSigninView> {
+class _MobileSigninViewState extends ConsumerState<MobileSigninView> {
   @override
   Widget build(BuildContext context) {
+    final AuthViewModel authViewModel = ref.watch(authViewModelProvider);
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: darkBlack,
@@ -86,6 +88,7 @@ class _MobileSigninViewState extends State<MobileSigninView> {
             ),
             gapHR25,
             TextField(
+              controller: authViewModel.phoneSigninController,
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();
               },

@@ -42,50 +42,43 @@ class _SidebarWidgetState extends State<SidebarWidget> {
             path: "assets/icons/dashboard.png",
             size: 20,
           ),
-          label: Text('Dashboard'),
+          label: Text('Dashboard', style: TextStyle(color: kWhite)),
+
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(
-            CupertinoIcons.qrcode,
-            color: kWhite,
-          ),
-          label: Text('Attendance'),
+          icon: Icon(CupertinoIcons.qrcode,color: kWhite),
+          label: Text('Attendance', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(
-            IconlyLight.user,
-            color: kWhite,
-          ),
-          label: Text('Members'),
+          icon: Icon(IconlyLight.user,color: kWhite),
+          label: Text('Members', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.work),
-          label: Text('Staffs'),
+          icon: Icon(IconlyLight.work,color: kWhite),
+          label: Text('Staffs', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(
-            IconlyLight.video,
-          ),
-          label: Text('Guidance'),
+          icon: Icon(IconlyLight.video,color: kWhite),
+          label: Text('Guidance', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.document),
-          label: Text('Plans'),
+          icon: Icon(IconlyLight.document,color: kWhite),
+          label: Text('Plans', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.discount),
-          label: Text('Discount'),
+          icon: Icon(IconlyLight.discount,color: kWhite,),
+          label: Text('Discount', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.add_user),
-          label: Text('Leads'),
+          icon: Icon(IconlyLight.add_user,color: kWhite,),
+          label: Text('Leads', style: TextStyle(color: kWhite)),
         ),
       ],
     );

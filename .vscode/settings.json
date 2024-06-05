@@ -39,5 +39,9 @@
     "bricks",
     "android"
   ],
+  "[dart]": {
+		"editor.formatOnSave": false,
+		"editor.formatOnType": false,
+	},
  // "dart.flutterSdkPath": ".fvm/versions/3.13.3"
 }

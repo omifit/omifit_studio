@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:omifit/view/home/attendance/attendance_view.dart';
 import 'package:omifit/view/home/dashboard/dashboard_view.dart';
 import 'package:omifit/view/home/discount/discount_view.dart';
-import 'package:omifit/view/home/guidance/guidance_view.dart';
+import 'package:omifit/view/home/guidance/guidance/guidance_view.dart';
 import 'package:omifit/view/home/home_view_model.dart';
 import 'package:omifit/view/home/lead/lead_view.dart';
 import 'package:omifit/view/home/member/member_view.dart';

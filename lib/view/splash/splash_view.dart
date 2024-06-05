@@ -21,37 +21,45 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkBlack,
-      body: Center(
-        child: AvatarGlow(
-          glowColor: kGrey,
-          child: const Material(
-            elevation: 8.0,
-            shape: CircleBorder(),
-            child: CircleAvatar(
-              backgroundColor: lightBlack,
-              backgroundImage: AssetImage('assets/icons/logo.png'),
-              radius: 80.0,
-            ),
+      body: Container(
+        width:  double.infinity,
+        height: double.infinity,
+        decoration:  const BoxDecoration(
+          gradient: RadialGradient(
+            colors: [lightBlack, darkBlack]
           ),
         ),
-        // Stack(
-        //   alignment: Alignment.center,
-        //   children: [
-        //     const SizedBox(
-        //       height: 160,
-        //       width: 160,
-        //       child: CircularProgressIndicator(
-        //         color: secondaryColor,
-        //       ),
-        //     ),
-        //     Image(
-        //       image: const AssetImage('assets/icons/logo.png'),
-        //       height: ResponsiveDashboard.isMobile(context) ? 110 : 140,
-        //       fit: BoxFit.contain,
-        //     ),
-        //   ],
-        // ),
+        child: Center(
+          child: AvatarGlow(
+            glowColor: kGrey,
+            child: const Material(
+              elevation: 8.0,
+              shape: CircleBorder(),
+              child: CircleAvatar(
+                backgroundColor: lightBlack,
+                backgroundImage: AssetImage('assets/icons/logo.png'),
+                radius: 80.0,
+              ),
+            ),
+          ),
+          // Stack(
+          //   alignment: Alignment.center,
+          //   children: [
+          //     const SizedBox(
+          //       height: 160,
+          //       width: 160,
+          //       child: CircularProgressIndicator(
+          //         color: secondaryColor,
+          //       ),
+          //     ),
+          //     Image(
+          //       image: const AssetImage('assets/icons/logo.png'),
+          //       height: ResponsiveDashboard.isMobile(context) ? 110 : 140,
+          //       fit: BoxFit.contain,
+          //     ),
+          //   ],
+          // ),
+        ),
       ),
     );
   }

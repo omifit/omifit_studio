@@ -2,6 +2,7 @@ import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/auth/signin/signin_view.dart';
 import 'package:omifit/view/auth/signup/signup_view.dart';
 import 'package:omifit/view/auth/verify/verify_view.dart';
+import 'package:omifit/view/home/guidance/guidance_details/guidance_details_view.dart';
 import 'package:omifit/view/home/home_view.dart';
 import 'package:omifit/view/profile/profile_view.dart';
 import 'package:omifit/view/splash/splash_view.dart';
@@ -14,7 +15,8 @@ enum AppRoute {
   home,
   search,
   profile,
-  editProfile
+  editProfile,
+  guidanceDetails
 }
 
 final routers = [
@@ -48,6 +50,11 @@ final routers = [
     path: '/home',
     name: AppRoute.home.name,
     builder: (context, state) => const HomeView(),
+  ),
+   GoRoute(
+    path: '/guidanceDetails',
+    name: AppRoute.guidanceDetails.name,
+    builder: (context, state) => const GuidanceDetailsView(),
   ),
 
   // GoRoute(

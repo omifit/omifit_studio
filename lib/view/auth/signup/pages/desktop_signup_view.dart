@@ -1,18 +1,23 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/services.dart';
+import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
+import 'package:omifit/core/core.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/auth/auth_view_model.dart';
 
-class DesktopSignupView extends StatefulWidget {
+class DesktopSignupView extends ConsumerStatefulWidget {
   const DesktopSignupView({super.key});
 
   @override
-  State<DesktopSignupView> createState() => _DesktopSignupViewState();
+  ConsumerState<DesktopSignupView> createState() => _DesktopSignupViewState();
 }
 
-class _DesktopSignupViewState extends State<DesktopSignupView> {
+class _DesktopSignupViewState extends ConsumerState<DesktopSignupView> {
   @override
   Widget build(BuildContext context) {
+    final AuthViewModel authViewModel = ref.watch(authViewModelProvider);
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -24,7 +29,6 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
             ),
             Align(
               child: Container(
-                height: 908,
                 width: 723,
                 decoration: const BoxDecoration(
                   color: darkBlack,
@@ -56,6 +60,7 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                     ),
                     gapH25,
                     TextField(
+                      controller: authViewModel.nameSignupController,
                       cursorColor: primaryColor,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
@@ -72,6 +77,7 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                     ),
                     gapH25,
                     TextField(
+                      controller: authViewModel.phoneSignupController,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(10),
                         FilteringTextInputFormatter.digitsOnly,
@@ -102,6 +108,26 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                     ),
                     gapH25,
                     TextField(
+                      controller: authViewModel.dobSignupController,
+                      readOnly: true,
+                      onTap: () {
+                        showDatePicker(
+                          context: context,
+                          initialDate:
+                              authViewModel.dobSignupController.text == ""
+                                  ? DateTime.now()
+                                  : DateFormat('MM/dd/yyyy').parse(
+                                      authViewModel.dobSignupController.text),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                          onDatePickerModeChange: (value) => print(value),
+                        ).then((value) {
+                          if (value != null) {
+                            authViewModel.dobSignupController.text =
+                                DateFormat('MM/dd/yyyy').format(value);
+                          }
+                        });
+                      },
                       cursorColor: primaryColor,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
@@ -114,12 +140,16 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
+                        suffixIcon: const Icon(
+                          IconlyBold.calendar,
+                          color: kGrey,
+                        ),
                       ),
                     ),
                     gapH25,
                     CustomSlidingSegmentedControl<int>(
                       isStretch: true,
-                      initialValue: 2,
+                      initialValue: authViewModel.genderSignup.index + 1,
                       height: 45,
                       children: const {
                         1: Text('Male'),
@@ -137,11 +167,18 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInToLinear,
                       onValueChanged: (v) {
-                        print(v);
+                        authViewModel.setGender(
+                          v == 1
+                              ? Gender.male
+                              : v == 2
+                                  ? Gender.female
+                                  : Gender.others,
+                        );
                       },
                     ),
                     gapH36,
                     TextField(
+                      controller: authViewModel.locationSignupController,
                       cursorColor: primaryColor,
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
@@ -155,8 +192,44 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
+                      onChanged: (value) {
+                        authViewModel.searchLocation(value);
+                      },
                     ),
-                    gapH25,
+                    gapH10,
+                    if (authViewModel.locationSignupController.text != "" && authViewModel.locationSearch.isNotEmpty)
+                      SizedBox(
+                        height: 225,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: authViewModel.locationSearch.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              visualDensity: VisualDensity.compact,
+                              contentPadding: EdgeInsets.zero,
+                              leading: const Icon(
+                                Icons.location_on_outlined,
+                                size: 18,
+                                color: kRed,
+                              ),
+                              title: Text(
+                                authViewModel.locationSearch[index],
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: kGrey,
+                                ),
+                              ),
+                              onTap: () {
+                                authViewModel.locationSignupController.text =
+                                    authViewModel.locationSearch[index];
+                                authViewModel.clearLocationSearch();
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    gapH10,
                     SizedBox(
                       width: double.infinity,
                       height: 60,
@@ -167,14 +240,16 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                         },
                       ),
                     ),
-                    const Spacer(),
+                    gapH90,
                     Column(
                       children: [
                         const PaddedRow(
                           padding: EdgeInsets.symmetric(horizontal: 50),
                           children: [
                             Expanded(
-                              child: Divider(),
+                              child: Divider(
+                                color: kGrey,
+                              ),
                             ),
                             Text(
                               '    OR   ',
@@ -185,7 +260,9 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                               ),
                             ),
                             Expanded(
-                              child: Divider(),
+                              child: Divider(
+                                color: kGrey,
+                              ),
                             ),
                           ],
                         ),
@@ -215,6 +292,7 @@ class _DesktopSignupViewState extends State<DesktopSignupView> {
                         ),
                       ],
                     ),
+                 
                   ],
                 ),
               ),

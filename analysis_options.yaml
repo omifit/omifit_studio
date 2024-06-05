@@ -19,6 +19,7 @@ analyzer:
 
     # Reassignment should be treated as warning (not a hint)
     parameter_assignments: warning
+    require_trailing_commas: ignore
 
   exclude:
     # Generated for Flutter web apps. Since it is auto-generated, errors should be ignored

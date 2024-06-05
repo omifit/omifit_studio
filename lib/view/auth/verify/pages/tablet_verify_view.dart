@@ -1,17 +1,19 @@
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/auth/auth_view_model.dart';
 import 'package:pinput/pinput.dart';
 
-class TabletVerifyView extends StatefulWidget {
+class TabletVerifyView extends ConsumerStatefulWidget {
   const TabletVerifyView({super.key});
 
   @override
-  State<TabletVerifyView> createState() => _TabletVerifyViewState();
+  ConsumerState<TabletVerifyView> createState() => _TabletVerifyViewState();
 }
 
-class _TabletVerifyViewState extends State<TabletVerifyView> {
+class _TabletVerifyViewState extends ConsumerState<TabletVerifyView> {
   String? pinCode;
   @override
   Widget build(BuildContext context) {
+    final AuthViewModel authViewModel = ref.read(authViewModelProvider);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -47,6 +49,7 @@ class _TabletVerifyViewState extends State<TabletVerifyView> {
             gapHR30,
             Align(
               child: Pinput(
+                controller:  authViewModel.otpController,
                 defaultPinTheme: PinTheme(
                   width: 70,
                   height: 70,

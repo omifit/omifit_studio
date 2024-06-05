@@ -1,66 +1,70 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/auth/auth_view_model.dart';
 
-class TabletSigninView extends StatefulWidget {
+class TabletSigninView extends ConsumerStatefulWidget {
   const TabletSigninView({super.key});
 
   @override
-  State<TabletSigninView> createState() => _TabletSigninViewState();
+  ConsumerState<TabletSigninView> createState() => _TabletSigninViewState();
 }
 
-class _TabletSigninViewState extends State<TabletSigninView> {
+class _TabletSigninViewState extends ConsumerState<TabletSigninView> {
   @override
   Widget build(BuildContext context) {
+    final AuthViewModel authViewModel = ref.watch(authViewModelProvider);
     return Scaffold(
       backgroundColor: darkBlack,
-      bottomNavigationBar: Container(
-        height: 210,
-        color: darkBlack,
-        child: PaddedColumn(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          children: [
-            PaddedRow(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              children: [
-                const Expanded(
-                  child: Divider(),
+      bottomNavigationBar: PaddedColumn(
+        mainAxisSize: MainAxisSize.min,
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        children: [
+          PaddedRow(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            children: [
+              const Expanded(
+                child: Divider(
+                  color: kGrey,
                 ),
-                Text(
-                  '    OR   ',
-                  style: TextStyle(
-                    color: kGrey,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const Expanded(
-                  child: Divider(),
-                ),
-              ],
-            ),
-            gapHR20,
-            Text(
-              'New to Omifit ?',
-              style: TextStyle(
-                color: kWhite,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
               ),
-            ),
-            gapHR20,
-            SizedBox(
-              width: double.infinity,
-              height: 40.h,
-              child: OutlinedBtn(
-                onPressed: () {
-                  context.goNamed(AppRoute.signup.name);
-                },
-                text: "Create my Account",
+              Text(
+                '    OR   ',
+                style: TextStyle(
+                  color: kGrey,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
+              const Expanded(
+                child: Divider(
+                  color: kGrey,
+                ),
+              ),
+            ],
+          ),
+          gapH26,
+          const Text(
+            'New to Omifit ?',
+            style: TextStyle(
+              color: kWhite,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
-          ],
-        ),
+          ),
+          gapH26,
+          SizedBox(
+            width: double.infinity,
+            height: 60,
+            child: OutlinedBtn(
+              onPressed: () {
+                context.goNamed(AppRoute.signup.name);
+              },
+              text: "Create my Account",
+            ),
+          ),
+          gapH26,
+        ],
       ),
       body: SingleChildScrollView(
         child: PaddedColumn(
@@ -86,6 +90,7 @@ class _TabletSigninViewState extends State<TabletSigninView> {
             ),
             gapHR30,
             TextField(
+              controller: authViewModel.phoneSigninController,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(10),
                 FilteringTextInputFormatter.digitsOnly,
@@ -98,7 +103,7 @@ class _TabletSigninViewState extends State<TabletSigninView> {
                   onChanged: (contryCode) {},
                   dialogBackgroundColor: darkBlack,
                   initialSelection: 'IN',
-                  favorite: const ['+92', 'IN'],
+                  favorite: const ['+91', 'IN'],
                   textStyle: const TextStyle(
                     color: kWhite,
                     fontWeight: FontWeight.w600,
@@ -121,7 +126,7 @@ class _TabletSigninViewState extends State<TabletSigninView> {
               child: FilledBtn(
                 text: "Sign In",
                 onPressed: () {
-                  context.pushNamed(AppRoute.verify.name);
+                   
                 },
               ),
             ),

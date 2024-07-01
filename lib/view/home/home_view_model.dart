@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:omifit/utils/utils.dart';
 
 final homeViewModelProvider = ChangeNotifierProvider((ref) => HomeViewModel());
 
@@ -16,11 +15,13 @@ class HomeViewModel extends ChangeNotifier {
     _key.currentState!.openEndDrawer();
   }
 
-  void onDestinationSelected(int index) {
+  void onDestinationSelected(int index, BuildContext context) {
     selectedIndex = index;
-    Future.delayed(const Duration(milliseconds: 110), () {
-      closeDrawer();
-    });
+    Responsive.isMobile(context)
+        ? closeDrawer()
+        : Future.delayed(const Duration(milliseconds: 110), () {
+            closeDrawer();
+          });
     notifyListeners();
   }
 }

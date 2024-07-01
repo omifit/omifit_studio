@@ -71,7 +71,9 @@ class _MobileProfileViewState extends State<MobileProfileView> {
                         url: "https://i.imgur.com/ocbA2RA.png",
                         tittle: "Omifit Gym",
                         subTittle: "Gymnasium",
-                        onPressed: () {},
+                        onPressed: () {
+                          context.goNamed(AppRoute.home.name);
+                        },
                         role: "Admin",
                       );
               },

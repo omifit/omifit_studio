@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.8"
+  ansicolor:
+    dependency: transitive
+    description:
+      name: ansicolor
+      sha256: "8bf17a8ff6ea17499e40a2d2542c2f481cd7615760c6d34065cb22bfd22e6880"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   appflowy_board:
     dependency: "direct main"
     description:
@@ -49,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.5.1"
+  args:
+    dependency: transitive
+    description:
+      name: args
+      sha256: "7cf60b9f0cc88203c5a190b4cd62a99feea42759a7fa695010eb5de1c0b2252a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.5.0"
   async:
     dependency: transitive
     description:
@@ -73,6 +89,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  avatar_stack:
+    dependency: "direct main"
+    description:
+      name: avatar_stack
+      sha256: e4a1576f7478add964bbb8aa5e530db39288fbbf81c30c4fb4b81162dd68aa49
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -169,6 +193,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  csslib:
+    dependency: transitive
+    description:
+      name: csslib
+      sha256: "706b5707578e0c1b4b7550f64078f0a0f19dec3f50a178ffae7006b0a9ca58fb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -181,10 +213,10 @@ packages:
     dependency: "direct main"
     description:
       name: custom_sliding_segmented_control
-      sha256: "8b29c39e053136cdb899cf1b049d11e5ac0f4622f6444ae4f80b6ba72a640763"
+      sha256: "53c3e931c3ae1f696085d1ec70ac8e934da836595a9b7d9b88fdd0fcbf2a5574"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.2"
+    version: "1.8.3"
   dartz:
     dependency: "direct main"
     description:
@@ -201,6 +233,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.3+1"
+  dotted_line:
+    dependency: "direct main"
+    description:
+      name: dotted_line
+      sha256: c931ba331656154711d9420f369f80cf9e8869ca9933ae5fb35b7669bcbe7d2e
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.2"
+  dropdown_search:
+    dependency: "direct main"
+    description:
+      name: dropdown_search
+      sha256: "55106e8290acaa97ed15bea1fdad82c3cf0c248dd410e651f5a8ac6870f783ab"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.6"
   equatable:
     dependency: transitive
     description:
@@ -269,10 +317,10 @@ packages:
     dependency: "direct main"
     description:
       name: fl_chart
-      sha256: "0c8baa9d4db70817d27099efb99e40e4164448bb86f73217216ef65b3976bc4f"
+      sha256: d0f0d49112f2f4b192481c16d05b6418bd7820e021e265a3c22db98acf7ed7fb
       url: "https://pub.dev"
     source: hosted
-    version: "0.36.4"
+    version: "0.68.0"
   flextras:
     dependency: "direct main"
     description:
@@ -358,6 +406,19 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_native_splash:
+    dependency: "direct main"
+    description:
+      name: flutter_native_splash
+      sha256: edf39bcf4d74aca1eb2c1e43c3e445fd9f494013df7f0da752fefe72020eedc0
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -456,6 +517,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  hovering:
+    dependency: "direct main"
+    description:
+      name: hovering
+      sha256: "0df77800487be6d29c8687fb775f53e1b308988c6e63a6a9c579cec701fbfe76"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.4"
+  html:
+    dependency: transitive
+    description:
+      name: html
+      sha256: "3a7812d5bcd2894edf53dfaf8cd640876cf6cef50a8f238745c8b8120ea74d3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.15.4"
   http:
     dependency: transitive
     description:
@@ -480,6 +557,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
+  image:
+    dependency: transitive
+    description:
+      name: image
+      sha256: "2237616a36c0d69aef7549ab439b833fb7f9fb9fc861af2cc9ac3eedddd69ca8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
   image_picker:
     dependency: "direct main"
     description:
@@ -556,10 +641,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
       url: "https://pub.dev"
     source: hosted
-    version: "0.18.1"
+    version: "0.19.0"
   js:
     dependency: transitive
     description:
@@ -672,6 +757,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  paged_datatable:
+    dependency: "direct main"
+    description:
+      name: paged_datatable
+      sha256: "540df02cc8d127f955bab37401cb77cf07434d969aab7e2b8e4a454d75ef3cd4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   path:
     dependency: transitive
     description:
@@ -728,14 +821,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
-  pedantic:
-    dependency: transitive
-    description:
-      name: pedantic
-      sha256: "67fc27ed9639506c856c840ccce7594d0bdcd91bc8d53d6e52359449a1d50602"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.11.1"
   permission_handler:
     dependency: "direct main"
     description:
@@ -776,6 +861,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.1.3"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
   pin_code_fields:
     dependency: "direct main"
     description:
@@ -816,6 +909,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.8+2"
+  primer_progress_bar:
+    dependency: "direct main"
+    description:
+      name: primer_progress_bar
+      sha256: b6623d4c1036a5bf2f68c4a5a7e531d29d81d076f2154c0564951ef43988aa03
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.4.2"
   progress_stepper:
     dependency: "direct main"
     description:
@@ -888,6 +989,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  scrollable_table_view:
+    dependency: "direct main"
+    description:
+      name: scrollable_table_view
+      sha256: "4a39767fdf9e76556e7c7bccfa195f5d2b929a188fe2fc7803b3a70e6999fccc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.3"
   share_plus:
     dependency: "direct main"
     description:
@@ -1085,6 +1194,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.2"
+  universal_io:
+    dependency: transitive
+    description:
+      name: universal_io
+      sha256: "1722b2dcc462b4b2f3ee7d188dad008b6eb4c40bbd03a3de451d82c78bba9aad"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2"
   universal_platform:
     dependency: transitive
     description:
@@ -1245,6 +1362,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.0"
+  yaml:
+    dependency: transitive
+    description:
+      name: yaml
+      sha256: "75769501ea3489fca56601ff33454fe45507ea3bfb014161abc3b43ae25989d5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.2"
 sdks:
   dart: ">=3.3.0 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

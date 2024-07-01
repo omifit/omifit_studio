@@ -4,6 +4,7 @@ import 'package:omifit/view/auth/signup/signup_view.dart';
 import 'package:omifit/view/auth/verify/verify_view.dart';
 import 'package:omifit/view/home/guidance/guidance_details/guidance_details_view.dart';
 import 'package:omifit/view/home/home_view.dart';
+import 'package:omifit/view/home/member/member_details/member_details_view.dart';
 import 'package:omifit/view/profile/profile_view.dart';
 import 'package:omifit/view/splash/splash_view.dart';
 
@@ -16,7 +17,8 @@ enum AppRoute {
   search,
   profile,
   editProfile,
-  guidanceDetails
+  guidanceDetails,
+  memberDetails
 }
 
 final routers = [
@@ -45,33 +47,34 @@ final routers = [
     name: AppRoute.profile.name,
     builder: (context, state) => const ProfileView(),
   ),
-
   GoRoute(
     path: '/home',
     name: AppRoute.home.name,
     builder: (context, state) => const HomeView(),
   ),
-   GoRoute(
+  GoRoute(
     path: '/guidanceDetails',
     name: AppRoute.guidanceDetails.name,
     builder: (context, state) => const GuidanceDetailsView(),
   ),
-
-  // GoRoute(
-  //   path: '/search',
-  //   name: AppRoute.search.name,
-  //   pageBuilder: (context, state) => CustomTransitionPage<void>(
-  //     key: state.pageKey,
-  //     transitionDuration: const Duration(milliseconds: 150),
-  //     reverseTransitionDuration: const Duration(milliseconds: 150),
-  //     barrierColor: lightBlack,
-  //     child: const SearchView(),
-  //     transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-  //         SlideTransition(
-  //       position: Tween<Offset>(
-  //         begin: const Offset(0, 0.2),
-  //       ).animate(animation),
-  //       child: child,
-  //     ),
-  //   ),
+  GoRoute(
+    path: '/memberDetails',
+    name: AppRoute.memberDetails.name,
+    builder: (context, state) => const MemberDetailsView(),
+    // pageBuilder: (context, state) => CustomTransitionPage<void>(
+    //       key: state.pageKey,
+    //       transitionDuration: const Duration(milliseconds: 150),
+    //       reverseTransitionDuration: const Duration(milliseconds: 150),
+    //       barrierColor: lightBlack,
+    //       child: const MemberDetailsView(),
+    //       transitionsBuilder:
+    //           (context, animation, secondaryAnimation, child) =>
+    //               SlideTransition(
+    //         position: Tween<Offset>(
+    //           begin: const Offset(0, 0.2),
+    //         ).animate(animation),
+    //         child: child,
+    //       ),
+    //     )
+  ),
 ];

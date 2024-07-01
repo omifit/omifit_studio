@@ -1,8 +1,17 @@
-import 'package:flutter/cupertino.dart';
-import 'package:iconly/iconly.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/home/home_view_model.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit/view/home/dashboard/widget/ageinfo_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/birthday_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/expense_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/expire_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/expiresoon_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/genderinfo_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/income_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/info_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/newmem_graph_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/professioninfo_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/rankboard_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/realtime_widget.dart';
+import 'package:omifit/view/home/dashboard/widget/weekstats_widget.dart';
 
 class DesktopDashboardView extends ConsumerStatefulWidget {
   const DesktopDashboardView({super.key});
@@ -15,103 +24,79 @@ class DesktopDashboardView extends ConsumerStatefulWidget {
 class _DesktopDashboardViewState extends ConsumerState<DesktopDashboardView> {
   @override
   Widget build(BuildContext context) {
-    final HomeViewModel homeViewModel = ref.watch(homeViewModelProvider);
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          height: double.infinity,
-          color: darkBlack,
-          child: Row(
+    return const Scaffold(
+      body: SingleChildScrollView(
+        child: PaddedColumn(
+            padding: EdgeInsets.symmetric(horizontal: 16),
             children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: kWhite,
-                ),
-                onPressed: () => homeViewModel.openDrawer(),
-              ),
-              const SizedBox(width: 10),
-              const Text(
-                'Dashboard',
-                style: TextStyle(
-                  color: kWhite,
-                  fontSize: 18,
-                ),
-              ),
-              const SizedBox(width: 100),
-              SizedBox(
-                width: 500,
-                child: TextField(
-                  readOnly: true,
-                  onTap: () {
-                    //context.pushNamed(AppRoute.search.name);
-                  },
-                  decoration: const InputDecoration(
-                    hintText: 'Search',
-                    hintStyle: TextStyle(color: kWhite),
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Icon(
-                        CupertinoIcons.search,
-                        color: kWhite,
-                      ),
-                    ),
-                    filled: true,
-                    fillColor: lightBlack,
-                    border: InputBorder.none,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
+              SizedBox(height: 30),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // left side
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InfoWidget(),   
+                        SizedBox(height: 20),
+                        NewMemberGraph(),
+                        SizedBox(height: 20),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  IncomeWidget(),
+                                  SizedBox(height: 20),
+                                  ExpenseWidget(),
+                                  SizedBox(height: 20),
+                                  RankboardWidget(),
+                                ],
+                              ),
+                            ),
+                            SizedBox(width: 20),
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  ProfessionInfo(),
+                                  SizedBox(height: 20),
+                                  GenderInfo(),
+                                  SizedBox(height: 20),
+                                  AgeInfo(),
+                                  SizedBox(height: 20),
+                                  WeekStats(),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30),
+                      ],
                     ),
                   ),
-                ),
+                  SizedBox(width: 20),
+                  // right side
+                  Expanded(
+                    child: Column(
+                      children: [
+                        RealTimeMemberWidget(),
+                        SizedBox(height: 20),
+                        BirthdayWidget(),
+                        SizedBox(height: 20),
+                        ExpireSoonWidget(),
+                        SizedBox(height: 20),
+                        ExpireWidget(),
+                        SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              const Spacer(),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
-                decoration: BoxDecoration(
-                  color: lightBlack,
-                  borderRadius: BorderRadius.circular(90),
-                ),
-                child: Row(
-                  children: [
-                    IconButton(
-                      tooltip: 'Send Message',
-                      icon: const Icon(IconlyLight.send, color: kWhite),
-                      hoverColor: primaryColor,
-                      onPressed: () {},
-                    ),
-                    const SizedBox(width: 5),
-                    IconButton(
-                      tooltip: 'Add Member',
-                      icon: const Icon(IconlyLight.add_user, color: kWhite),
-                      hoverColor: primaryColor,
-                      onPressed: () {},
-                    ),
-                    const SizedBox(width: 5),
-                    IconButton(
-                      tooltip: 'Mark Attendance',
-                      icon: const Icon(CupertinoIcons.qrcode, color: kWhite),
-                      hoverColor: primaryColor,
-                      onPressed: () {},
-                    ),
-                    const SizedBox(width: 5),
-                    const Hero(
-                      tag: "loading",
-                      child: ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+            ]),
       ),
     );
   }

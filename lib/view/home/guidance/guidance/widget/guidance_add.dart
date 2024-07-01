@@ -13,7 +13,7 @@ class GuidanceAddBtn extends StatelessWidget {
       onPressed: onPressed,
       child: Container(
         constraints: const BoxConstraints(
-          minHeight: 200,
+          minHeight: 180,
         ),
         decoration: BoxDecoration(
           color: primaryColor.withOpacity(0.1),
@@ -34,7 +34,7 @@ class GuidanceAddBtn extends StatelessWidget {
               style: TextStyle(
                 color: secondaryColor,
                 fontSize: 16,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],

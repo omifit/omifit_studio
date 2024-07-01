@@ -17,3 +17,11 @@ class AppConstants {
 }
 
 enum Gender { male, female, others }
+
+      // WoltModalSheet.show(
+      //                   context: context,
+      //                   minDialogWidth: 0.6.sw,
+      //                   maxDialogWidth: 0.6.sw,
+      //                   pageListBuilder: (BuildContext context) {
+      //                     return [TotalMemberDialog.build(context)];
+      //                   });

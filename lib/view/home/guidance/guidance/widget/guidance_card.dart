@@ -54,14 +54,19 @@ class GuidanceCard extends StatelessWidget {
                 topLeft: Radius.circular(18),
                 topRight: Radius.circular(18),
               ),
-            ), 
+            ),
             ListTile(
+              titleAlignment: ListTileTitleAlignment.top,
               title: Text(
                 tittle,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight:
+                      Responsive.isMobile(context) ? FontWeight.w700 : null,
+                  fontSize: Responsive.isTablet(context) ||
+                          Responsive.isMobile(context)
+                      ? 14
+                      : 16,
                 ),
               ),
               subtitle: Text(
@@ -71,18 +76,16 @@ class GuidanceCard extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
-              trailing:  const CircleAvatar(
+              trailing: const CircleAvatar(
                 radius: 16,
                 backgroundColor: Color.fromRGBO(235, 150, 31, 0.21),
                 child: Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: primaryColor,
-                  size:  16,
+                  size: 16,
                 ),
-              
               ),
             ),
-         
           ],
         ),
       ),

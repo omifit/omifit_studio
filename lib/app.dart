@@ -1,12 +1,14 @@
 // ignore_for_file: unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:omifit/provider/router_provider.dart';
 import 'package:omifit/provider/theme_provider.dart';
 import 'package:omifit/utils/responsive.dart';
 import 'package:omifit/utils/theme.dart';
+import 'package:paged_datatable/l10n/generated/l10n.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class MyApp extends ConsumerWidget {
@@ -22,6 +24,14 @@ class MyApp extends ConsumerWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) => MaterialApp.router(
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          PagedDataTableLocalization.delegate
+        ],
+        supportedLocales: const [Locale("es"), Locale("en")],
+        locale: const Locale("en"),
         routeInformationParser: goRouter.routeInformationParser,
         routerDelegate: goRouter.routerDelegate,
         routeInformationProvider: goRouter.routeInformationProvider,

@@ -15,45 +15,35 @@ class _DesktopGuidanceViewState extends State<DesktopGuidanceView> {
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: AppBar(
-          scrolledUnderElevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
+        body: SingleChildScrollView(
+      child: PaddedColumn(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        children: [
+          AlignedGridView.count(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            crossAxisCount: gridCount(width),
+            mainAxisSpacing: 25,
+            crossAxisSpacing: 25,
+            itemCount: 8,
+            itemBuilder: (context, index) {
+              return index == 0
+                  ? GuidanceAddBtn(onPressed: () {})
+                  : GuidanceCard(
+                      url: "https://i.imgur.com/MknSctK.png",
+                      tittle: "Bench press",
+                      subTittle: "Gymnasium",
+                      onPressed: () {
+                        context.pushNamed(AppRoute.guidanceDetails.name);
+                      },
+                      role: "Admin",
+                    );
             },
           ),
-          title: const Text('Guidance'),
-        ),
-        body: SingleChildScrollView(
-          child: PaddedColumn(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            children: [
-              AlignedGridView.count(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                crossAxisCount: gridCount(width),
-                mainAxisSpacing: 25,
-                crossAxisSpacing: 25,
-                itemCount: 8,
-                itemBuilder: (context, index) {
-                  return index == 0
-                      ? GuidanceAddBtn(onPressed: () {})
-                      : GuidanceCard(
-                          url: "https://i.imgur.com/MknSctK.png",
-                          tittle: "Bench press",
-                          subTittle: "Gymnasium",
-                          onPressed: () {
-                            context.pushNamed(AppRoute.guidanceDetails.name);
-                          },
-                          role: "Admin",
-                        );
-                },
-              ),
-            ],
-          ),
-        ));
+        ],
+      ),
+    ));
   }
 
   int gridCount(double width) {

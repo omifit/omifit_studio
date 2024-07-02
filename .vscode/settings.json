@@ -42,6 +42,7 @@
   "[dart]": {
 		// "editor.formatOnSave": false,
 		// "editor.formatOnType": false,
-	},
+  },
+  "cmake.sourceDirectory": "/Users/ayushfortmindz/Desktop/omifit/omifit/linux",
  // "dart.flutterSdkPath": ".fvm/versions/3.13.3"
 }

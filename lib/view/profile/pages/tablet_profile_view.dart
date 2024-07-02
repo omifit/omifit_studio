@@ -1,21 +1,26 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
+import 'package:omifit/view/profile/dialog/editprofile_dialog.dart';
+import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-class TabletProfileView extends StatefulWidget {
+class TabletProfileView extends ConsumerStatefulWidget {
   const TabletProfileView({super.key});
 
   @override
-  State<TabletProfileView> createState() => _TabletProfileViewState();
+  ConsumerState<TabletProfileView> createState() => _TabletProfileViewState();
 }
 
-class _TabletProfileViewState extends State<TabletProfileView> {
+class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
+    final ProfileViewModel profileViewModel =
+        ref.watch(profileViewModelProvider);
     return Scaffold(
       backgroundColor: lightBlack,
       body: SingleChildScrollView(
@@ -38,7 +43,20 @@ class _TabletProfileViewState extends State<TabletProfileView> {
                   top: 16,
                   right: 16,
                   child: BouncingWidget(
-                    onPressed: () {},
+                    onPressed: () {
+                      WoltModalSheet.show(
+                          context: context,
+                          barrierDismissible: false,
+                          minDialogWidth: 750,
+                          maxDialogWidth: 1000,
+                          pageIndexNotifier: profileViewModel.pageIndexNotifier,
+                          pageListBuilder: (BuildContext context) {
+                            return [
+                              ProfileDetailDialog.build(context),
+                              UpdatePhoneDialog.build(context, ref),
+                            ];
+                          });
+                    },
                     child: const CircleAvatar(
                       radius: 22,
                       backgroundColor: Colors.white,
@@ -67,7 +85,16 @@ class _TabletProfileViewState extends State<TabletProfileView> {
               itemBuilder: (context, index) {
                 return index == 0
                     ? OrgAddBtn(
-                        onPressed: () {},
+                        onPressed: () {
+                          WoltModalSheet.show(
+                              context: context,
+                              barrierDismissible: false,
+                              pageListBuilder: (BuildContext context) {
+                                return [
+                                  AddOrgDialog.build(context),
+                                ];
+                              });
+                        },
                       )
                     : OrgCard(
                         url: "https://i.imgur.com/ocbA2RA.png",

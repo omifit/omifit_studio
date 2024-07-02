@@ -406,11 +406,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-  flutter_localizations:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_native_splash:
     dependency: "direct main"
     description:
@@ -757,14 +752,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-  paged_datatable:
-    dependency: "direct main"
-    description:
-      name: paged_datatable
-      sha256: "540df02cc8d127f955bab37401cb77cf07434d969aab7e2b8e4a454d75ef3cd4"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.0"
   path:
     dependency: transitive
     description:

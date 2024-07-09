@@ -264,6 +264,43 @@ class RealTimeMemberWidget extends StatelessWidget {
                           return [ActiveMemberDialog.build(context)];
                         });
                   },
+                  child: const Text(
+                    "SEE MORE",
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                const ListTile(
+                  title: Text(
+                    "92",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  subtitle: Text(
+                    "Paused Members",
+                    style: TextStyle(
+                      color: kGrey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    WoltModalSheet.show(
+                        context: context,
+                        minDialogWidth: 0.6.sw,
+                        maxDialogWidth: 0.6.sw,
+                        pageListBuilder: (BuildContext context) {
+                          return [ActiveMemberDialog.build(context)];
+                        });
+                  },
                   child: Text(
                     "SEE MORE",
                     style: TextStyle(

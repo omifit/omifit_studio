@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:omifit/utils/colors.dart';
 import 'package:omifit/utils/responsive.dart';
+import 'package:omifit/widget/picker/time_dropdown2.dart';
 
 class ExpenseWidget extends StatelessWidget {
   const ExpenseWidget({super.key});
@@ -18,35 +19,25 @@ class ExpenseWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           ListTile(
-            titleAlignment: ListTileTitleAlignment.top,
-            title: Text(
-              "Expenses",
-              style: TextStyle(
-                color: kWhite,
-                fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            subtitle: Text(
-              "₹ 30,000",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: ResponsiveDashboard.isMobile(context) ? 25.sp : 40,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            trailing: TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Month",
+              titleAlignment: ListTileTitleAlignment.top,
+              title: Text(
+                "Expenses",
                 style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                  color: kWhite,
+                  fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-          ),
+              subtitle: Text(
+                "₹ 30,000",
+                style: TextStyle(
+                  color: primaryColor,
+                  fontSize: ResponsiveDashboard.isMobile(context) ? 25.sp : 40,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              trailing: TimeDropdown2(
+                  onChange: (value) {}, initialValue: "Lifetime")),
           const SizedBox(height: 10),
           Divider(
             color: kGrey.withOpacity(0.5),

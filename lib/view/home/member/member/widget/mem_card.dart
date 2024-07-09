@@ -1,7 +1,12 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/home/member/dialog/editmember_dialog.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:pull_down_button/pull_down_button.dart';
+import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class MemCard extends StatelessWidget {
   final String memid;
@@ -175,7 +180,7 @@ class MemCard extends StatelessWidget {
               ],
             )),
       ),
-      desktop: InkWell(
+      desktop: GestureDetector(
         onTap: onPressed,
         child: HoverContainer(
           hoverDecoration: BoxDecoration(
@@ -257,8 +262,128 @@ class MemCard extends StatelessWidget {
               ),
               SizedBox(
                 width: 50,
-                child: InkWell(
-                    onTap: () {}, child: const Icon(Icons.more_vert_rounded)),
+                child: PullDownButton(
+                  itemBuilder: (context) => [
+                    PullDownMenuItem(
+                      onTap: () {},
+                      tapHandler: (context, onTap) {
+                        context.pop();
+                        onPressed!();
+                      },
+                      title: 'View Details',
+                      icon: CupertinoIcons.person_crop_circle,
+                    ),
+                    PullDownMenuItem(
+                      title: 'Edit Member',
+                      onTap: () {},
+                      tapHandler: (context, onTap) {
+                        context.pop();
+                        WoltModalSheet.show(
+                            context: context,
+                            barrierDismissible: false,
+                            minDialogWidth: 750,
+                            maxDialogWidth: 1000,
+                            pageListBuilder: (BuildContext context) {
+                              return [
+                                EditMemberDetailsDialog.build(context),
+                              ];
+                            });
+                      },
+                      icon: CupertinoIcons.pencil,
+                    ),
+                    PullDownMenuItem(
+                      onTap: () {},
+                      tapHandler: (context, onTap) {
+                        context.pop();
+                        showDialog(
+                            barrierColor: kGrey.withOpacity(0.05),
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoAlertDialog(
+                                  content: Column(
+                                    children: [
+                                      PaddedColumn(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          const Text(
+                                            "Are you sure you want to delete this member?",
+                                            style: TextStyle(
+                                                color: kWhite,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                          gapH10,
+                                          const Text(
+                                            "This action cannot be undone.",
+                                            style: TextStyle(
+                                                color: kGrey,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  actions: <Widget>[
+                                    CupertinoDialogAction(
+                                      child: const Text(
+                                        'Cancel',
+                                        style: TextStyle(
+                                            color: kGrey,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    CupertinoDialogAction(
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(
+                                            color: kRed,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                ));
+                      },
+                      title: 'Delete',
+                      isDestructive: true,
+                      icon: CupertinoIcons.delete,
+                    ),
+                    PullDownMenuActionsRow.medium(
+                      items: [
+                        PullDownMenuItem(
+                          onTap: () {},
+                          tapHandler: (context, onTap) {},
+                          title: 'Message',
+                          icon: CupertinoIcons.paperplane_fill,
+                        ),
+                        PullDownMenuItem(
+                          onTap: () {},
+                          title: 'Attendance',
+                          icon: CupertinoIcons.qrcode_viewfinder,
+                        ),
+                      ],
+                    ),
+                  ],
+                  buttonBuilder: (context, showMenu) => BouncingWidget(
+                    onPressed: showMenu,
+                    scaleFactor: 4,
+                    child: const Icon(
+                      CupertinoIcons.ellipsis_circle,
+                      color: primaryColor,
+                    ),
+                  ),
+                ),
               )
             ],
           ),

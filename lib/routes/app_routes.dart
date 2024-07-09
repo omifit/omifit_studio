@@ -5,6 +5,7 @@ import 'package:omifit/view/auth/verify/verify_view.dart';
 import 'package:omifit/view/home/guidance/guidance_details/guidance_details_view.dart';
 import 'package:omifit/view/home/home_view.dart';
 import 'package:omifit/view/home/member/member_details/member_details_view.dart';
+import 'package:omifit/view/org_details/org_details_view.dart';
 import 'package:omifit/view/profile/profile_view.dart';
 import 'package:omifit/view/splash/splash_view.dart';
 
@@ -18,7 +19,8 @@ enum AppRoute {
   profile,
   editProfile,
   guidanceDetails,
-  memberDetails
+  memberDetails,
+  organizationDetails
 }
 
 final routers = [
@@ -76,5 +78,10 @@ final routers = [
     //         child: child,
     //       ),
     //     )
+  ),
+  GoRoute(
+    path: '/organizationDetails',
+    name: AppRoute.organizationDetails.name,
+    builder: (context, state) => const OrgDetailsView(),
   ),
 ];

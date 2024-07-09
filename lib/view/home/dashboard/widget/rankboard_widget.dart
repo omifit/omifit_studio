@@ -1,10 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit/widget/picker/time_dropdown2.dart';
 
 class RankboardWidget extends StatelessWidget {
   final double width;
-
   const RankboardWidget({
     super.key,
     this.width = double.infinity,
@@ -24,26 +24,19 @@ class RankboardWidget extends StatelessWidget {
           horizontal: 10,
         ),
         children: [
-          const SizedBox(height: 10),
+          gapH10,
           ListTile(
-            title: AutoSizeText(
-              "Rank Board",
-              maxLines: 1,
-              style: TextStyle(
-                color: kWhite,
-                fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            trailing: TextButton(
-              onPressed: () {},
-              child: const AutoSizeText(
-                "Month",
+              title: AutoSizeText(
+                "Rank Board",
                 maxLines: 1,
-                style: TextStyle(color: primaryColor),
+                style: TextStyle(
+                  color: kWhite,
+                  fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
-          ),
+              trailing: TimeDropdown2(
+                  onChange: (value) {}, initialValue: "Lifetime")),
           const Divider(
             color: Color.fromARGB(255, 64, 63, 63),
             thickness: 1,

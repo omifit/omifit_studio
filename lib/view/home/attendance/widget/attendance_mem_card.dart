@@ -1,7 +1,10 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
 class AttendanceMemCard extends StatelessWidget {
   final String memid;
@@ -341,8 +344,33 @@ class AttendanceMemCard extends StatelessWidget {
               ),
               SizedBox(
                 width: 50,
-                child: InkWell(
-                    onTap: () {}, child: const Icon(Icons.more_vert_rounded)),
+                child: PullDownButton(
+                  itemBuilder: (context) => [
+                    PullDownMenuItem(
+                      onTap: () {},
+                      title: 'View Profile',
+                      icon: CupertinoIcons.person_crop_circle,
+                    ),
+                    PullDownMenuItem(
+                      title: 'Edit Attendance',
+                      onTap: () {},
+                      icon: CupertinoIcons.pencil,
+                    ),
+                    PullDownMenuItem(
+                      onTap: () {},
+                      title: 'Delete',
+                      isDestructive: true,
+                      icon: CupertinoIcons.delete,
+                    ),
+                  ],
+                  buttonBuilder: (context, showMenu) => BouncingWidget(
+                    onPressed: showMenu,
+                    child: const Icon(
+                      CupertinoIcons.ellipsis_circle,
+                      color: primaryColor,
+                    ),
+                  ),
+                ),
               )
             ],
           ),

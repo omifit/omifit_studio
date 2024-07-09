@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/home/member/member/widget/status_dropdown.dart';
 import 'package:omifit/view/home/member/member_details/widget/analysis_mem_card.dart';
 import 'package:omifit/view/home/member/member_details/widget/attendance_memdetails_card.dart';
 import 'package:omifit/view/home/member/member_details/widget/meminfo_card.dart';
@@ -42,46 +43,61 @@ class _DesktopMemberDetailsViewState extends State<DesktopMemberDetailsView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       padding: const EdgeInsets.symmetric(horizontal: 25),
                       children: [
-                        gapH10,
+                        gapH12,
                         Row(
                           children: [
                             const Text(
                               "Subscription",
                               style: TextStyle(
                                 color: kWhite,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w800,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             const Spacer(),
+                            StatusDropdown(
+                                onChange: (value) {}, initialValue: "Active"),
+                            gapW10,
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding: const EdgeInsets.all(20),
+                                padding: const EdgeInsets.all(15),
                                 elevation: 0,
-                                surfaceTintColor: primaryColor,
                                 backgroundColor:
                                     const Color.fromRGBO(194, 117, 39, 0.2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                // WoltModalSheet.show(
+                                //     minDialogWidth: 900,
+                                //     maxDialogWidth: 900,
+                                //     context: context,
+                                //     barrierDismissible: false,
+                                //     pageIndexNotifier:
+                                //         memberViewModel.addMemberDialogPage,
+                                //     pageListBuilder: (BuildContext context) {
+                                //       return [
+                                //         AddMemberDialog.build(context),
+                                //         PlanAddMemberDialog.build(context, ref),
+                                //         PaymentAddMemberDialog.build(context, ref),
+                                //       ];
+                                //     });
+                              },
                               icon: const Icon(CupertinoIcons.add_circled,
                                   color: secondaryColor),
                               label: const Text(
                                 "Buy Plan",
                                 style: TextStyle(
                                   color: secondaryColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
                                 ),
                               ),
                             ),
-                            gapW10,
                           ],
                         ),
                         const Divider(color: kGrey, thickness: 0.2),
-                        gapH10,
+                        gapH12,
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 25),
                           height: 42,

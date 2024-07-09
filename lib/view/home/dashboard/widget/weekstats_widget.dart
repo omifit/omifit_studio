@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:omifit/utils/colors.dart';
 import 'package:omifit/utils/responsive.dart';
+import 'package:omifit/widget/picker/time_dropdown1.dart';
 
 class WeekStats extends StatelessWidget {
   const WeekStats({super.key});
@@ -24,31 +25,19 @@ class WeekStats extends StatelessWidget {
             height: 10,
           ),
           ListTile(
-            titleAlignment: ListTileTitleAlignment.top,
-            title: Text(
-              "Week Stats",
-              style: TextStyle(
-                color: kWhite,
-                fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            trailing: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                visualDensity: VisualDensity.compact,
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Month",
+              titleAlignment: ListTileTitleAlignment.top,
+              title: Text(
+                "Week Stats",
                 style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                  color: kWhite,
+                  fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-          ),
+              trailing: TimeDropdown1(
+                onChange: (value) {},
+                initialValue: "Lifetime",
+              )),
           const SizedBox(height: 30),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),

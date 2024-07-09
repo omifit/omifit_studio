@@ -1,7 +1,9 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
 class AnalysisMemCard extends StatelessWidget {
   const AnalysisMemCard({super.key});
@@ -45,8 +47,8 @@ class AnalysisMemCard extends StatelessWidget {
                   ? Container(
                       padding: EdgeInsets.symmetric(
                         horizontal:
-                            ResponsiveMemberDetails.isMobile(context) ? 12 : 20,
-                        vertical: 15,
+                            ResponsiveMemberDetails.isMobile(context) ? 12 : 12,
+                        vertical: 6,
                       ),
                       decoration: BoxDecoration(
                         color: lightBlack,
@@ -55,18 +57,44 @@ class AnalysisMemCard extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            visualDensity: VisualDensity.compact,
-                            contentPadding: EdgeInsets.zero,
-                            leading: const ProfileImg(
-                                url: "https://i.imgur.com/UnWWlu3.png"),
-                            trailing: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                CupertinoIcons.pencil,
-                                color: kWhite,
-                              ),
-                            ),
-                          ),
+                              visualDensity: VisualDensity.compact,
+                              contentPadding: EdgeInsets.zero,
+                              leading: const ProfileImg(
+                                  url: "https://i.imgur.com/UnWWlu3.png"),
+                              trailing: PullDownButton(
+                                routeTheme: PullDownMenuRouteTheme(
+                                  backgroundColor:
+                                      const Color.fromARGB(73, 72, 72, 72),
+                                  borderRadius: BorderRadius.circular(10),
+                                  shadow: BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    blurRadius: 10,
+                                  ),
+                                  width: 150,
+                                  accessibilityWidth: 200,
+                                ),
+                                itemBuilder: (context) => [
+                                  PullDownMenuItem(
+                                    onTap: () {},
+                                    title: 'Change Trainer',
+                                    icon: CupertinoIcons.profile_circled,
+                                  ),
+                                  PullDownMenuItem(
+                                    onTap: () {},
+                                    title: 'Remove Trainer',
+                                    isDestructive: true,
+                                    icon: CupertinoIcons.delete,
+                                  ),
+                                ],
+                                buttonBuilder: (context, showMenu) =>
+                                    BouncingWidget(
+                                  onPressed: showMenu,
+                                  child: const Icon(
+                                    CupertinoIcons.pencil,
+                                    color: kWhite,
+                                  ),
+                                ),
+                              )),
                           ListTile(
                             visualDensity: VisualDensity.compact,
                             dense: true,
@@ -87,7 +115,7 @@ class AnalysisMemCard extends StatelessWidget {
                                 color: const Color.fromARGB(255, 129, 129, 130),
                                 fontSize: ResponsiveDashboard.isMobile(context)
                                     ? 12.sp
-                                    : 14,
+                                    : 13,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -98,20 +126,12 @@ class AnalysisMemCard extends StatelessWidget {
                   : Container(
                       padding: EdgeInsets.symmetric(
                         horizontal:
-                            ResponsiveMemberDetails.isMobile(context) ? 12 : 20,
+                            ResponsiveMemberDetails.isMobile(context) ? 12 : 10,
                         vertical:
                             ResponsiveMemberDetails.isMobile(context) ? 10 : 15,
                       ),
                       decoration: BoxDecoration(
-                        color: index == 1
-                            ? kyellowbg
-                            : index == 2
-                                ? kBluebg
-                                : index == 3
-                                    ? kGreenbg
-                                    : index == 4
-                                        ? kRedbg
-                                        : kWhite,
+                        color: getBgColor(index),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: ListTile(
@@ -134,17 +154,9 @@ class AnalysisMemCard extends StatelessWidget {
                           ),
                         ),
                         subtitle: Text(
-                          "Daily Members",
+                          getTittle(index),
                           style: TextStyle(
-                            color: index == 1
-                                ? kyellow
-                                : index == 2
-                                    ? kBlue
-                                    : index == 3
-                                        ? kGreen
-                                        : index == 4
-                                            ? kRed
-                                            : kWhite,
+                            color: getTittleColor(index),
                             fontSize: ResponsiveDashboard.isMobile(context)
                                 ? 12.sp
                                 : 14,
@@ -159,5 +171,50 @@ class AnalysisMemCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getTittle(int index) {
+    switch (index) {
+      case 1:
+        return "Attendance (days)";
+      case 2:
+        return "Total Hours Spent";
+      case 3:
+        return "Total Collection";
+      case 4:
+        return "Pending Payment";
+      default:
+        return "Daily Members";
+    }
+  }
+
+  Color getTittleColor(int index) {
+    switch (index) {
+      case 1:
+        return kyellow;
+      case 2:
+        return kBlue;
+      case 3:
+        return kGreen;
+      case 4:
+        return kRed;
+      default:
+        return kWhite;
+    }
+  }
+
+  Color getBgColor(int index) {
+    switch (index) {
+      case 1:
+        return kyellowbg;
+      case 2:
+        return kBluebg;
+      case 3:
+        return kGreenbg;
+      case 4:
+        return kRedbg;
+      default:
+        return kWhite;
+    }
   }
 }

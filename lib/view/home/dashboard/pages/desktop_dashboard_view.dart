@@ -24,12 +24,12 @@ class DesktopDashboardView extends ConsumerStatefulWidget {
 class _DesktopDashboardViewState extends ConsumerState<DesktopDashboardView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: PaddedColumn(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              SizedBox(height: 30),
+              gapH30,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -39,10 +39,10 @@ class _DesktopDashboardViewState extends ConsumerState<DesktopDashboardView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        InfoWidget(),   
-                        SizedBox(height: 20),
-                        NewMemberGraph(),
-                        SizedBox(height: 20),
+                        const InfoWidget(),
+                        gapH20,
+                        const NewMemberGraph(),
+                        gapH20,
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -50,37 +50,37 @@ class _DesktopDashboardViewState extends ConsumerState<DesktopDashboardView> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  IncomeWidget(),
-                                  SizedBox(height: 20),
-                                  ExpenseWidget(),
-                                  SizedBox(height: 20),
-                                  RankboardWidget(),
+                                  const IncomeWidget(),
+                                  gapH20,
+                                  const ExpenseWidget(),
+                                  gapH20,
+                                  const RankboardWidget(),
                                 ],
                               ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             Expanded(
                               child: Column(
                                 children: [
-                                  ProfessionInfo(),
-                                  SizedBox(height: 20),
-                                  GenderInfo(),
-                                  SizedBox(height: 20),
-                                  AgeInfo(),
-                                  SizedBox(height: 20),
-                                  WeekStats(),
+                                  const ProfessionInfo(),
+                                  gapH20,
+                                  const GenderInfo(),
+                                  gapH20,
+                                  const AgeInfo(),
+                                  gapH20,
+                                  const WeekStats(),
                                 ],
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: 30),
+                        gapH30,
                       ],
                     ),
                   ),
-                  SizedBox(width: 20),
+                  gapW20,
                   // right side
-                  Expanded(
+                  const Expanded(
                     child: Column(
                       children: [
                         RealTimeMemberWidget(),

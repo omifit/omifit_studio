@@ -1,17 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/home/member/dialog/addmember_dialog.dart';
+import 'package:omifit/view/home/member/member/widget/joindate_dropdown.dart';
 import 'package:omifit/view/home/member/member/widget/mem_card.dart';
+import 'package:omifit/view/home/member/member/widget/status_dropdown.dart';
+import 'package:omifit/view/home/member/member_view_model.dart';
+import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-class DesktopMemberView extends StatefulWidget {
+class DesktopMemberView extends ConsumerStatefulWidget {
   const DesktopMemberView({super.key});
 
   @override
-  State<DesktopMemberView> createState() => _DesktopMemberViewState();
+  ConsumerState<DesktopMemberView> createState() => _DesktopMemberViewState();
 }
 
-class _DesktopMemberViewState extends State<DesktopMemberView> {
+class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
   @override
   Widget build(BuildContext context) {
+    final MemberViewModel memberViewModel = ref.read(memberViewModelProvider);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -25,7 +31,7 @@ class _DesktopMemberViewState extends State<DesktopMemberView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             padding: const EdgeInsets.symmetric(horizontal: 25),
             children: [
-              gapH10,
+              gapH16,
               Row(
                 children: [
                   const Text(
@@ -36,49 +42,68 @@ class _DesktopMemberViewState extends State<DesktopMemberView> {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  const Spacer(),
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      elevation: 0,
-                      surfaceTintColor: primaryColor,
-                      backgroundColor: const Color.fromRGBO(194, 117, 39, 0.2),
+                  gapW10,
+                  const CircleAvatar(
+                    radius: 15,
+                    backgroundColor: kyellowbg,
+                    child: Text(
+                      "22",
+                      style: TextStyle(color: primaryColor, fontSize: 12),
                     ),
-                    onPressed: () {},
-                    icon: const Icon(CupertinoIcons.calendar,
-                        color: secondaryColor),
-                    label: const Text(
-                      "Today",
-                      style: TextStyle(
-                        color: secondaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ),
+                  const Spacer(),
+                  const Text(
+                    "Join Date : ",
+                    style: TextStyle(
+                      color: kGrey,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
                   gapW10,
+                  JoindateDropdown(
+                      onChange: (value) {}, initialValue: "Lifetime"),
+                  gapW10,
+                  StatusDropdown(onChange: (value) {}, initialValue: "Active"),
+                  gapW10,
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(15),
                       elevation: 0,
                       backgroundColor: const Color.fromRGBO(194, 117, 39, 0.2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                     ),
                     onPressed: () {
-                      
+                      WoltModalSheet.show(
+                          minDialogWidth: 900,
+                          maxDialogWidth: 900,
+                          context: context,
+                          barrierDismissible: false,
+                          pageIndexNotifier:
+                              memberViewModel.addMemberDialogPage,
+                          pageListBuilder: (BuildContext context) {
+                            return [
+                              AddMemberDialog.build(context),
+                              PlanAddMemberDialog.build(context, ref),
+                              PaymentAddMemberDialog.build(context, ref),
+                            ];
+                          });
                     },
                     icon: const Icon(CupertinoIcons.add_circled,
                         color: secondaryColor),
                     label: const Text(
-                      "Mark Attendance",
+                      "Add Member",
                       style: TextStyle(
                         color: secondaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
                       ),
                     ),
                   ),
                 ],
               ),
+              gapH5,
               const Divider(color: kGrey, thickness: 0.2),
               gapH10,
               Container(

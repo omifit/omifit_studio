@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:omifit/utils/colors.dart';
 import 'package:omifit/utils/responsive.dart';
+import 'package:omifit/widget/picker/time_dropdown2.dart';
 
 class IncomeWidget extends StatelessWidget {
   const IncomeWidget({super.key});
@@ -34,17 +35,8 @@ class IncomeWidget extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
             ),
-            trailing: TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Month",
-                style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
+            trailing:
+                TimeDropdown2(onChange: (value) {}, initialValue: "Lifetime"),
           ),
           const SizedBox(height: 10),
           Divider(

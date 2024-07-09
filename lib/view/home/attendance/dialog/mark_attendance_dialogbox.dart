@@ -75,7 +75,7 @@ class _MarkAttendanceState extends ConsumerState<MarkAttendance> {
             initialValue: page,
             isStretch: true,
             children: const {
-              1: Text('Manual'),
+              1: Text('Manual QR Code'),
               2: Text('QR Code'),
             },
             decoration: BoxDecoration(

@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:omifit/utils/colors.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
 class AppThemes {
   AppThemes._();
   static final ThemeData darkTheme = ThemeData(
+    extensions: const [
+      PullDownButtonTheme(
+        routeTheme: PullDownMenuRouteTheme(
+          width: 200,
+          accessibilityWidth: 200,
+          shadow: BoxShadow(
+            color: Color.fromARGB(12, 0, 0, 0),
+            blurRadius: 10,
+            spreadRadius: 2,
+            offset: Offset(0, 2),
+          ),
+        ),
+        itemTheme: PullDownMenuItemTheme(
+            textStyle: TextStyle(color: Colors.white, fontSize: 12)),
+      ),
+    ],
     colorScheme: const ColorScheme.dark(
       primary: primaryColor,
       secondary: secondaryColor,

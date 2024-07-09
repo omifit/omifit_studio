@@ -1,6 +1,9 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
 class SubscriptionMemCard extends StatelessWidget {
   final String planName;
@@ -320,8 +323,48 @@ class SubscriptionMemCard extends StatelessWidget {
             ),
             SizedBox(
               width: 50,
-              child: InkWell(
-                  onTap: onPressed, child: const Icon(Icons.more_vert_rounded)),
+              child: PullDownButton(
+                routeTheme: const PullDownMenuRouteTheme(
+                  width: 200,
+                  accessibilityWidth: 200,
+                  shadow: BoxShadow(
+                    color: Color.fromARGB(12, 0, 0, 0),
+                    blurRadius: 10,
+                    spreadRadius: 2,
+                    offset: Offset(0, 2),
+                  ),
+                ),
+                itemBuilder: (context) => [
+                  PullDownMenuItem(
+                    onTap: () {},
+                    title: 'View Membership',
+                    icon: CupertinoIcons.person_crop_circle,
+                  ),
+                  PullDownMenuItem(
+                    onTap: () {},
+                    title: 'Invoice',
+                    icon: CupertinoIcons.person_crop_circle,
+                  ),
+                  PullDownMenuItem(
+                    title: 'Pause',
+                    onTap: () {},
+                    icon: CupertinoIcons.pencil,
+                  ),
+                  PullDownMenuItem(
+                    onTap: () {},
+                    title: 'Cancel',
+                    isDestructive: true,
+                    icon: CupertinoIcons.delete,
+                  ),
+                ],
+                buttonBuilder: (context, showMenu) => BouncingWidget(
+                  onPressed: showMenu,
+                  child: const Icon(
+                    CupertinoIcons.ellipsis_circle,
+                    color: primaryColor,
+                  ),
+                ),
+              ),
             )
           ],
         ),

@@ -1,16 +1,21 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:omifit/utils/app_sizes.dart';
 import 'package:omifit/utils/colors.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
-class NewMemberGraph extends StatelessWidget {
+class NewMemberGraph extends StatefulWidget {
   const NewMemberGraph({super.key});
 
   @override
+  State<NewMemberGraph> createState() => _NewMemberGraphState();
+}
+
+class _NewMemberGraphState extends State<NewMemberGraph> {
+  String selectedYear = '2024';
+  @override
   Widget build(BuildContext context) {
-    final List<Color> gradientColors = [
-      const Color(0xFF50E4FF),
-      const Color(0xFF2196F3)
-    ];
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 30,
@@ -29,7 +34,7 @@ class NewMemberGraph extends StatelessWidget {
                 'New Members',
                 style: TextStyle(
                   fontSize: 16,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               Row(
@@ -41,25 +46,63 @@ class NewMemberGraph extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 10),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 5,
+                  PullDownButton(
+                    routeTheme: PullDownMenuRouteTheme(
+                      backgroundColor: const Color.fromARGB(70, 103, 103, 103),
+                      borderRadius: BorderRadius.circular(10),
+                      shadow: BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                      ),
+                      width: 100,
+                      accessibilityWidth: 200,
                     ),
-                    decoration: BoxDecoration(
-                      color: primaryColor,
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: const Text(
-                      '2021',
-                      style: TextStyle(color: kGrey),
+                    itemBuilder: (context) => [
+                      PullDownMenuItem.selectable(
+                        title: '2025',
+                        selected: selectedYear == '2025',
+                        onTap: () {
+                          selectedYear = '2025';
+                        },
+                      ),
+                      PullDownMenuItem.selectable(
+                        title: '2024',
+                        selected: selectedYear == '2024',
+                        onTap: () {
+                          selectedYear = '2024';
+                        },
+                      ),
+                      PullDownMenuItem.selectable(
+                        title: '2023',
+                        selected: selectedYear == '2023',
+                        onTap: () {
+                          selectedYear = '2023';
+                        },
+                      ),
+                    ],
+                    buttonBuilder: (context, showMenu) => BouncingWidget(
+                      onPressed: showMenu,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          selectedYear,
+                          style: const TextStyle(color: kWhite),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 30),
+          gapH30,
           SizedBox(
             height: 200,
             child: LineChart(

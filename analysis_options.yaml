@@ -22,6 +22,7 @@ analyzer:
     require_trailing_commas: ignore
     avoid_redundant_argument_values: ignore
     avoid_bool_literals_in_conditional_expressions: ignore
+    avoid_unnecessary_containers: ignore
 
   exclude:
     # Generated for Flutter web apps. Since it is auto-generated, errors should be ignored

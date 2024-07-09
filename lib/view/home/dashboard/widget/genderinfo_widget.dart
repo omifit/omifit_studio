@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:omifit/utils/colors.dart';
 import 'package:omifit/utils/responsive.dart';
 import 'package:omifit/widget/pie_chart/pie_chart.dart';
+import 'package:omifit/widget/picker/time_dropdown1.dart';
 
 class GenderInfo extends StatelessWidget {
   const GenderInfo({super.key});
@@ -22,31 +23,19 @@ class GenderInfo extends StatelessWidget {
             height: 10,
           ),
           ListTile(
-            titleAlignment: ListTileTitleAlignment.top,
-            title: Text(
-              "Gender",
-              style: TextStyle(
-                color: kWhite,
-                fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            trailing: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                visualDensity: VisualDensity.compact,
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Month",
+              titleAlignment: ListTileTitleAlignment.top,
+              title: Text(
+                "Gender",
                 style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                  color: kWhite,
+                  fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-          ),
+              trailing: TimeDropdown1(
+                onChange: (value) {},
+                initialValue: "Lifetime",
+              )),
           const SizedBox(height: 10),
           const Column(
             children: [

@@ -1,4 +1,5 @@
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/widget/picker/time_dropdown1.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 
 class AgeInfo extends StatelessWidget {
@@ -28,31 +29,19 @@ class AgeInfo extends StatelessWidget {
             height: 10,
           ),
           ListTile(
-            titleAlignment: ListTileTitleAlignment.top,
-            title: Text(
-              "Ages",
-              style: TextStyle(
-                color: kWhite,
-                fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            trailing: TextButton(
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                visualDensity: VisualDensity.compact,
-              ),
-              onPressed: () {},
-              child: const Text(
-                "Month",
+              titleAlignment: ListTileTitleAlignment.top,
+              title: Text(
+                "Ages",
                 style: TextStyle(
-                  color: primaryColor,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
+                  color: kWhite,
+                  fontSize: ResponsiveDashboard.isMobile(context) ? 16.sp : 18,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-          ),
+              trailing: TimeDropdown1(
+                onChange: (value) {},
+                initialValue: "Lifetime",
+              )),
           const SizedBox(height: 10),
           PaddedColumn(
             padding: const EdgeInsets.symmetric(horizontal: 20),

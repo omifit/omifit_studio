@@ -2,12 +2,14 @@
 
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconly/iconly.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/home/attendance/dialog/mark_attendance_dialogbox.dart';
 import 'package:omifit/view/home/home_view_model.dart';
 import 'package:omifit/view/home/member/dialog/addmember_dialog.dart';
 import 'package:omifit/view/home/member/member_view_model.dart';
+import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
@@ -46,36 +48,78 @@ class AppbarWidget extends ConsumerWidget {
                 ),
                 const SizedBox(width: 100),
                 SizedBox(
-                  width: 500,
-                  child: TextField(
-                    readOnly: true,
-                    onTap: () {
-                      //context.pushNamed(AppRoute.search.name);
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Search',
-                      hintStyle: TextStyle(color: kWhite),
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Icon(
-                          CupertinoIcons.search,
-                          color: kWhite,
-                        ),
+                    width: 500,
+                    child: TypeAheadField<City>(
+                      constraints: const BoxConstraints(
+                        maxHeight: 900,
+                        maxWidth: 1400,
+                        minWidth: 1400,
                       ),
-                      filled: true,
-                      fillColor: lightBlack,
-                      border: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                    ),
-                  ),
-                ),
+                      suggestionsCallback: (search) => [
+                        ...List.generate(
+                            5, (index) => City("Ayush Maji", "member"))
+                      ],
+                      builder: (context, controller, focusNode) {
+                        return TextField(
+                          controller: controller,
+                          focusNode: focusNode,
+                          onTap: () {},
+                          decoration: const InputDecoration(
+                            hintText: 'Search',
+                            hintStyle: TextStyle(color: kWhite),
+                            prefixIcon: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Icon(
+                                CupertinoIcons.search,
+                                color: kWhite,
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: lightBlack,
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(30)),
+                            ),
+                          ),
+                        );
+                      },
+                      itemBuilder: (context, city) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: ListTile(
+                            style: ListTileStyle.list,
+                            visualDensity: VisualDensity.compact,
+                            contentPadding: EdgeInsets.zero,
+                            leading: const ProfileImg(
+                                url: 'https://i.imgur.com/UnWWlu3.png'),
+                            title: Text(
+                              city.name,
+                              style: const TextStyle(
+                                  color: kWhite,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14),
+                            ),
+                            trailing: const ChipWidget(
+                                tittle: "member",
+                                color: primaryColor,
+                                bgColor: kyellowbg),
+                            subtitle: const Text("Mem123",
+                                style: TextStyle(
+                                    color: kGrey,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12)),
+                          ),
+                        );
+                      },
+                      onSelected: (city) {},
+                    )),
                 const Spacer(),
                 Container(
                   padding:
@@ -146,7 +190,8 @@ class AppbarWidget extends ConsumerWidget {
                             subtitle: 'Tap to view',
                             icon: IconlyLight.arrow_right_2,
                             onTap: () {
-                              context.pushNamed(AppRoute.profile.name);
+                              context.pushNamed(AppRoute.profile.name,
+                                  pathParameters: {'isBack': 'true'});
                             },
                             itemTheme: const PullDownMenuItemTheme(
                               subtitleStyle: TextStyle(
@@ -266,4 +311,11 @@ class AppbarWidget extends ConsumerWidget {
             ),
           );
   }
+}
+
+class City {
+  final String name;
+  final String country;
+
+  City(this.name, this.country);
 }

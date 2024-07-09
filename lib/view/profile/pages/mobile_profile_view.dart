@@ -10,7 +10,8 @@ import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class MobileProfileView extends ConsumerStatefulWidget {
-  const MobileProfileView({super.key});
+  final bool isBack;
+  const MobileProfileView({super.key, required this.isBack});
 
   @override
   ConsumerState<MobileProfileView> createState() => _MobileProfileViewState();
@@ -22,6 +23,24 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
     final ProfileViewModel profileViewModel =
         ref.watch(profileViewModelProvider);
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      floatingActionButton: widget.isBack
+          ? FloatingActionButton(
+              hoverColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              foregroundColor: Colors.transparent,
+              splashColor: Colors.transparent,
+              elevation: 0,
+              hoverElevation: 0,
+              focusElevation: 0,
+              highlightElevation: 0,
+              onPressed: () {
+                context.pop();
+              },
+              backgroundColor: Colors.transparent,
+              child: const Icon(Icons.arrow_back_ios, color: kWhite),
+            )
+          : null,
       backgroundColor: lightBlack,
       body: SingleChildScrollView(
         child: Column(

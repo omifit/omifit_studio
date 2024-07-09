@@ -45,9 +45,10 @@ final routers = [
     builder: (context, state) => const VerifyView(),
   ),
   GoRoute(
-    path: '/profile',
+    path: '/profile/:isBack',
     name: AppRoute.profile.name,
-    builder: (context, state) => const ProfileView(),
+    builder: (context, state) => ProfileView(
+        isBack: state.pathParameters['isBack'] == 'true' ? true : false),
   ),
   GoRoute(
     path: '/home',

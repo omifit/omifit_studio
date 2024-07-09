@@ -109,7 +109,8 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                         text: "Next",
                         onPressed: () {
                           if (pinCode?.length == 4) {
-                            context.goNamed(AppRoute.profile.name);
+                            context.goNamed(AppRoute.profile.name,
+                                pathParameters: {'isBack': 'false'});
                           } else {
                             Ksnackbar.warning('Invalid Pin', context);
                           }

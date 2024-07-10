@@ -1,10 +1,6 @@
 class AppConstants {
-  static const String baseUrl = devUrl;
+  static const String baseUrl = "https://omifit-backend-9pmb.onrender.com";
   static const String profilepic = "https://i.imgur.com/UnWWlu3.png";
-  static const String devUrl =
-      "https://z2tbmjixu6.us-east-1.awsapprunner.com/v1/";
-  static const String prodUrl =
-      "https://z2tbmjixu6.us-east-1.awsapprunner.com/v1/";
   static String token = "";
   static const String noProfileImg =
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";

@@ -1,3 +1,5 @@
 bricks:
   page:
     path: bricks/page
+  api:
+    path: bricks/api

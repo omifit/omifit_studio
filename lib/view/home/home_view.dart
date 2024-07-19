@@ -1,9 +1,8 @@
 import 'package:animations/animations.dart';
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:omifit/utils/colors.dart';
-import 'package:omifit/utils/responsive.dart';
+import 'package:iconly/iconly.dart';
+import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/home/attendance/attendance_view.dart';
 import 'package:omifit/view/home/dashboard/dashboard_view.dart';
 import 'package:omifit/view/home/discount/discount_view.dart';
@@ -16,6 +15,7 @@ import 'package:omifit/view/home/staff/staff/staff_view.dart';
 import 'package:omifit/widget/appbar/appbar_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:omifit/widget/sidebar/sidebar_widget.dart';
+import 'package:pull_down_button/pull_down_button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -60,7 +60,76 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   onPressed: () {},
                 ),
                 const SizedBox(width: 10),
-                const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
+                PullDownButton(
+                  routeTheme: PullDownMenuRouteTheme(
+                    backgroundColor: const Color.fromARGB(8, 52, 52, 52),
+                    borderRadius: BorderRadius.circular(10),
+                    shadow: BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 10,
+                    ),
+                  ),
+                  itemBuilder: (context) => [
+                    PullDownMenuHeader(
+                      leading: const ProfileImg(
+                          url: 'https://i.imgur.com/UnWWlu3.png'),
+                      title: 'Ayush Maji',
+                      subtitle: 'Tap to view',
+                      icon: IconlyLight.arrow_right_2,
+                      onTap: () {
+                        context.pushNamed(AppRoute.profile.name,
+                            pathParameters: {'isBack': 'true'});
+                      },
+                      itemTheme: const PullDownMenuItemTheme(
+                        subtitleStyle: TextStyle(
+                          color: kGrey,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    PullDownMenuItem.selectable(
+                      onTap: () {
+                        context.pushNamed(AppRoute.organizationDetails.name);
+                      },
+                      title: 'Sweat n Smile',
+                      subtitle: 'Admin',
+                      icon: IconlyLight.arrow_right_2,
+                      itemTheme: const PullDownMenuItemTheme(
+                        textStyle: TextStyle(
+                          color: kWhite,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        subtitleStyle: TextStyle(
+                          color: primaryColor,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    PullDownMenuItem(
+                      onTap: () {
+                        context.pushNamed(AppRoute.splash.name);
+                      },
+                      title: 'Logout',
+                      isDestructive: true,
+                      icon: IconlyLight.logout,
+                      itemTheme: const PullDownMenuItemTheme(
+                        textStyle: TextStyle(
+                          color: primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                  buttonBuilder: (context, showMenu) => BouncingWidget(
+                    onPressed: showMenu,
+                    child: const ProfileImg(
+                        url: "https://i.imgur.com/UnWWlu3.png"),
+                  ),
+                ),
                 const SizedBox(width: 16),
               ],
             )

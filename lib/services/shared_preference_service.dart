@@ -2,11 +2,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceService {
   static late final SharedPreferences _prefsInstance;
-  // ignore: constant_identifier_names
-  static const String AUTH_TOKEN = 'auth_token';
-  // static const String FIREBASE_TOKEN = 'firebase_token';
-  // ignore: constant_identifier_names
-  static const String USER_ID = 'user_id';
   static Future<SharedPreferences> init() async {
     return _prefsInstance = await SharedPreferences.getInstance();
   }

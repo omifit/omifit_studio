@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
 
@@ -44,15 +45,17 @@ class InfoWidget extends StatelessWidget {
                     children: [
                       Icon(
                         index == 0
-                            ? Icons.how_to_reg
+                            ? CupertinoIcons.qrcode
                             : index == 1
-                                ? Icons.group_add
+                                ? CupertinoIcons.person_crop_circle
                                 : index == 2
                                     ? Icons.rotate_left
                                     : Icons.person,
-                        color: kWhite,
+                        color: ResponsiveDashboard.isMobile(context)
+                            ? kWhite
+                            : kWhite,
                         size:
-                            ResponsiveDashboard.isMobile(context) ? 24.sp : 28,
+                            ResponsiveDashboard.isMobile(context) ? 20.sp : 28,
                       ),
                       gapW10,
                       Expanded(

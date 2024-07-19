@@ -47,6 +47,8 @@ class BirthdayWidget extends StatelessWidget {
                 maxLines: 1,
                 style: TextStyle(
                   color: primaryColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -78,7 +80,7 @@ class BirthdayWidget extends StatelessWidget {
                 icon: const Icon(
                   IconlyLight.arrow_right_circle,
                   color: kGrey,
-                  size: 25,
+                  size: 30,
                 ),
               ),
             ),

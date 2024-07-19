@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/home/home_view_model.dart';
 import 'package:omifit/view/home/member/dialog/addmember_dialog.dart';
-import 'package:omifit/view/home/member/member/widget/joindate_dropdown.dart';
 import 'package:omifit/view/home/member/member/widget/mem_card.dart';
 import 'package:omifit/view/home/member/member/widget/status_dropdown.dart';
 import 'package:omifit/view/home/member/member_view_model.dart';
@@ -60,13 +60,19 @@ class _MobileMemberViewState extends ConsumerState<MobileMemberView> {
           child: PaddedColumn(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
-              gapH20,
+              gapH10,
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  JoindateDropdown(
-                      onChange: (value) {}, initialValue: "Lifetime"),
-                  gapW10,
+                  const Text(
+                    "Total Members",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const Spacer(),
                   StatusDropdown(onChange: (value) {}, initialValue: "Active"),
                 ],
               ),
@@ -85,11 +91,13 @@ class _MobileMemberViewState extends ConsumerState<MobileMemberView> {
                     coachPic: "https://i.imgur.com/UnWWlu3.png",
                     coachName: "vijay thalapathi roudy",
                     onPressed: () {
+                      HapticFeedback.lightImpact();
                       context.pushNamed(AppRoute.memberDetails.name);
                     },
                   ),
                 ),
               ),
+              gapH100,
             ],
           ),
         ));

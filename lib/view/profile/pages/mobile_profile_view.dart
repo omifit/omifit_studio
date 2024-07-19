@@ -1,4 +1,5 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
@@ -26,19 +27,18 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: widget.isBack
           ? FloatingActionButton(
-              hoverColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              foregroundColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              elevation: 0,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),
+              mini: true,
+              elevation: 4,
               hoverElevation: 0,
               focusElevation: 0,
               highlightElevation: 0,
               onPressed: () {
+                HapticFeedback.lightImpact();
                 context.pop();
               },
-              backgroundColor: Colors.transparent,
-              child: const Icon(Icons.arrow_back_ios, color: kWhite),
+              child: const Icon(Icons.arrow_back_ios_new, color: kWhite),
             )
           : null,
       backgroundColor: lightBlack,

@@ -40,9 +40,10 @@ final routers = [
     builder: (context, state) => const SignupView(),
   ),
   GoRoute(
-    path: '/verify',
+    path: '/verify/:isLogin',
     name: AppRoute.verify.name,
-    builder: (context, state) => const VerifyView(),
+    builder: (context, state) => VerifyView(
+        isLogin: state.pathParameters['isLogin'] == 'true' ? true : false),
   ),
   GoRoute(
     path: '/profile/:isBack',

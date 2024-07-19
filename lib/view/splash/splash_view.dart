@@ -11,8 +11,15 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 4), () {
+    Future.delayed(const Duration(seconds: 3), () {
       context.pushReplacementNamed(AppRoute.signin.name);
+      // print("Token: ${SharedPreferenceService.getString('token')}");
+      // if (SharedPreferenceService.getString('token') != null) {
+      //   context.goNamed(AppRoute.profile.name,
+      //       pathParameters: {'isBack': "false"});
+      // } else {
+      //   context.pushReplacementNamed(AppRoute.signin.name);
+      // }
     });
 
     super.initState();
@@ -22,12 +29,10 @@ class _SplashViewState extends State<SplashView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width:  double.infinity,
+        width: double.infinity,
         height: double.infinity,
-        decoration:  const BoxDecoration(
-          gradient: RadialGradient(
-            colors: [lightBlack, darkBlack]
-          ),
+        decoration: const BoxDecoration(
+          gradient: RadialGradient(colors: [lightBlack, darkBlack]),
         ),
         child: Center(
           child: AvatarGlow(

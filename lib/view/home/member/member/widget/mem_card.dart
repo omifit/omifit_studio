@@ -46,19 +46,16 @@ class MemCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: ListTile(
-            visualDensity: VisualDensity.compact,
-            contentPadding: EdgeInsets.zero,
-            leading: const ProfileImg(url: 'https://i.imgur.com/UnWWlu3.png'),
-            title: Text('Ayush Maji',
-                style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600)),
-            subtitle: Text('Mid : 10034',
-                style: TextStyle(fontSize: 12.sp, color: kGrey)),
-            trailing: const ChipWidget(
-              tittle: 'Inactive',
-              color: kGreen,
-              bgColor: kGreenbg,
-            ),
-          ),
+              visualDensity: VisualDensity.compact,
+              contentPadding: EdgeInsets.zero,
+              leading: const ProfileImg(url: 'https://i.imgur.com/UnWWlu3.png'),
+              title: Text('Ayush Maji',
+                  style:
+                      TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600)),
+              subtitle: Text('Inactive',
+                  style: TextStyle(fontSize: 12.sp, color: kGrey)),
+              trailing: IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.more_vert))),
         ),
       ),
       tablet: InkWell(

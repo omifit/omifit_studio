@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:omifit/core/constants.dart';
-import 'package:omifit/core/endpoints.dart';
 import 'package:omifit/utils/utils.dart';
 
 //! step-1 // pick img from gallery or camera
@@ -16,10 +15,17 @@ Future<File?> openPickImageModalSheet(BuildContext context) async {
 
   await showModalBottomSheet(
     context: context,
-    builder: (context) => Container(
-      decoration: const BoxDecoration(color: Colors.white),
-      height: 238,
+    builder: (context) => DecoratedBox(
+      decoration: const BoxDecoration(
+        color: darkBlack,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      // height: 238,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -34,6 +40,7 @@ Future<File?> openPickImageModalSheet(BuildContext context) async {
               ),
             ),
           ),
+          gapH20,
           MaterialButton(
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () async {
@@ -49,7 +56,7 @@ Future<File?> openPickImageModalSheet(BuildContext context) async {
                   ),
                 );
               }
-              Navigator.pop(context);
+              context.pop();
             },
             child: Row(
               children: [
@@ -202,7 +209,7 @@ Future<String> uploadImage(File? picture) async {
     return "";
   }
   final url = Uri.parse(
-    "${AppConstants.baseUrl}$uplodePicEndpoint",
+    AppConstants.baseUrl,
   );
 
   final request = http.MultipartRequest('POST', url);

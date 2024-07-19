@@ -4,9 +4,13 @@ import 'package:pull_down_button/pull_down_button.dart';
 
 class ProfessionDropdown extends StatefulWidget {
   final String initialValue;
+  final bool? ismobile;
   final void Function(String selectedValue) onChange;
   const ProfessionDropdown(
-      {super.key, required this.onChange, required this.initialValue});
+      {super.key,
+      required this.onChange,
+      required this.initialValue,
+      this.ismobile = false});
 
   @override
   State<ProfessionDropdown> createState() => _ProfessionDropdownState();
@@ -24,6 +28,7 @@ class _ProfessionDropdownState extends State<ProfessionDropdown> {
   Widget build(BuildContext context) {
     return PullDownButton(
       menuOffset: 0,
+      buttonAnchor: widget.ismobile! ? PullDownMenuAnchor.end : null,
       routeTheme: PullDownMenuRouteTheme(
         backgroundColor: const Color.fromARGB(73, 72, 72, 72),
         borderRadius: BorderRadius.circular(10),
@@ -31,8 +36,6 @@ class _ProfessionDropdownState extends State<ProfessionDropdown> {
           color: Colors.black.withOpacity(0.2),
           blurRadius: 10,
         ),
-        // width: 150,
-        // accessibilityWidth: 200,
       ),
       itemBuilder: (context) => [
         PullDownMenuItem.selectable(

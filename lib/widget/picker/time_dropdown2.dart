@@ -85,9 +85,9 @@ class _TimeDropdown1State extends State<TimeDropdown2> {
       buttonBuilder: (context, showMenu) => BouncingWidget(
         onPressed: showMenu,
         child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 5,
+          padding: EdgeInsets.symmetric(
+            horizontal: Responsive.isMobile(context) ? 16 : 10,
+            vertical: Responsive.isMobile(context) ? 8 : 5,
           ),
           decoration: BoxDecoration(
             color: kyellowbg,
@@ -95,7 +95,10 @@ class _TimeDropdown1State extends State<TimeDropdown2> {
           ),
           child: Text(
             selectedValue,
-            style: const TextStyle(color: secondaryColor),
+            style: const TextStyle(
+              color: secondaryColor,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ),

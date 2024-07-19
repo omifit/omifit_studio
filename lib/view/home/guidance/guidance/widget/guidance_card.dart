@@ -56,7 +56,7 @@ class GuidanceCard extends StatelessWidget {
               ),
             ),
             ListTile(
-              titleAlignment: ListTileTitleAlignment.top,
+              titleAlignment: ListTileTitleAlignment.center,
               title: Text(
                 tittle,
                 style: TextStyle(

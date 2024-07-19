@@ -62,6 +62,10 @@ class AddOrgDialogWidget extends ConsumerStatefulWidget {
 
 class _MarkAttendanceState extends ConsumerState<AddOrgDialogWidget> {
   int page = 1;
+  final GlobalKey _formkey = GlobalKey();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _dobController = TextEditingController();
+  final TextEditingController _locationController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final ProfileViewModel profileViewModel =
@@ -109,8 +113,8 @@ class _MarkAttendanceState extends ConsumerState<AddOrgDialogWidget> {
             ),
           ),
           gapH25,
-          TextField(
-            controller: profileViewModel.nameController,
+          TextFormField(
+            controller: _nameController,
             cursorColor: primaryColor,
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
@@ -126,23 +130,21 @@ class _MarkAttendanceState extends ConsumerState<AddOrgDialogWidget> {
             ),
           ),
           gapH25,
-          TextField(
-            controller: profileViewModel.dobController,
+          TextFormField(
+            controller: _dobController,
             readOnly: true,
             onTap: () {
               showDatePicker(
                 context: context,
-                initialDate: profileViewModel.dobController.text == ""
+                initialDate: _dobController.text == ""
                     ? DateTime.now()
-                    : DateFormat('MM/dd/yyyy')
-                        .parse(profileViewModel.dobController.text),
+                    : DateFormat('MM/dd/yyyy').parse(_dobController.text),
                 firstDate: DateTime(1900),
                 lastDate: DateTime.now(),
                 onDatePickerModeChange: (value) => print(value),
               ).then((value) {
                 if (value != null) {
-                  profileViewModel.dobController.text =
-                      DateFormat('MM/dd/yyyy').format(value);
+                  _dobController.text = DateFormat('MM/dd/yyyy').format(value);
                 }
               });
             },
@@ -165,60 +167,6 @@ class _MarkAttendanceState extends ConsumerState<AddOrgDialogWidget> {
             ),
           ),
           gapH25,
-          TextField(
-            controller: profileViewModel.locationController,
-            cursorColor: primaryColor,
-            keyboardType: TextInputType.name,
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              hintText: 'Organization Location',
-              hintStyle: const TextStyle(
-                color: kGrey,
-                fontWeight: FontWeight.w600,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-            onChanged: (value) {
-              profileViewModel.searchLocation(value);
-            },
-          ),
-          gapH10,
-          if (profileViewModel.locationController.text != "" &&
-              profileViewModel.locationSearch.isNotEmpty)
-            SizedBox(
-              height: 225,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: profileViewModel.locationSearch.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    visualDensity: VisualDensity.compact,
-                    contentPadding: EdgeInsets.zero,
-                    leading: const Icon(
-                      Icons.location_on_outlined,
-                      size: 18,
-                      color: kRed,
-                    ),
-                    title: Text(
-                      profileViewModel.locationSearch[index],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: kGrey,
-                      ),
-                    ),
-                    onTap: () {
-                      profileViewModel.locationController.text =
-                          profileViewModel.locationSearch[index];
-                      profileViewModel.clearLocationSearch();
-                    },
-                  );
-                },
-              ),
-            ),
-          gapH10,
           SizedBox(
             width: double.infinity,
             height: 50,

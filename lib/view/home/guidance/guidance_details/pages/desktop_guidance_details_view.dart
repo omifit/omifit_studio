@@ -161,6 +161,7 @@ class _DesktopGuidanceDetailsViewState
                     ],
                   ),
                 )),
+              
               ],
             ),
             gapH20,

@@ -1,6 +1,7 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/auth/auth_view_model.dart';
 import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
 import 'package:omifit/view/profile/dialog/editprofile_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
@@ -19,10 +20,19 @@ class DesktopProfileView extends ConsumerStatefulWidget {
 
 class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
   @override
+  void initState() {
+    Future.delayed(const Duration(milliseconds: 400), () {
+      ref.read(profileViewModelProvider).userDetails(context);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
     final ProfileViewModel profileViewModel =
         ref.watch(profileViewModelProvider);
+    final AuthViewModel authViewModel = ref.watch(authViewModelProvider);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: widget.isBack
@@ -77,13 +87,15 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                             ];
                           });
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       radius: 22,
                       backgroundColor: Colors.white,
                       child: Padding(
-                        padding: EdgeInsets.all(3),
+                        padding: const EdgeInsets.all(3),
                         child: ProfileImg(
-                          url: "https://i.imgur.com/UnWWlu3.png",
+                          url: profileViewModel
+                                  .userDetailsRes?.body?.user?.profileImage ??
+                              "https://i.imgur.com/UnWWlu3.png",
                           height: double.infinity,
                           width: double.infinity,
                         ),

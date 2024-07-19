@@ -22,9 +22,10 @@ class RealTimeMemberWidget extends StatelessWidget {
             child: PaddedColumn(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                    const EdgeInsets.symmetric(horizontal: 26, vertical: 15),
                 children: [
                   ListTile(
+                    contentPadding: EdgeInsets.zero,
                     title: const Text(
                       "Realtime",
                       style: TextStyle(
@@ -32,14 +33,15 @@ class RealTimeMemberWidget extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    subtitle: Row(
+                    subtitle: PaddedRow(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
                       children: [
                         Icon(
                           Icons.circle,
                           color: const Color(0xff14AE5C),
                           size: 13.sp,
                         ),
-                        gapW4,
+                        gapW6,
                         const Expanded(
                           child: Text(
                             "Updating live",
@@ -57,6 +59,7 @@ class RealTimeMemberWidget extends StatelessWidget {
                     thickness: 0.5,
                   ),
                   ListTile(
+                      contentPadding: EdgeInsets.zero,
                       title: Text(
                         "12",
                         style: TextStyle(
@@ -83,9 +86,13 @@ class RealTimeMemberWidget extends StatelessWidget {
                                   return [LiveCountMemberDialog.build(context)];
                                 });
                           },
-                          icon: const Icon(CupertinoIcons.arrow_right_circle,
-                              color: primaryColor))),
+                          icon: const Icon(
+                            CupertinoIcons.arrow_right_circle,
+                            color: primaryColor,
+                            size: 28,
+                          ))),
                   ListTile(
+                    contentPadding: EdgeInsets.zero,
                     title: Text(
                       "92",
                       style: TextStyle(
@@ -104,10 +111,14 @@ class RealTimeMemberWidget extends StatelessWidget {
                     ),
                     trailing: IconButton(
                         onPressed: () {},
-                        icon: const Icon(CupertinoIcons.arrow_right_circle,
-                            color: primaryColor)),
+                        icon: const Icon(
+                          CupertinoIcons.arrow_right_circle,
+                          color: primaryColor,
+                          size: 28,
+                        )),
                   ),
                   ListTile(
+                    contentPadding: EdgeInsets.zero,
                     title: Text(
                       "50",
                       style: TextStyle(
@@ -127,9 +138,10 @@ class RealTimeMemberWidget extends StatelessWidget {
                     trailing: IconButton(
                         onPressed: () {},
                         icon: const Icon(CupertinoIcons.arrow_right_circle,
-                            color: primaryColor)),
+                            size: 28, color: primaryColor)),
                   ),
                   ListTile(
+                    contentPadding: EdgeInsets.zero,
                     title: Text(
                       "12k",
                       style: TextStyle(
@@ -148,8 +160,11 @@ class RealTimeMemberWidget extends StatelessWidget {
                     ),
                     trailing: IconButton(
                         onPressed: () {},
-                        icon: const Icon(CupertinoIcons.arrow_right_circle,
-                            color: primaryColor)),
+                        icon: const Icon(
+                          CupertinoIcons.arrow_right_circle,
+                          color: primaryColor,
+                          size: 28,
+                        )),
                   ),
                 ]))
         : Container(

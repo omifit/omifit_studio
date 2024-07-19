@@ -41,6 +41,7 @@ class _TimeDropdown1State extends State<StatusDropdown> {
       itemBuilder: (context) => [
         PullDownMenuItem.selectable(
           title: 'All',
+          selected: selectedValue == 'All',
           onTap: () {
             selectedValue = 'All';
             widget.onChange('All');
@@ -49,6 +50,7 @@ class _TimeDropdown1State extends State<StatusDropdown> {
         ),
         PullDownMenuItem.selectable(
           title: 'Active',
+          selected: selectedValue == 'Active',
           onTap: () {
             selectedValue = 'Active';
             widget.onChange('Active');
@@ -56,15 +58,8 @@ class _TimeDropdown1State extends State<StatusDropdown> {
           },
         ),
         PullDownMenuItem.selectable(
-          title: 'Paused',
-          onTap: () {
-            selectedValue = 'Paused';
-            widget.onChange('Paused');
-            setState(() {});
-          },
-        ),
-        PullDownMenuItem.selectable(
           title: 'Incoming',
+          selected: selectedValue == 'Incoming',
           onTap: () {
             selectedValue = 'Incoming';
             widget.onChange('Incoming');
@@ -72,7 +67,26 @@ class _TimeDropdown1State extends State<StatusDropdown> {
           },
         ),
         PullDownMenuItem.selectable(
+          title: 'Expired',
+          selected: selectedValue == 'Expired',
+          onTap: () {
+            selectedValue = 'Expired';
+            widget.onChange('Expired');
+            setState(() {});
+          },
+        ),
+        PullDownMenuItem.selectable(
+          title: 'Paused',
+          selected: selectedValue == 'Paused',
+          onTap: () {
+            selectedValue = 'Paused';
+            widget.onChange('Paused');
+            setState(() {});
+          },
+        ),
+        PullDownMenuItem.selectable(
             title: 'Risk Member',
+            selected: selectedValue == 'Risk Member',
             onTap: () {
               selectedValue = 'Risk Member';
               widget.onChange('Risk Member');
@@ -87,7 +101,7 @@ class _TimeDropdown1State extends State<StatusDropdown> {
             vertical: 7,
           ),
           decoration: BoxDecoration(
-            color: kyellowbg,
+            color: Responsive.isMobile(context) ? primaryColor : kyellowbg,
             borderRadius: BorderRadius.circular(5),
           ),
           child: Row(
@@ -95,11 +109,13 @@ class _TimeDropdown1State extends State<StatusDropdown> {
             children: [
               Text(
                 selectedValue,
-                style: const TextStyle(color: secondaryColor),
+                style: TextStyle(
+                    color:
+                        Responsive.isMobile(context) ? kWhite : secondaryColor),
               ),
-              const Icon(
+              Icon(
                 Icons.arrow_drop_down,
-                color: secondaryColor,
+                color: Responsive.isMobile(context) ? kWhite : secondaryColor,
               ),
             ],
           ),

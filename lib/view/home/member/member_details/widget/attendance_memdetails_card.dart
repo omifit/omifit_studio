@@ -25,7 +25,7 @@ class AttendanceMemberDetailsCard extends StatelessWidget {
         child: Container(
           width: double.infinity,
           decoration: const BoxDecoration(
-              color: lightBlack,
+              color: darkBlack,
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Column(
             children: [

@@ -36,7 +36,7 @@ class AnalysisMemCard extends StatelessWidget {
                 ? 5 // desktop
                 : MediaQuery.of(context).size.width > 700
                     ? 3 // tablet
-                    : 2, // tablet bg
+                    : 1, // tablet bg
             mainAxisSpacing:
                 ResponsiveMemberDetails.isMobile(context) ? 10 : 25,
             crossAxisSpacing:

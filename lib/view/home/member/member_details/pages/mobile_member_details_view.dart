@@ -48,9 +48,10 @@ class _MobileMemberDetailsViewState extends State<MobileMemberDetailsView> {
             children: [
               SingleChildScrollView(
                 child: PaddedColumn(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   children: [
-                    gapH20,
+                    gapH22,
                     const MeminfoCard(),
                     gapH20,
                     const AnalysisMemCard(),
@@ -60,55 +61,27 @@ class _MobileMemberDetailsViewState extends State<MobileMemberDetailsView> {
               ),
               SingleChildScrollView(
                 child: PaddedColumn(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   children: [
-                    gapH10,
-                    PaddedRow(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 2),
-                      children: [
-                        const Text(
-                          "Subscription",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        const Spacer(),
-                        ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            padding: const EdgeInsets.all(10),
-                            elevation: 0,
-                            surfaceTintColor: primaryColor,
-                            backgroundColor:
-                                const Color.fromRGBO(194, 117, 39, 0.2),
-                          ),
-                          onPressed: () {},
-                          icon: const Icon(
-                            CupertinoIcons.add_circled,
-                            color: secondaryColor,
-                            size: 20,
-                          ),
-                          label: const Text(
-                            "Buy Plan",
-                            style: TextStyle(
-                              color: secondaryColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Divider(
-                      color: kGrey,
-                      thickness: 0.3,
-                    ),
-                    gapH10,
+                    gapH12,
+                    // Wrap(
+                    //   crossAxisAlignment: WrapCrossAlignment.start,
+                    //   children: [
+                    //     const Chip(
+                    //       avatar: CircleAvatar(
+                    //         child: Icon(
+                    //           CupertinoIcons.plus,
+                    //           color: kWhite,
+                    //           size: 20,
+                    //         ),
+                    //       ),
+                    //       label: Text("Buy Plan"),
+                    //     ),
+                    //     gapW10,
+                    //   ],
+                    // ),
+                    gapH20,
                     ...List.generate(
                       3,
                       (index) => Padding(
@@ -131,74 +104,65 @@ class _MobileMemberDetailsViewState extends State<MobileMemberDetailsView> {
               SingleChildScrollView(
                 child: PaddedColumn(
                   children: [
-                    Container(
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                        color: darkBlack,
-                      ),
-                      child: PaddedColumn(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        children: [
-                          gapH10,
-                          Row(
-                            children: [
-                              const Text(
-                                "Attendance",
+                    PaddedColumn(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      children: [
+                        gapH15,
+                        Row(
+                          children: [
+                            const Text(
+                              "Attendance",
+                              style: TextStyle(
+                                color: kWhite,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            const Spacer(),
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                elevation: 0,
+                                surfaceTintColor: primaryColor,
+                                backgroundColor: primaryColor,
+                              ),
+                              onPressed: () {},
+                              icon: const Icon(
+                                CupertinoIcons.add_circled,
+                                color: kWhite,
+                                size: 20,
+                              ),
+                              label: const Text(
+                                "Add Attendance",
                                 style: TextStyle(
                                   color: kWhite,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w800,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              const Spacer(),
-                              ElevatedButton.icon(
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(10),
-                                  elevation: 0,
-                                  surfaceTintColor: primaryColor,
-                                  backgroundColor:
-                                      const Color.fromRGBO(194, 117, 39, 0.2),
-                                ),
-                                onPressed: () {},
-                                icon: const Icon(CupertinoIcons.calendar,
-                                    color: secondaryColor, size: 20),
-                                label: const Text(
-                                  "Today",
-                                  style: TextStyle(
-                                    color: secondaryColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Divider(color: kGrey, thickness: 0.2),
-                          gapH10,
-                          SingleChildScrollView(
-                            scrollDirection: Axis.vertical,
-                            child: PaddedColumn(
-                              children: [
-                                ...List.generate(
-                                  15,
-                                  (index) => Padding(
-                                    padding: const EdgeInsets.only(bottom: 8.0),
-                                    child: AttendanceMemberDetailsCard(
-                                      date: "27/02/2001",
-                                      checkin: "10:00 AM",
-                                      checkout: "12:00 PM",
-                                      duration: "2 hours",
-                                      onPressed: () {},
-                                    ),
-                                  ),
-                                ),
-                                gapH10
-                              ],
+                            ),
+                          ],
+                        ),
+                        gapH15,
+                        ...List.generate(
+                          15,
+                          (index) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: AttendanceMemberDetailsCard(
+                              date: "27/02/2001",
+                              checkin: "10:00 AM",
+                              checkout: "12:00 PM",
+                              duration: "2 hours",
+                              onPressed: () {},
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        gapH10,
+                      ],
                     ),
                     gapH20,
                   ],

@@ -14,25 +14,41 @@ class MeminfoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: PaddedColumn(
+        crossAxisAlignment: CrossAxisAlignment.start,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
-          gapH25,
-          const CircleAvatar(
-            radius: 47,
-            backgroundColor: kWhite,
-            child: ProfileImg(
-              url: "https://i.imgur.com/UnWWlu3.png",
-              height: 90,
-              width: 90,
+          gapH12,
+          Align(
+            alignment: Alignment.topRight,
+            child: CircleAvatar(
+                backgroundColor: kGrey.withOpacity(0.5),
+                radius: 16,
+                child: const Icon(
+                  Icons.edit,
+                  color: kWhite,
+                  size: 20,
+                )),
+          ),
+          const Align(
+            child: CircleAvatar(
+              radius: 47,
+              backgroundColor: kWhite,
+              child: ProfileImg(
+                url: "https://i.imgur.com/UnWWlu3.png",
+                height: 90,
+                width: 90,
+              ),
             ),
           ),
           gapH15,
-          const Text(
-            "Ayush Maji",
-            style: TextStyle(
-              color: kGrey,
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
+          const Align(
+            child: Text(
+              "Ayush Maji",
+              style: TextStyle(
+                color: kGrey,
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           gapH10,

@@ -30,7 +30,7 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(50)),
               mini: true,
-              elevation: 4,
+              elevation: 0,
               hoverElevation: 0,
               focusElevation: 0,
               highlightElevation: 0,

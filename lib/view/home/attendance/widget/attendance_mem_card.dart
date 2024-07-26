@@ -42,26 +42,62 @@ class AttendanceMemCard extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Column(
             children: [
-              const ListTile(
-                dense: true,
-                leading: ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
-                title: Text(
-                  "Ayush Majif",
-                  style: TextStyle(
-                    color: kWhite,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+              ListTile(
+                  dense: true,
+                  leading:
+                      const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
+                  title: const Text(
+                    "Ayush Maji",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                subtitle: Text(
-                  "Member",
-                  style: TextStyle(
-                      color: secondaryColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400),
-                ),
-                trailing: Icon(Icons.more_vert_rounded),
-              ),
+                  subtitle: const Text(
+                    "Member",
+                    style: TextStyle(
+                        color: secondaryColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  trailing: PullDownButton(
+                    routeTheme: PullDownMenuRouteTheme(
+                      backgroundColor: lightBlack.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(10),
+                      shadow: BoxShadow(
+                        color: const Color.fromARGB(255, 48, 48, 48)
+                            .withOpacity(0.2),
+                        blurRadius: 10,
+                      ),
+                    ),
+                    itemBuilder: (context) => [
+                      PullDownMenuItem(
+                        onTap: () {},
+                        title: 'View Profile',
+                        icon: CupertinoIcons.person_crop_circle,
+                      ),
+                      PullDownMenuItem(
+                        title: 'Edit Attendance',
+                        onTap: () {},
+                        icon: CupertinoIcons.pencil,
+                      ),
+                      PullDownMenuItem(
+                        onTap: () {},
+                        title: 'Delete',
+                        isDestructive: true,
+                        icon: CupertinoIcons.delete,
+                      ),
+                    ],
+                    buttonBuilder: (context, showMenu) => BouncingWidget(
+                      onPressed: showMenu,
+                      child: const Icon(
+                        CupertinoIcons.ellipsis_circle,
+                        color: primaryColor,
+                        size: 28,
+                      ),
+                    ),
+                  )),
               const Divider(
                 color: Color.fromARGB(255, 63, 63, 63),
               ),

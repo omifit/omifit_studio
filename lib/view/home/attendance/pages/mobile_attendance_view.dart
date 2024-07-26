@@ -47,19 +47,17 @@ class _MobileAttendanceViewState extends ConsumerState<MobileAttendanceView> {
                 decoration: const BoxDecoration(color: darkBlack),
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
-                  vertical: 18,
+                  vertical: 10,
                 ),
                 child: AlignedGridView.count(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  crossAxisCount:
-                      MediaQuery.of(context).size.width > 1000 ? 4 : 2,
-                  mainAxisSpacing: 25,
+                  crossAxisCount: 2,
                   crossAxisSpacing: 25,
                   itemCount: 2,
                   itemBuilder: (context, i) {
                     return AttendanceInfoCard(
-                      tittle: '30',
+                      tittle: i == 0 ? '30' : '2',
                       trailing: i == 0 ? 'member' : 'hrs',
                       subTittle: i == 0 ? 'Today Attendance' : 'Avg Spent Time',
                     );

@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class AppConstants {
   static const String baseUrl = "https://omifit-backend-9pmb.onrender.com";
   static const String profilepic = "https://i.imgur.com/UnWWlu3.png";
@@ -10,5 +8,3 @@ class AppConstants {
 }
 
 enum Gender { male, female, others }
-
-

@@ -40,7 +40,7 @@ class AppThemes {
     ),
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
-    scaffoldBackgroundColor: lightBlack,
+    scaffoldBackgroundColor: bg,
     fontFamily: 'Urbanist',
     useMaterial3: true,
     appBarTheme: const AppBarTheme(

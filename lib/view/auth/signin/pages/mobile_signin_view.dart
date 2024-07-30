@@ -101,6 +101,18 @@ class _MobileSigninViewState extends ConsumerState<MobileSigninView> {
                 onTapOutside: (event) {
                   phoneFocusNode.unfocus();
                 },
+                onFieldSubmitted: (event) {
+                  if (_formKey.currentState!.validate()) {
+                    authViewModel.sendOtp(
+                        SendOtpReq(
+                          phoneNumber: phonesendParse(
+                              authViewModel.phoneSigninCtrl.text),
+                          forOldUser: true,
+                          forNewUser: false,
+                        ),
+                        context);
+                  }
+                },
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(10),
                   FilteringTextInputFormatter.digitsOnly,

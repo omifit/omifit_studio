@@ -85,6 +85,36 @@ class _MobileVerifyViewState extends ConsumerState<MobileVerifyView> {
                     pinCode = value;
                     setState(() {});
                   },
+                  onCompleted: (value) {
+                    pinCode = value;
+                    if (pinCode != null && pinCode!.length == 6) {
+                      widget.isLogin
+                          ? authViewModel.login(
+                              LoginReq(
+                                phoneNumber:
+                                    "+91${authViewModel.phoneSigninCtrl.text}",
+                                otp: pinCode,
+                              ),
+                              context)
+                          : authViewModel.register(
+                              RegisterReq(
+                                  name: authViewModel.nameCtrl.text,
+                                  phoneNumber: phonesendParse(
+                                      authViewModel.phoneSignupCtrl.text),
+                                  dateOfBirth: authViewModel.dobCtrl.text,
+                                  gender: genderSendParse(authViewModel.gender),
+                                  profession: professionSendParse(
+                                      authViewModel.profession),
+                                  otp: pinCode,
+                                  address: "testing",
+                                  location: const LocationReq(
+                                    latitude: 34.4,
+                                    longitude: 34.4,
+                                  )),
+                              context);
+                    }
+                    setState(() {});
+                  },
                   validator: (s) {
                     return s!.length == 6 ? null : 'Pin is incorrect';
                   },

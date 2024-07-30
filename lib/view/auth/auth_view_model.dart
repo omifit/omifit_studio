@@ -98,7 +98,7 @@ class AuthViewModel extends ChangeNotifier {
           content: Text(l.message),
         ));
       }, (r) {
-        SharedPreferenceService.setString('token', r.body!.token.toString());
+        SharedPreferenceService.setToken(r.body!.token.toString());
         SharedPreferenceService.setString('uid', r.body!.user!.id.toString());
         ref.read(profileViewModelProvider).userDetails(ctx);
         ctx.goNamed(AppRoute.profile.name, pathParameters: {'isBack': 'false'});

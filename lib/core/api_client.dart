@@ -15,8 +15,7 @@ class ApiClient {
     String path,
     dynamic data,
   ) async {
-    final String? token = SharedPreferenceService.getString('token');
-
+    final String? token = SharedPreferenceService.getToken();
     try {
       return await dio.post(
         path,
@@ -29,7 +28,7 @@ class ApiClient {
   }
 
   Future<Response<Map<String, dynamic>>> put(String path, dynamic data) async {
-    final String? token = SharedPreferenceService.getString('token');
+    final String? token = SharedPreferenceService.getToken();
     try {
       return await dio.put(
         path,
@@ -42,7 +41,7 @@ class ApiClient {
   }
 
   Future<Response<Map<String, dynamic>>> delete(String path) async {
-    final String? token = SharedPreferenceService.getString('token');
+    final String? token = SharedPreferenceService.getToken();
     try {
       return await dio.delete(
         path,
@@ -54,7 +53,7 @@ class ApiClient {
   }
 
   Future<Response<Map<String, dynamic>>> get(String path) async {
-    final String? token = SharedPreferenceService.getString('token');
+    final String? token = SharedPreferenceService.getToken();
     try {
       return await dio.get(
         path,
@@ -70,7 +69,7 @@ class ApiClient {
     String path,
     dynamic data,
   ) async {
-    final String? token = SharedPreferenceService.getString('token');
+    final String? token = SharedPreferenceService.getToken();
     try {
       return await dio.patch(
         path,

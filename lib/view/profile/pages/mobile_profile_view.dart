@@ -1,6 +1,7 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:omifit/core/core.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
 import 'package:omifit/view/profile/dialog/editprofile_dialog.dart';
@@ -19,6 +20,14 @@ class MobileProfileView extends ConsumerStatefulWidget {
 }
 
 class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
+  @override
+  void initState() {
+    Future.delayed(const Duration(milliseconds: 300), () {
+      ref.read(profileViewModelProvider).userDetails(context);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ProfileViewModel profileViewModel =
@@ -41,7 +50,6 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
               child: const Icon(Icons.arrow_back_ios_new, color: kWhite),
             )
           : null,
-      backgroundColor: lightBlack,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -49,7 +57,7 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
               alignment: Alignment.topRight,
               children: [
                 SizedBox(
-                  height: 215,
+                  height: 200,
                   child: Image.asset(
                     'assets/images/bg.png',
                     width: double.infinity,
@@ -74,13 +82,13 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
                             ];
                           });
                     },
-                    child: const CircleAvatar(
+                    child:  CircleAvatar(
                       radius: 22,
                       backgroundColor: Colors.white,
                       child: Padding(
                         padding: EdgeInsets.all(3),
                         child: ProfileImg(
-                          url: "https://i.imgur.com/UnWWlu3.png",
+                          url: profileViewModel.userDetailsRes?.body?.user?.profileImage ?? AppConstants.noProfileImg,
                           height: double.infinity,
                           width: double.infinity,
                         ),

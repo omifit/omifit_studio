@@ -61,6 +61,8 @@ dependencies:
   primer_progress_bar: ^0.4.2
   progress_stepper: ^1.0.0
   pull_down_button: ^0.9.4
+  pwa_install: ^0.0.5
+  pwa_update_listener: ^0.1.0
   responsive_builder: ^0.7.0
   responsive_framework: ^1.4.0
   rive: ^0.13.4
@@ -69,6 +71,7 @@ dependencies:
   shared_preferences: ^2.0.15
   shimmer: ^3.0.0
   simple_progress_indicators: ^0.2.0
+  universal_html: ^2.2.4
   url_launcher: ^6.1.9
   url_strategy: ^0.2.0
   webview_flutter: ^4.0.2

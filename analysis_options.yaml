@@ -23,6 +23,7 @@ analyzer:
     avoid_redundant_argument_values: ignore
     avoid_bool_literals_in_conditional_expressions: ignore
     avoid_unnecessary_containers: ignore
+    use_named_constants: ignore
 
   exclude:
     # Generated for Flutter web apps. Since it is auto-generated, errors should be ignored

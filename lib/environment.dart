@@ -12,13 +12,11 @@ class Environment {
   }
 
   Future<void> _init() async {
+    setPathUrlStrategy();
     WidgetsFlutterBinding.ensureInitialized();
     GoRouter.optionURLReflectsImperativeAPIs = true;
     await SharedPreferenceService.init();
-    setPathUrlStrategy();
-    PWAInstall().setup(installCallback: () {
-      print('App installed');
-    });
+    PWAInstall().setup(installCallback: () {});
     runApp(
       const ProviderScope(
         child: MyApp(),

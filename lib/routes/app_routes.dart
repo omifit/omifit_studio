@@ -65,21 +65,6 @@ final routers = [
     path: '/memberDetails',
     name: AppRoute.memberDetails.name,
     builder: (context, state) => const MemberDetailsView(),
-    // pageBuilder: (context, state) => CustomTransitionPage<void>(
-    //       key: state.pageKey,
-    //       transitionDuration: const Duration(milliseconds: 150),
-    //       reverseTransitionDuration: const Duration(milliseconds: 150),
-    //       barrierColor: lightBlack,
-    //       child: const MemberDetailsView(),
-    //       transitionsBuilder:
-    //           (context, animation, secondaryAnimation, child) =>
-    //               SlideTransition(
-    //         position: Tween<Offset>(
-    //           begin: const Offset(0, 0.2),
-    //         ).animate(animation),
-    //         child: child,
-    //       ),
-    //     )
   ),
   GoRoute(
     path: '/organizationDetails',

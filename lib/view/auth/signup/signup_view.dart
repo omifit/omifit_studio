@@ -8,11 +8,14 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Responsive(
-      mobile: MobileSignupView(),
-      tablet: TabletSignupView(),
-      desktop: DesktopSignupView(),
-      tv: DesktopSignupView(),
+    return const PopScope(
+      canPop: false,
+      child: Responsive(
+        mobile: MobileSignupView(),
+        tablet: TabletSignupView(),
+        desktop: DesktopSignupView(),
+        tv: DesktopSignupView(),
+      ),
     );
   }
 }

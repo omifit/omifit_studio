@@ -111,7 +111,7 @@ class _MarkAttendanceState extends ConsumerState<MarkAttendance> {
                 gapH20,
                 TextField(
                   onChanged: (value) {
-                    profileViewModel.searchLocation(value);
+                    // profileViewModel.searchLocation(value);
                   },
                   decoration: const InputDecoration(
                       hintText: "Member id / phone number",

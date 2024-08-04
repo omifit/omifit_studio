@@ -6,6 +6,8 @@ import 'package:omifit/view/home/guidance/guidance_details/guidance_details_view
 import 'package:omifit/view/home/home_view.dart';
 import 'package:omifit/view/home/member/member_details/member_details_view.dart';
 import 'package:omifit/view/org_details/org_details_view.dart';
+import 'package:omifit/view/profile/dialog/edit/editprofile_view.dart';
+import 'package:omifit/view/profile/dialog/edit/update_phone_view.dart';
 import 'package:omifit/view/profile/profile_view.dart';
 import 'package:omifit/view/splash/splash_view.dart';
 
@@ -18,6 +20,7 @@ enum AppRoute {
   search,
   profile,
   editProfile,
+  updatePhone,
   guidanceDetails,
   memberDetails,
   organizationDetails
@@ -50,6 +53,16 @@ final routers = [
     name: AppRoute.profile.name,
     builder: (context, state) => ProfileView(
         isBack: state.pathParameters['isBack'] == 'true' ? true : false),
+  ),
+  GoRoute(
+    path: '/editProfile',
+    name: AppRoute.editProfile.name,
+    builder: (context, state) => const EditProfileDetailView(),
+  ),
+  GoRoute(
+    path: '/updatePhone',
+    name: AppRoute.updatePhone.name,
+    builder: (context, state) => const UpdatePhoneView(),
   ),
   GoRoute(
     path: '/home',

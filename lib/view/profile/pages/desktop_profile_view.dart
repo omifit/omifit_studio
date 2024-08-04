@@ -1,9 +1,7 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/auth/auth_view_model.dart';
 import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
-import 'package:omifit/view/profile/dialog/editprofile_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
@@ -21,9 +19,8 @@ class DesktopProfileView extends ConsumerStatefulWidget {
 class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 400), () {
-      ref.read(profileViewModelProvider).userDetails(context);
-    });
+    Future.delayed(const Duration(milliseconds: 300),
+        () => ref.read(profileViewModelProvider).userDetails(context));
     super.initState();
   }
 
@@ -32,7 +29,6 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
     final double width = MediaQuery.of(context).size.width;
     final ProfileViewModel profileViewModel =
         ref.watch(profileViewModelProvider);
-    final AuthViewModel authViewModel = ref.watch(authViewModelProvider);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: widget.isBack
@@ -74,18 +70,7 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                   right: 16,
                   child: BouncingWidget(
                     onPressed: () {
-                      WoltModalSheet.show(
-                          context: context,
-                          barrierDismissible: false,
-                          minDialogWidth: 750,
-                          maxDialogWidth: 1000,
-                          pageIndexNotifier: profileViewModel.pageIndexNotifier,
-                          pageListBuilder: (BuildContext context) {
-                            return [
-                              ProfileDetailDialog.build(context),
-                              UpdatePhoneDialog.build(context, ref),
-                            ];
-                          });
+                      context.pushNamed(AppRoute.editProfile.name);
                     },
                     child: CircleAvatar(
                       radius: 22,

@@ -4,7 +4,6 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/core/core.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
-import 'package:omifit/view/profile/dialog/editprofile_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
@@ -69,26 +68,17 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
                   right: 16,
                   child: BouncingWidget(
                     onPressed: () {
-                      WoltModalSheet.show(
-                          context: context,
-                          barrierDismissible: false,
-                          minDialogWidth: 750,
-                          maxDialogWidth: 1000,
-                          pageIndexNotifier: profileViewModel.pageIndexNotifier,
-                          pageListBuilder: (BuildContext context) {
-                            return [
-                              ProfileDetailDialog.build(context),
-                              UpdatePhoneDialog.build(context, ref),
-                            ];
-                          });
+                      context.pushNamed(AppRoute.editProfile.name);
                     },
-                    child:  CircleAvatar(
+                    child: CircleAvatar(
                       radius: 22,
                       backgroundColor: Colors.white,
                       child: Padding(
-                        padding: EdgeInsets.all(3),
+                        padding: const EdgeInsets.all(3),
                         child: ProfileImg(
-                          url: profileViewModel.userDetailsRes?.body?.user?.profileImage ?? AppConstants.noProfileImg,
+                          url: profileViewModel
+                                  .userDetailsRes?.body?.user?.profileImage ??
+                              AppConstants.noProfileImg,
                           height: double.infinity,
                           width: double.infinity,
                         ),

@@ -2,7 +2,6 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
-import 'package:omifit/view/profile/dialog/editprofile_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
@@ -62,20 +61,7 @@ class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
                   top: 16,
                   right: 16,
                   child: BouncingWidget(
-                    onPressed: () {
-                      WoltModalSheet.show(
-                          context: context,
-                          barrierDismissible: false,
-                          minDialogWidth: 750,
-                          maxDialogWidth: 1000,
-                          pageIndexNotifier: profileViewModel.pageIndexNotifier,
-                          pageListBuilder: (BuildContext context) {
-                            return [
-                              ProfileDetailDialog.build(context),
-                              UpdatePhoneDialog.build(context, ref),
-                            ];
-                          });
-                    },
+                    onPressed: () {},
                     child: const CircleAvatar(
                       radius: 22,
                       backgroundColor: Colors.white,

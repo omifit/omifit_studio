@@ -79,7 +79,7 @@ class _MarkAttendanceState extends ConsumerState<AddOrgDialogWidget> {
             overlayColor: WidgetStateProperty.all(Colors.transparent),
             onTap: () {
               HapticFeedback.lightImpact();
-              ref.watch(profileViewModelProvider).pageIndexNotifier.value = 1;
+              // ref.watch(profileViewModelProvider).pageIndexNotifier.value = 1;
             },
             child: const Stack(
               alignment: Alignment.bottomRight,

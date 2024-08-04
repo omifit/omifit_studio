@@ -110,6 +110,42 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                             validator: (s) {
                               return s!.length == 6 ? null : 'Pin is incorrect';
                             },
+                            onSubmitted: (value) {
+                              print(authViewModel.gender.name);
+                              if (formKey.currentState!.validate()) {
+                                widget.isLogin
+                                    ? authViewModel.login(
+                                        LoginReq(
+                                          phoneNumber: phonesendParse(
+                                              authViewModel
+                                                  .phoneSigninCtrl.text),
+                                          otp: pinCode,
+                                        ),
+                                        context)
+                                    : authViewModel.register(
+                                        RegisterReq(
+                                            name: authViewModel.nameCtrl.text,
+                                            phoneNumber: phonesendParse(
+                                                authViewModel
+                                                    .phoneSignupCtrl.text),
+                                            dateOfBirth:
+                                                authViewModel.dobCtrl.text,
+                                            gender: genderSendParse(
+                                                authViewModel.gender),
+                                            profession: professionSendParse(
+                                                authViewModel.profession),
+                                            otp: pinCode,
+                                            address: "testing",
+                                            profileImage: damiProfile(
+                                                authViewModel.gender,
+                                                authViewModel.dobCtrl.text),
+                                            location: const LocationReq(
+                                              latitude: 34.4,
+                                              longitude: 34.4,
+                                            )),
+                                        context);
+                              }
+                            },
                           ),
                         ),
                       ),

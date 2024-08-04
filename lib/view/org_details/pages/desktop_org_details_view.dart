@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
-import 'package:omifit/utils/file_picker.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 
@@ -54,9 +53,9 @@ class _DesktopOrgDetailsViewState extends State<DesktopOrgDetailsView> {
                       overlayColor: WidgetStateProperty.all(Colors.transparent),
                       onTap: () {
                         HapticFeedback.lightImpact();
-                        openPickImageModalSheet(context).then((value) {
-                          if (value != null) {}
-                        });
+                        // openPickImageModalSheet(context).then((value) {
+                        //   if (value != null) {}
+                        // });
                       },
                       child: const Stack(
                         alignment: Alignment.bottomRight,

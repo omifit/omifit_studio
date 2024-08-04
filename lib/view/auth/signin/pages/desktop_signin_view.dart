@@ -106,6 +106,18 @@ class _DesktopSigninViewState extends ConsumerState<DesktopSigninView> {
                         validator: (value) => value?.length == 10
                             ? null
                             : "Please enter valid phone number",
+                        onFieldSubmitted: (value) {
+                          if (_formKey.currentState!.validate()) {
+                            authViewModel.sendOtp(
+                                SendOtpReq(
+                                  phoneNumber: phonesendParse(
+                                      authViewModel.phoneSigninCtrl.text),
+                                  forOldUser: true,
+                                  forNewUser: false,
+                                ),
+                                context);
+                          }
+                        },
                       ),
                       gapH40,
                       //* === btn
@@ -114,7 +126,7 @@ class _DesktopSigninViewState extends ConsumerState<DesktopSigninView> {
                         height: 60,
                         child: FilledBtn(
                           isLoading: authViewModel.lodingsendotp,
-                          text: "Sign In Ayush",
+                          text: "Sign In",
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               authViewModel.sendOtp(

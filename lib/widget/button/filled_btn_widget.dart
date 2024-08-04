@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:omifit/utils/colors.dart';
 
@@ -20,11 +21,15 @@ class FilledBtn extends StatelessWidget {
           ? const SizedBox(
               height: 20,
               width: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2.0,
-                valueColor: AlwaysStoppedAnimation<Color>(kWhite),
-              ),
-            )
+              child: CupertinoActivityIndicator(
+                radius: 12
+                ,
+              )
+              // CircularProgressIndicator(
+              //   strokeWidth: 2.0,
+              //   valueColor: AlwaysStoppedAnimation<Color>(kWhite),
+              // ),
+              )
           : Text(
               text,
               style: const TextStyle(

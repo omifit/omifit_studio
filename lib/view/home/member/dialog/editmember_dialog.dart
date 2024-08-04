@@ -3,7 +3,6 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/core/constants.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
@@ -109,7 +108,7 @@ class _EditMemberDetailsWidgetState
         ),
         gapH25,
         TextField(
-          controller: profileViewModel.nameController,
+          controller: TextEditingController(),
           cursorColor: primaryColor,
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
@@ -126,7 +125,7 @@ class _EditMemberDetailsWidgetState
         ),
         gapH25,
         TextField(
-          controller: profileViewModel.phoneController,
+          controller: TextEditingController(),
           inputFormatters: [
             LengthLimitingTextInputFormatter(10),
             FilteringTextInputFormatter.digitsOnly,
@@ -161,21 +160,21 @@ class _EditMemberDetailsWidgetState
           Column(
             children: [
               TextField(
-                controller: profileViewModel.dobController,
+                controller: TextEditingController(),
                 readOnly: true,
                 onTap: () {
                   showDatePicker(
                     context: context,
-                    initialDate: profileViewModel.dobController.text == ""
+                    initialDate: TextEditingController().text == ""
                         ? DateTime.now()
                         : DateFormat('MM/dd/yyyy')
-                            .parse(profileViewModel.dobController.text),
+                            .parse(TextEditingController().text),
                     firstDate: DateTime(1900),
                     lastDate: DateTime.now(),
                     onDatePickerModeChange: (value) => print(value),
                   ).then((value) {
                     if (value != null) {
-                      profileViewModel.dobController.text =
+                      TextEditingController().text =
                           DateFormat('MM/dd/yyyy').format(value);
                     }
                   });
@@ -207,21 +206,21 @@ class _EditMemberDetailsWidgetState
             children: [
               Expanded(
                 child: TextField(
-                  controller: profileViewModel.dobController,
+                  controller: TextEditingController(),
                   readOnly: true,
                   onTap: () {
                     showDatePicker(
                       context: context,
-                      initialDate: profileViewModel.dobController.text == ""
+                      initialDate: TextEditingController().text == ""
                           ? DateTime.now()
                           : DateFormat('MM/dd/yyyy')
-                              .parse(profileViewModel.dobController.text),
+                              .parse(TextEditingController().text),
                       firstDate: DateTime(1900),
                       lastDate: DateTime.now(),
                       onDatePickerModeChange: (value) => print(value),
                     ).then((value) {
                       if (value != null) {
-                        profileViewModel.dobController.text =
+                        TextEditingController().text =
                             DateFormat('MM/dd/yyyy').format(value);
                       }
                     });
@@ -255,7 +254,7 @@ class _EditMemberDetailsWidgetState
         gapH25,
         CustomSlidingSegmentedControl<int>(
           isStretch: true,
-          initialValue: profileViewModel.gender.index + 1,
+          initialValue: 1,
           height: 45,
           children: const {
             1: Text('Male'),
@@ -272,19 +271,11 @@ class _EditMemberDetailsWidgetState
           ),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInToLinear,
-          onValueChanged: (v) {
-            profileViewModel.setGender(
-              v == 1
-                  ? Gender.male
-                  : v == 2
-                      ? Gender.female
-                      : Gender.others,
-            );
-          },
+          onValueChanged: (v) {},
         ),
         gapH36,
         TextField(
-          controller: profileViewModel.locationController,
+          controller: TextEditingController(),
           cursorColor: primaryColor,
           keyboardType: TextInputType.name,
           textInputAction: TextInputAction.next,
@@ -298,44 +289,8 @@ class _EditMemberDetailsWidgetState
               borderRadius: BorderRadius.circular(10),
             ),
           ),
-          onChanged: (value) {
-            profileViewModel.searchLocation(value);
-          },
+          onChanged: (value) {},
         ),
-        gapH10,
-        if (profileViewModel.locationController.text != "" &&
-            profileViewModel.locationSearch.isNotEmpty)
-          SizedBox(
-            height: 225,
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: profileViewModel.locationSearch.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  visualDensity: VisualDensity.compact,
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
-                    Icons.location_on_outlined,
-                    size: 18,
-                    color: kRed,
-                  ),
-                  title: Text(
-                    profileViewModel.locationSearch[index],
-                    style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: kGrey,
-                    ),
-                  ),
-                  onTap: () {
-                    profileViewModel.locationController.text =
-                        profileViewModel.locationSearch[index];
-                    profileViewModel.clearLocationSearch();
-                  },
-                );
-              },
-            ),
-          ),
         gapH10,
         SizedBox(
           width: double.infinity,
@@ -343,7 +298,8 @@ class _EditMemberDetailsWidgetState
           child: FilledBtn(
             text: "Save",
             onPressed: () {
-              ref.read(profileViewModelProvider).pageIndexNotifier.value = 1;
+              //
+              // ref.read(profileViewModelProvider).pageIndexNotifier.value = 1;
             },
           ),
         ),
@@ -363,7 +319,7 @@ class UpdatePhoneDialog {
       isTopBarLayerAlwaysVisible: true,
       leadingNavBarWidget: IconButton(
         onPressed: () {
-          ref.read(profileViewModelProvider).pageIndexNotifier.value = 0;
+          // ref.read(profileViewModelProvider).pageIndexNotifier.value = 0;
         },
         icon: const Icon(
           Icons.arrow_back_ios_new_rounded,
@@ -378,12 +334,12 @@ class UpdatePhoneDialog {
           ),
           onPressed: () {
             Navigator.of(context).pop();
-            Future.delayed(
-                const Duration(milliseconds: 200),
-                () => ref
-                    .read(profileViewModelProvider)
-                    .pageIndexNotifier
-                    .value = 0);
+            // Future.delayed(
+            //     const Duration(milliseconds: 200),
+            //     () => ref
+            //         .read(profileViewModelProvider)
+            //         .pageIndexNotifier
+            //         .value = 0);
           },
           icon: const Icon(Icons.close, color: primaryColor),
         ),

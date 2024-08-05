@@ -16,7 +16,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:omifit/utils/utils.dart';
 import "package:universal_html/html.dart" as html;
 
-//! step-2 // pick img from gallery or camera
+//! step-1 // pick img from gallery or camera
 Future<String?> openPickImageModalSheet(BuildContext context) async {
   String? imageLink;
   if (kIsWeb) {
@@ -143,24 +143,35 @@ Future<String?> pickImageMobile(
                 style: TextStyle(
                   fontSize: 16,
                   color: kWhite,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               gapH30,
-              ClipPath(
-                clipper: const ShapeBorderClipper(shape: CircleBorder()),
-                child: Container(
-                  height: 250,
-                  width: 250,
-                  decoration: BoxDecoration(
-                    color: lightBlack,
-                    borderRadius: BorderRadius.circular(8),
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  GifView.asset(
+                    'assets/animations/picture_upload.gif',
+                    height: 260,
+                    width: 260,
+                    repeat: ImageRepeat.noRepeat,
                   ),
-                  child: Image.file(
-                    File(imagePickedFile.path),
-                    fit: BoxFit.cover,
+                  ClipPath(
+                    clipper: const ShapeBorderClipper(shape: CircleBorder()),
+                    child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        color: lightBlack,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Image.file(
+                        File(imagePickedFile.path),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
               gapH30,
               Row(
@@ -178,7 +189,7 @@ Future<String?> pickImageMobile(
                         text: "Save",
                         onPressed: () async {
                           imagelink = await uploadImageMobile(
-                              File(imagePickedFile.path));
+                              File(imagePickedFile.path), ctx);
                           context.pop();
                         }),
                   ),
@@ -639,7 +650,32 @@ Future<String?> pickImageWeb(
 }
 
 //! step-3 // upload img to server for (mobile-Gallery, Camera)
-Future<String> uploadImageMobile(File? picture) async {
+Future<String> uploadImageMobile(File? picture, BuildContext context) async {
+  BuildContext? dcontext;
+  showCupertinoDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      dcontext = context;
+      return SizedBox(
+        width: 100,
+        height: 100,
+        child: CupertinoDialogAction(
+          child: Container(
+            height: 60,
+            width: 80,
+            decoration: BoxDecoration(
+              color: lightBlack,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const CupertinoActivityIndicator(
+              radius: 13,
+            ),
+          ),
+        ),
+      );
+    },
+  );
   if (picture == null) {
     return "";
   }
@@ -657,6 +693,7 @@ Future<String> uploadImageMobile(File? picture) async {
 
   try {
     final response = await request.send();
+    Navigator.pop(dcontext!);
     if (response.statusCode == 200) {
       final responseText = await response.stream.bytesToString();
       final imageUrl =
@@ -670,6 +707,7 @@ Future<String> uploadImageMobile(File? picture) async {
       return "";
     }
   } catch (e) {
+    Navigator.pop(dcontext!);
     Fluttertoast.showToast(msg: "Error uploading image: $e");
     return "";
   }
@@ -759,6 +797,31 @@ Future<List<int>> getBytesFromBlobUrl(String blobUrl) async {
 //! step-5 // upload img to server for (web-Gallery)
 Future<String> uploadImageGallaryWeb(
     String blobUrl, BuildContext context) async {
+  BuildContext? dcontext;
+  showCupertinoDialog(
+    context: context,
+    barrierDismissible: true,
+    builder: (BuildContext context) {
+      dcontext = context;
+      return SizedBox(
+        width: 100,
+        height: 100,
+        child: CupertinoDialogAction(
+          child: Container(
+            height: 60,
+            width: 80,
+            decoration: BoxDecoration(
+              color: lightBlack,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: const CupertinoActivityIndicator(
+              radius: 13,
+            ),
+          ),
+        ),
+      );
+    },
+  );
   final bytes = await getBytesFromBlobUrl(blobUrl);
   final multipartFile = http.MultipartFile.fromBytes(
     'image',
@@ -771,6 +834,7 @@ Future<String> uploadImageGallaryWeb(
   );
   final request = http.MultipartRequest('POST', url)..files.add(multipartFile);
   final response = await request.send();
+  Navigator.pop(dcontext!);
   if (response.statusCode == 200) {
     print('File uploaded successfully.');
     final responseText = await response.stream.bytesToString();

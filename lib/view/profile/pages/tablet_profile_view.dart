@@ -18,6 +18,14 @@ class TabletProfileView extends ConsumerStatefulWidget {
 
 class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(profileViewModelProvider).userDetails(context);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ProfileViewModel profileViewModel =
         ref.watch(profileViewModelProvider);

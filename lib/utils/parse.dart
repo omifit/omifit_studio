@@ -101,19 +101,16 @@ String damiProfile(Gender gender, String dob) {
 int age(String dob) {
   DateTime birthDate;
   try {
-    birthDate = DateFormat('MM-dd-yyyy').parse(dob);
+    birthDate = DateFormat('yyyy-MM-dd').parse(dob);
   } catch (e) {
     return 0;
   }
-
   final DateTime currentDate = DateTime.now();
   int age = currentDate.year - birthDate.year;
-
   if (currentDate.month < birthDate.month ||
       (currentDate.month == birthDate.month &&
           currentDate.day < birthDate.day)) {
     age--;
   }
-
   return age;
 }

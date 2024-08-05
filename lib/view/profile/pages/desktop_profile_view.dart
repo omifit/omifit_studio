@@ -1,5 +1,6 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
@@ -19,8 +20,9 @@ class DesktopProfileView extends ConsumerStatefulWidget {
 class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 300),
-        () => ref.read(profileViewModelProvider).userDetails(context));
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(profileViewModelProvider).userDetails(context);
+    });
     super.initState();
   }
 
@@ -73,14 +75,25 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                       context.pushNamed(AppRoute.editProfile.name);
                     },
                     child: CircleAvatar(
-                      radius: 22,
+                      radius: 25,
                       backgroundColor: Colors.white,
                       child: Padding(
                         padding: const EdgeInsets.all(3),
                         child: ProfileImg(
-                          url: profileViewModel
-                                  .userDetailsRes?.body?.user?.profileImage ??
-                              "https://i.imgur.com/UnWWlu3.png",
+                          url: (profileViewModel.userDetailsRes?.body?.user
+                                          ?.profileImage ==
+                                      null ||
+                                  profileViewModel.userDetailsRes?.body?.user
+                                          ?.profileImage ==
+                                      '')
+                              ? damiProfile(
+                                  genderViewParse(profileViewModel
+                                      .userDetailsRes?.body?.user?.gender),
+                                  profileViewModel.userDetailsRes?.body?.user
+                                          ?.dateOfBirth ??
+                                      "")
+                              : profileViewModel
+                                  .userDetailsRes!.body!.user!.profileImage!,
                           height: double.infinity,
                           width: double.infinity,
                         ),

@@ -171,7 +171,8 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                                       context)
                                   : authViewModel.register(
                                       RegisterReq(
-                                          name: authViewModel.nameCtrl.text,
+                                          name: authViewModel.nameCtrl.text
+                                              .trim(),
                                           phoneNumber: phonesendParse(
                                               authViewModel
                                                   .phoneSignupCtrl.text),
@@ -183,9 +184,6 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                                               authViewModel.profession),
                                           otp: pinCode,
                                           address: "testing",
-                                          profileImage: damiProfile(
-                                              authViewModel.gender,
-                                              authViewModel.dobCtrl.text),
                                           location: const LocationReq(
                                             latitude: 34.4,
                                             longitude: 34.4,

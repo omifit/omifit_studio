@@ -49,6 +49,9 @@ class ProfileViewModel extends ChangeNotifier {
       _lodingvotp = false;
       value.fold((l) {
         ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+          backgroundColor: kGreen,
+          behavior: SnackBarBehavior.floating,
+          width: MediaQuery.of(ctx).size.width * 0.6,
           content: Text(l.message),
         ));
       }, (r) {

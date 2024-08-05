@@ -21,7 +21,7 @@ class MobileProfileView extends ConsumerStatefulWidget {
 class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 300), () {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(profileViewModelProvider).userDetails(context);
     });
     super.initState();

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/home/attendance/dialog/mark_attendance_dialogbox.dart';
 import 'package:omifit/view/home/attendance/widget/attendance_mem_card.dart';
-import 'package:scrollable_table_view/scrollable_table_view.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class DesktopAttendanceView extends StatefulWidget {
@@ -13,7 +12,6 @@ class DesktopAttendanceView extends StatefulWidget {
 }
 
 class _DesktopAttendanceViewState extends State<DesktopAttendanceView> {
-  List<TableViewRow> data = [];
   @override
   void initState() {
     super.initState();

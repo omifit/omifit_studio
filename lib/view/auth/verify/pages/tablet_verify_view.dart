@@ -110,7 +110,7 @@ class _TabletVerifyViewState extends ConsumerState<TabletVerifyView> {
                               context)
                           : authViewModel.register(
                               RegisterReq(
-                                  name: authViewModel.nameCtrl.text,
+                                  name: authViewModel.nameCtrl.text.trim(),
                                   phoneNumber: phonesendParse(
                                       authViewModel.phoneSignupCtrl.text),
                                   dateOfBirth: authViewModel.dobCtrl.text,

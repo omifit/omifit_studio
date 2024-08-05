@@ -98,7 +98,7 @@ class _MobileVerifyViewState extends ConsumerState<MobileVerifyView> {
                               context)
                           : authViewModel.register(
                               RegisterReq(
-                                  name: authViewModel.nameCtrl.text,
+                                  name: authViewModel.nameCtrl.text.trim(),
                                   phoneNumber: phonesendParse(
                                       authViewModel.phoneSignupCtrl.text),
                                   dateOfBirth: authViewModel.dobCtrl.text,

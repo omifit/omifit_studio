@@ -8,7 +8,6 @@ import 'package:omifit/view/home/dashboard/dashboard_view.dart';
 import 'package:omifit/view/home/discount/discount_view.dart';
 import 'package:omifit/view/home/guidance/guidance/guidance_view.dart';
 import 'package:omifit/view/home/home_view_model.dart';
-import 'package:omifit/view/home/lead/lead_view.dart';
 import 'package:omifit/view/home/member/member/member_view.dart';
 import 'package:omifit/view/home/plan/plan_view.dart';
 import 'package:omifit/view/home/staff/staff/staff_view.dart';
@@ -32,7 +31,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
     const GuidanceView(),
     const PlanView(),
     const DiscountView(),
-    const LeadView(),
   ];
   @override
   Widget build(BuildContext context) {

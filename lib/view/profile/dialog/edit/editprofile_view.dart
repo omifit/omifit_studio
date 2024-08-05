@@ -33,7 +33,9 @@ class _EditProfileDetailViewState extends ConsumerState<EditProfileDetailView> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 300), () => getUserData());
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getUserData();
+    });
     super.initState();
   }
 
@@ -48,6 +50,7 @@ class _EditProfileDetailViewState extends ConsumerState<EditProfileDetailView> {
         dobviewParse(profileViewModel.userDetailsRes?.body?.user?.dateOfBirth);
     _profession = professionviewParse(
         profileViewModel.userDetailsRes?.body?.user?.profession);
+    print("profession - $_profession");
     _gender =
         genderViewParse(profileViewModel.userDetailsRes?.body?.user?.gender);
     setState(() {});
@@ -112,13 +115,29 @@ class _EditProfileDetailViewState extends ConsumerState<EditProfileDetailView> {
                             ),
                           )
                         else
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 60,
                             backgroundColor: Colors.white,
                             child: Padding(
-                              padding: EdgeInsets.all(3),
+                              padding: const EdgeInsets.all(3),
                               child: ProfileImg(
-                                url: "https://i.imgur.com/UnWWlu3.png",
+                                url: (profileViewModel.userDetailsRes?.body
+                                                ?.user?.profileImage ==
+                                            null ||
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.profileImage ==
+                                            '')
+                                    ? damiProfile(
+                                        genderViewParse(profileViewModel
+                                            .userDetailsRes
+                                            ?.body
+                                            ?.user
+                                            ?.gender),
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.dateOfBirth ??
+                                            "")
+                                    : profileViewModel.userDetailsRes!.body!
+                                        .user!.profileImage!,
                                 height: double.infinity,
                                 width: double.infinity,
                               ),
@@ -299,7 +318,7 @@ class _EditProfileDetailViewState extends ConsumerState<EditProfileDetailView> {
                               phoneviewParse(profileViewModel
                                   .userDetailsRes?.body?.user?.phoneNumber)) {
                             profileViewModel.setUserupReq(UserDetailsUpdateReq(
-                              name: _nameController.text,
+                              name: _nameController.text.trim(),
                               phoneNumber:
                                   phonesendParse(_phoneController.text.trim()),
                               dateOfBirth: _dobController.text,

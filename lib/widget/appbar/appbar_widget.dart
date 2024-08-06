@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconly/iconly.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/home/attendance/dialog/mark_attendance_dialogbox.dart';
-import 'package:omifit/view/home/home_view_model.dart';
-import 'package:omifit/view/home/member/dialog/addmember_dialog.dart';
-import 'package:omifit/view/home/member/member_view_model.dart';
+import 'package:omifit/view/organization/attendance/dialog/mark_attendance_dialogbox.dart';
+import 'package:omifit/view/organization/member/dialog/addmember_dialog.dart';
+import 'package:omifit/view/organization/member/member_view_model.dart';
+import 'package:omifit/view/organization/organization_view_model.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
@@ -20,7 +20,8 @@ class AppbarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final HomeViewModel homeViewModel = ref.watch(homeViewModelProvider);
+    final OrganizationViewModel organizationViewModel =
+        ref.watch(organizationViewModelProvider);
     final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
     final Size size = MediaQuery.of(context).size;
     return size.width > 1000
@@ -35,7 +36,7 @@ class AppbarWidget extends ConsumerWidget {
                     Icons.menu,
                     color: kWhite,
                   ),
-                  onPressed: () => homeViewModel.openDrawer(),
+                  onPressed: () => organizationViewModel.openDrawer(),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -256,7 +257,7 @@ class AppbarWidget extends ConsumerWidget {
                     Icons.menu,
                     color: kWhite,
                   ),
-                  onPressed: () => homeViewModel.openDrawer(),
+                  onPressed: () => organizationViewModel.openDrawer(),
                 ),
                 const SizedBox(width: 10),
                 Text(

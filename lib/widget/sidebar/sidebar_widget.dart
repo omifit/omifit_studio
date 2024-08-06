@@ -43,42 +43,39 @@ class _SidebarWidgetState extends State<SidebarWidget> {
             size: 20,
           ),
           label: Text('Dashboard', style: TextStyle(color: kWhite)),
-
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(CupertinoIcons.qrcode,color: kWhite),
+          icon: Icon(CupertinoIcons.qrcode, color: kWhite),
           label: Text('Attendance', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.user,color: kWhite),
+          icon: Icon(IconlyLight.user, color: kWhite),
           label: Text('Members', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.work,color: kWhite),
+          icon: Icon(IconlyLight.work, color: kWhite),
           label: Text('Staffs', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.video,color: kWhite),
+          icon: Icon(IconlyLight.video, color: kWhite),
           label: Text('Guidance', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.document,color: kWhite),
+          icon: Icon(IconlyLight.document, color: kWhite),
           label: Text('Plans', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.discount,color: kWhite,),
+          icon: Icon(
+            IconlyLight.discount,
+            color: kWhite,
+          ),
           label: Text('Discount', style: TextStyle(color: kWhite)),
-        ),
-        const SizedBox(height: 4),
-        const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.add_user,color: kWhite,),
-          label: Text('Leads', style: TextStyle(color: kWhite)),
         ),
       ],
     );

@@ -53,25 +53,30 @@ class OrgCard extends StatelessWidget {
               ),
             ),
             gapH8,
-            Text(
-              tittle,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            gapH6,
-            Text(
-              subTittle,
-              style: const TextStyle(
-                color: Color(0xFFA8A8A8),
-                fontSize: 12,
-              ),
-            ),
-            gapH12,
-            OutlinedBtn(text: role, onPressed: () {}),
-            gapH18,
+            PaddedColumn(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                children: [
+                  Text(
+                    tittle,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  gapH6,
+                  Text(
+                    subTittle,
+                    style: const TextStyle(
+                      color: Color(0xFFA8A8A8),
+                      fontSize: 12,
+                    ),
+                  ),
+                  gapH12,
+                  OutlinedBtn(text: role, onPressed: () {}),
+                  gapH18,
+                ]),
           ],
         ),
       ),

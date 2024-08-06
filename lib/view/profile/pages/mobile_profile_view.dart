@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/core/core.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/dialog/add_org_dialog.dart';
+import 'package:omifit/view/organization/organization_view_model.dart';
+import 'package:omifit/view/profile/others/add_org/add_org_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
@@ -23,6 +24,7 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(profileViewModelProvider).userDetails(context);
+      ref.read(organizationViewModelProvider).orgListByUser(context);
     });
     super.initState();
   }
@@ -31,6 +33,8 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
   Widget build(BuildContext context) {
     final ProfileViewModel profileViewModel =
         ref.watch(profileViewModelProvider);
+    final OrganizationViewModel organizationViewModel =
+        ref.watch(organizationViewModelProvider);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       floatingActionButton: widget.isBack
@@ -52,6 +56,15 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            if (profileViewModel.lodinguserdetails ||
+                organizationViewModel.lodingorglistbyuser)
+              const LinearProgressIndicator(
+                backgroundColor: kyellowbg,
+                minHeight: 5,
+                valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
+              )
+            else
+              const SizedBox.shrink(),
             Stack(
               alignment: Alignment.topRight,
               children: [
@@ -96,7 +109,10 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
               crossAxisCount: 1,
               mainAxisSpacing: 25,
               crossAxisSpacing: 25,
-              itemCount: 10,
+              itemCount: (organizationViewModel
+                          .orglistbyuserRes?.body?.organizations?.length ??
+                      0) +
+                  1,
               itemBuilder: (context, index) {
                 return index == 0
                     ? OrgAddBtn(
@@ -112,13 +128,30 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
                         },
                       )
                     : OrgCard(
-                        url: "https://i.imgur.com/ocbA2RA.png",
-                        tittle: "Omifit Gym",
-                        subTittle: "Gymnasium",
+                        url: organizationViewModel
+                                .orglistbyuserRes!
+                                .body!
+                                .organizations![index - 1]
+                                .organization
+                                ?.orgImage ??
+                            "https://i.imgur.com/ocbA2RA.png",
+                        tittle: organizationViewModel.orglistbyuserRes!.body!
+                                .organizations![index - 1].organization?.name ??
+                            "",
+                        subTittle: organizationViewModel
+                                .orglistbyuserRes!
+                                .body!
+                                .organizations![index - 1]
+                                .organization
+                                ?.address ??
+                            "",
                         onPressed: () {
                           context.goNamed(AppRoute.home.name);
                         },
-                        role: "Admin",
+                        role: (organizationViewModel.orglistbyuserRes!.body!
+                                    .organizations![index - 1].role ??
+                                "")
+                            .toUpperCase(),
                       );
               },
             ),

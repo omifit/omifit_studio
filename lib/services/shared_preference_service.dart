@@ -37,12 +37,14 @@ class SharedPreferenceService {
   static Future<bool> clearAll() async => _prefsInstance.clear();
 
   // Store token and cookies based on devices
-  static Future<void> setToken(String token) async {
-    if (kIsWeb) {
-      html.window.localStorage['token'] = token;
-      // html.document.cookie = "token=$token";
+  static Future<void> setToken(String? token) async {
+    if (token != null) {
+      if (kIsWeb) {
+        html.window.localStorage['token'] = token;
+        // html.document.cookie = "token=$token";
+      }
+      await setString('token', token);
     }
-    await setString('token', token);
   }
 
   // Get token and cookies based on devices

@@ -1,4 +1,5 @@
 import 'package:avatar_glow/avatar_glow.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:omifit/services/shared_preference_service.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:pwa_update_listener/pwa_update_listener.dart';
@@ -16,8 +17,15 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(const Duration(seconds: 3), () {
       print(SharedPreferenceService.getToken());
       if (SharedPreferenceService.getToken() != null) {
-        context.goNamed(AppRoute.profile.name,
-            pathParameters: {'isBack': "false"});
+        final Map<String, dynamic> decodedToken =
+            JwtDecoder.decode(SharedPreferenceService.getToken() ?? "");
+        print(decodedToken);
+        if (decodedToken['orgId'] != null) {
+          context.goNamed(AppRoute.home.name);
+        } else {
+          context.goNamed(AppRoute.profile.name,
+              pathParameters: {'isBack': "false"});
+        }
       } else {
         context.pushReplacementNamed(AppRoute.signin.name);
       }

@@ -2,12 +2,12 @@ import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/auth/signin/signin_view.dart';
 import 'package:omifit/view/auth/signup/signup_view.dart';
 import 'package:omifit/view/auth/verify/verify_view.dart';
-import 'package:omifit/view/home/guidance/guidance_details/guidance_details_view.dart';
-import 'package:omifit/view/home/home_view.dart';
-import 'package:omifit/view/home/member/member_details/member_details_view.dart';
-import 'package:omifit/view/org_details/org_details_view.dart';
-import 'package:omifit/view/profile/dialog/edit/editprofile_view.dart';
-import 'package:omifit/view/profile/dialog/edit/update_phone_view.dart';
+import 'package:omifit/view/organization/guidance/guidance_details/guidance_details_view.dart';
+import 'package:omifit/view/organization/organization_view.dart';
+import 'package:omifit/view/organization/member/member_details/member_details_view.dart';
+import 'package:omifit/view/organization/orgdetails/orgdetails_view.dart';
+import 'package:omifit/view/profile/others/edit_profile/editprofile_view.dart';
+import 'package:omifit/view/profile/others/edit_profile/update_phone_view.dart';
 import 'package:omifit/view/profile/profile_view.dart';
 import 'package:omifit/view/splash/splash_view.dart';
 

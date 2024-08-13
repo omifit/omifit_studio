@@ -1,11 +1,12 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/dialog/addmember_dialog.dart';
+import 'package:omifit/view/organization/member/add_member/addmember_view.dart';
 import 'package:omifit/view/organization/member/member/widget/joindate_dropdown.dart';
 import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
+import 'package:omifit/view/organization/member/member/widget/pagination_dropdown.dart';
 import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
 import 'package:omifit/view/organization/member/member_view_model.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class DesktopMemberView extends ConsumerStatefulWidget {
   const DesktopMemberView({super.key});
@@ -43,12 +44,29 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                     ),
                   ),
                   gapW10,
-                  const CircleAvatar(
-                    radius: 15,
-                    backgroundColor: kyellowbg,
-                    child: Text(
-                      "22",
-                      style: TextStyle(color: primaryColor, fontSize: 12),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(15),
+                      elevation: 0,
+                      backgroundColor: const Color.fromRGBO(194, 117, 39, 0.2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
+                      ),
+                    ),
+                    onPressed: () {
+                      showCupertinoModalSheet(
+                        context: context,
+                        builder: (_) => const AddMemberView(),
+                      );
+                    },
+                    icon: const Icon(CupertinoIcons.add_circled,
+                        color: secondaryColor),
+                    label: const Text(
+                      "Add Member",
+                      style: TextStyle(
+                        color: secondaryColor,
+                        fontSize: 14,
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -65,42 +83,16 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                       onChange: (value) {}, initialValue: "Lifetime"),
                   gapW10,
                   StatusDropdown(onChange: (value) {}, initialValue: "Active"),
-                  gapW10,
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(15),
-                      elevation: 0,
-                      backgroundColor: const Color.fromRGBO(194, 117, 39, 0.2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                    ),
-                    onPressed: () {
-                      WoltModalSheet.show(
-                          minDialogWidth: 900,
-                          maxDialogWidth: 900,
-                          context: context,
-                          barrierDismissible: false,
-                          pageIndexNotifier:
-                              memberViewModel.addMemberDialogPage,
-                          pageListBuilder: (BuildContext context) {
-                            return [
-                              AddMemberDialog.build(context),
-                              PlanAddMemberDialog.build(context, ref),
-                              PaymentAddMemberDialog.build(context, ref),
-                            ];
-                          });
-                    },
-                    icon: const Icon(CupertinoIcons.add_circled,
-                        color: secondaryColor),
-                    label: const Text(
-                      "Add Member",
-                      style: TextStyle(
-                        color: secondaryColor,
-                        fontSize: 14,
-                      ),
+                  gapW6,
+                  SizedBox(
+                    height: 35,
+                    child: VerticalDivider(
+                      color: kGrey.withOpacity(0.4),
+                      thickness: 0.3,
                     ),
                   ),
+                  gapW10,
+                  PaginationDropdown(onChange: (value) {}, initialValue: 0),
                 ],
               ),
               gapH5,
@@ -246,7 +238,8 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                     ],
                   ),
                 ),
-              )
+              ),
+              gapH10,
             ],
           ),
         ),

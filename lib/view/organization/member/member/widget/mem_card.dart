@@ -2,7 +2,6 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/dialog/editmember_dialog.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
@@ -281,9 +280,7 @@ class MemCard extends StatelessWidget {
                             minDialogWidth: 750,
                             maxDialogWidth: 1000,
                             pageListBuilder: (BuildContext context) {
-                              return [
-                                EditMemberDetailsDialog.build(context),
-                              ];
+                              return [];
                             });
                       },
                       icon: CupertinoIcons.pencil,

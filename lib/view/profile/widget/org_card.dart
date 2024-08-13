@@ -46,7 +46,7 @@ class OrgCard extends StatelessWidget {
                           ? 100
                           : 160,
               width: double.infinity,
-              fit: BoxFit.fill,
+              fit: BoxFit.fitWidth,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),

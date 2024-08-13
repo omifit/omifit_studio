@@ -16,20 +16,20 @@ class FilledBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
       onPressed: isLoading! ? null : onPressed,
       child: isLoading!
           ? const SizedBox(
               height: 20,
               width: 20,
               child: CupertinoActivityIndicator(
-                radius: 12
-                ,
-              )
-              // CircularProgressIndicator(
-              //   strokeWidth: 2.0,
-              //   valueColor: AlwaysStoppedAnimation<Color>(kWhite),
-              // ),
-              )
+                radius: 12,
+              ))
           : Text(
               text,
               style: const TextStyle(

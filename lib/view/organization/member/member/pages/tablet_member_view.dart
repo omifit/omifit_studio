@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/dialog/addmember_dialog.dart';
 import 'package:omifit/view/organization/member/member/widget/joindate_dropdown.dart';
 import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
 import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
 import 'package:omifit/view/organization/member/member_view_model.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class TabletMemberView extends ConsumerStatefulWidget {
   const TabletMemberView({super.key});
@@ -30,22 +28,7 @@ class _TabletMemberViewState extends ConsumerState<TabletMemberView> {
             ),
           ),
           onPressed: () {
-            WoltModalSheet.show(
-                minDialogWidth: 0.9.sw,
-                maxDialogWidth: 0.9.sw,
-                context: context,
-                barrierDismissible: false,
-                modalTypeBuilder: (context) {
-                  return WoltModalType.dialog;
-                },
-                pageIndexNotifier: memberViewModel.addMemberDialogPage,
-                pageListBuilder: (BuildContext context) {
-                  return [
-                    AddMemberDialog.build(context),
-                    PlanAddMemberDialog.build(context, ref),
-                    PaymentAddMemberDialog.build(context, ref),
-                  ];
-                });
+            context.pushNamed(AppRoute.addmember.name);
           },
           icon: const Icon(CupertinoIcons.add_circled, color: kWhite),
           label: const Text(

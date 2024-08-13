@@ -6,7 +6,6 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconly/iconly.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/attendance/dialog/mark_attendance_dialogbox.dart';
-import 'package:omifit/view/organization/member/dialog/addmember_dialog.dart';
 import 'package:omifit/view/organization/member/member_view_model.dart';
 import 'package:omifit/view/organization/organization_view_model.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
@@ -142,22 +141,7 @@ class AppbarWidget extends ConsumerWidget {
                         tooltip: 'Add Member',
                         icon: const Icon(IconlyLight.add_user, color: kWhite),
                         hoverColor: primaryColor,
-                        onPressed: () {
-                          WoltModalSheet.show(
-                              minDialogWidth: 0.5.sw,
-                              maxDialogWidth: 0.5.sw,
-                              context: context,
-                              barrierDismissible: false,
-                              pageIndexNotifier:
-                                  memberViewModel.addMemberDialogPage,
-                              pageListBuilder: (BuildContext context) {
-                                return [
-                                  AddMemberDialog.build(context),
-                                  PlanAddMemberDialog.build(context, ref),
-                                  PaymentAddMemberDialog.build(context, ref),
-                                ];
-                              });
-                        },
+                        onPressed: () {},
                       ),
                       const SizedBox(width: 5),
                       IconButton(

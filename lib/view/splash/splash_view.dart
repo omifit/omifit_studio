@@ -20,7 +20,7 @@ class _SplashViewState extends State<SplashView> {
         final Map<String, dynamic> decodedToken =
             JwtDecoder.decode(SharedPreferenceService.getToken() ?? "");
         print(decodedToken);
-        if (decodedToken['orgId'] != null) {
+        if (decodedToken['organizationId'] != null) {
           context.goNamed(AppRoute.home.name);
         } else {
           context.goNamed(AppRoute.profile.name,

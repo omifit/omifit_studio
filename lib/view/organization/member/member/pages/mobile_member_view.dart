@@ -1,12 +1,10 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/dialog/addmember_dialog.dart';
+import 'package:omifit/view/organization/member/add_member/addmember_view.dart';
 import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
 import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class MobileMemberView extends ConsumerStatefulWidget {
   const MobileMemberView({super.key});
@@ -18,9 +16,6 @@ class MobileMemberView extends ConsumerStatefulWidget {
 class _MobileMemberViewState extends ConsumerState<MobileMemberView> {
   @override
   Widget build(BuildContext context) {
-    final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
-    final OrganizationViewModel organizationViewModel =
-        ref.watch(organizationViewModelProvider);
     return Scaffold(
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: ElevatedButton.icon(
@@ -33,19 +28,9 @@ class _MobileMemberViewState extends ConsumerState<MobileMemberView> {
             ),
           ),
           onPressed: () {
-            WoltModalSheet.show(
-                minDialogWidth: 0.9.sw,
-                maxDialogWidth: 0.9.sw,
-                context: context,
-                barrierDismissible: false,
-                pageIndexNotifier: memberViewModel.addMemberDialogPage,
-                pageListBuilder: (BuildContext context) {
-                  return [
-                    AddMemberDialog.build(context),
-                    PlanAddMemberDialog.build(context, ref),
-                    PaymentAddMemberDialog.build(context, ref),
-                  ];
-                });
+            HapticFeedback.lightImpact();
+            showCupertinoModalSheet(
+                context: context, builder: (context) => const AddMemberView());
           },
           icon: const Icon(CupertinoIcons.add_circled, color: kWhite),
           label: const Text(

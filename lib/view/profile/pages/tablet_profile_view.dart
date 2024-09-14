@@ -1,13 +1,15 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:omifit/view/profile/others/add_org/add_org_dialog.dart';
+import 'package:omifit/view/profile/dialog/add_org/add_org_dialog.dart';
+import 'package:omifit/view/profile/dialog/edit_profile/editprofile_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class TabletProfileView extends ConsumerStatefulWidget {
   final bool isBack;
@@ -60,7 +62,7 @@ class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
                 organizationViewModel.lodingorglistbyuser)
               const LinearProgressIndicator(
                 backgroundColor: kyellowbg,
-                minHeight: 5,
+                minHeight: 2,
                 valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
               )
             else
@@ -82,14 +84,33 @@ class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
                   top: 16,
                   right: 16,
                   child: BouncingWidget(
-                    onPressed: () {},
-                    child: const CircleAvatar(
+                    scaleFactor: 1,
+                    duration: const Duration(milliseconds: 200),
+                    onPressed: () {
+                      showCupertinoModalSheet(
+                          context: context,
+                          builder: (context) => const EditProfileDialog());
+                    },
+                    child: CircleAvatar(
                       radius: 22,
                       backgroundColor: Colors.white,
                       child: Padding(
-                        padding: EdgeInsets.all(3),
+                        padding: const EdgeInsets.all(3),
                         child: ProfileImg(
-                          url: "https://i.imgur.com/UnWWlu3.png",
+                          url: (profileViewModel.userDetailsRes?.body?.user
+                                          ?.profileImage ==
+                                      null ||
+                                  profileViewModel.userDetailsRes?.body?.user
+                                          ?.profileImage ==
+                                      '')
+                              ? damiProfile(
+                                  genderViewParse(profileViewModel
+                                      .userDetailsRes?.body?.user?.gender),
+                                  profileViewModel.userDetailsRes?.body?.user
+                                          ?.dateOfBirth ??
+                                      "")
+                              : profileViewModel
+                                  .userDetailsRes!.body!.user!.profileImage!,
                           height: double.infinity,
                           width: double.infinity,
                         ),
@@ -104,7 +125,7 @@ class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
               padding: const EdgeInsets.symmetric(horizontal: 25),
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              crossAxisCount: 2,
+              crossAxisCount: 1,
               mainAxisSpacing: 25,
               crossAxisSpacing: 25,
               itemCount: (organizationViewModel
@@ -115,14 +136,9 @@ class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
                 return index == 0
                     ? OrgAddBtn(
                         onPressed: () {
-                          WoltModalSheet.show(
+                          showCupertinoModalSheet(
                               context: context,
-                              barrierDismissible: false,
-                              pageListBuilder: (BuildContext context) {
-                                return [
-                                  AddOrgDialog.build(context),
-                                ];
-                              });
+                              builder: (context) => const AddOrgDialog());
                         },
                       )
                     : OrgCard(

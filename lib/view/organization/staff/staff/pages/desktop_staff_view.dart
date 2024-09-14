@@ -1,5 +1,7 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/organization/staff/dialog/add_staff_dialog.dart';
 import 'package:omifit/view/organization/staff/staff/widget/staff_card.dart';
 
 class DesktopStaffView extends StatefulWidget {
@@ -25,7 +27,7 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             padding: const EdgeInsets.symmetric(horizontal: 25),
             children: [
-              gapH10,
+              gapH16,
               Row(
                 children: [
                   const Text(
@@ -36,47 +38,35 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                       fontWeight: FontWeight.w800,
                     ),
                   ),
-                  const Spacer(),
+                  gapW14,
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(15),
                       elevation: 0,
-                      surfaceTintColor: primaryColor,
                       backgroundColor: const Color.fromRGBO(194, 117, 39, 0.2),
-                    ),
-                    onPressed: () {},
-                    icon: const Icon(CupertinoIcons.calendar,
-                        color: secondaryColor),
-                    label: const Text(
-                      "Today",
-                      style: TextStyle(
-                        color: secondaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(60),
                       ),
                     ),
-                  ),
-                  gapW10,
-                  ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(20),
-                      elevation: 0,
-                      backgroundColor: const Color.fromRGBO(194, 117, 39, 0.2),
-                    ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showCupertinoModalSheet(
+                        context: context,
+                        builder: (_) => const AddStaffDialog(),
+                      );
+                    },
                     icon: const Icon(CupertinoIcons.add_circled,
                         color: secondaryColor),
                     label: const Text(
-                      "Mark Attendance",
+                      "Add Staff",
                       style: TextStyle(
                         color: secondaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
                       ),
                     ),
                   ),
                 ],
               ),
+              gapH5,
               const Divider(color: kGrey, thickness: 0.2),
               gapH10,
               Container(
@@ -156,9 +146,9 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                       ),
                     ),
                     const SizedBox(
-                      width: 120,
+                      width: 140,
                       child: Text(
-                        "Total Number",
+                        "Assigned Number",
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.w800,
@@ -169,7 +159,7 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                     const SizedBox(
                       width: 80,
                       child: Text(
-                        "Status",
+                        "Role",
                         style: TextStyle(
                           color: primaryColor,
                           fontWeight: FontWeight.w800,
@@ -202,7 +192,7 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                         (index) => Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: StaffCard(
-                            memid: '101',
+                            staffid: '101',
                             name: "Ayush Maji",
                             profilePic: "https://i.imgur.com/UnWWlu3.png",
                             phone: "9876543210",
@@ -210,7 +200,7 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                             joinDate: "12/12/2021",
                             totalMember: "10",
                             onPressed: () {
-                              context.pushNamed(AppRoute.memberDetails.name);
+                              context.pushNamed(AppRoute.staffDetails.name);
                             },
                           ),
                         ),
@@ -218,7 +208,8 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                     ],
                   ),
                 ),
-              )
+              ),
+              gapH10,
             ],
           ),
         ),

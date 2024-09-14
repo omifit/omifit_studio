@@ -1,13 +1,15 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconly/iconly.dart';
+import 'package:omifit/services/shared_preference_service.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/attendance/dialog/mark_attendance_dialogbox.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
 import 'package:omifit/view/organization/organization_view_model.dart';
+import 'package:omifit/view/organization/settings/dialog/settings_dialog.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
@@ -19,9 +21,9 @@ class AppbarWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final OrganizationViewModel organizationViewModel =
+    final OrganizationViewModel orgViewModel =
         ref.watch(organizationViewModelProvider);
-    final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
+
     final Size size = MediaQuery.of(context).size;
     return size.width > 1000
         ? Container(
@@ -35,7 +37,7 @@ class AppbarWidget extends ConsumerWidget {
                     Icons.menu,
                     color: kWhite,
                   ),
-                  onPressed: () => organizationViewModel.openDrawer(),
+                  onPressed: () => orgViewModel.openDrawer(),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -175,8 +177,11 @@ class AppbarWidget extends ConsumerWidget {
                             subtitle: 'Tap to view',
                             icon: IconlyLight.arrow_right_2,
                             onTap: () {
-                              context.pushNamed(AppRoute.profile.name,
-                                  pathParameters: {'isBack': 'true'});
+                              showCupertinoModalSheet(
+                                  context: context,
+                                  builder: (context) => const SettingsDialog());
+                              // context.pushNamed(AppRoute.profile.name,
+                              //     pathParameters: {'isBack': 'true'});
                             },
                             itemTheme: const PullDownMenuItemTheme(
                               subtitleStyle: TextStyle(
@@ -204,6 +209,7 @@ class AppbarWidget extends ConsumerWidget {
                           ),
                           PullDownMenuItem(
                             onTap: () {
+                              SharedPreferenceService.clearAll();
                               context.pushNamed(AppRoute.splash.name);
                             },
                             title: 'Logout',
@@ -241,7 +247,7 @@ class AppbarWidget extends ConsumerWidget {
                     Icons.menu,
                     color: kWhite,
                   ),
-                  onPressed: () => organizationViewModel.openDrawer(),
+                  onPressed: () => orgViewModel.openDrawer(),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -299,8 +305,9 @@ class AppbarWidget extends ConsumerWidget {
                       subtitle: 'Tap to view',
                       icon: IconlyLight.arrow_right_2,
                       onTap: () {
-                        context.pushNamed(AppRoute.profile.name,
-                            pathParameters: {'isBack': 'true'});
+                        showCupertinoModalSheet(
+                            context: context,
+                            builder: (context) => const SettingsDialog());
                       },
                       itemTheme: const PullDownMenuItemTheme(
                         subtitleStyle: TextStyle(
@@ -327,6 +334,7 @@ class AppbarWidget extends ConsumerWidget {
                     ),
                     PullDownMenuItem(
                       onTap: () {
+                        SharedPreferenceService.clearAll();
                         context.pushNamed(AppRoute.splash.name);
                       },
                       title: 'Logout',

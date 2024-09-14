@@ -14,7 +14,6 @@ class Environment {
   Future<void> _init() async {
     setPathUrlStrategy();
     WidgetsFlutterBinding.ensureInitialized();
-
     GoRouter.optionURLReflectsImperativeAPIs = true;
     await SharedPreferenceService.init();
     PWAInstall().setup(installCallback: () {});

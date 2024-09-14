@@ -9,26 +9,28 @@ class OrgAddBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BouncingWidget(
-      scaleFactor: 0.2,
+      scaleFactor: 0.8,
+      duration: const Duration(milliseconds: 200),
       onPressed: onPressed,
       child: Container(
         constraints: const BoxConstraints(
-          minHeight: 275,
+          minHeight: 70,
         ),
         decoration: BoxDecoration(
           color: primaryColor.withOpacity(0.1),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: primaryColor),
         ),
-        child: Column(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
               CupertinoIcons.add,
               color: secondaryColor,
-              size: 35,
+              size: 26,
             ),
-            gapH8,
+            gapW12,
             const Text(
               'Add Organization',
               style: TextStyle(

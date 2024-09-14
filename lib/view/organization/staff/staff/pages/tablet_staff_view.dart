@@ -26,7 +26,7 @@ class _TabletStaffViewState extends ConsumerState<TabletStaffView> {
               (index) => Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: StaffCard(
-                  memid: '101',
+                  staffid: '101',
                   name: "Ayush Maji",
                   profilePic: "https://i.imgur.com/UnWWlu3.png",
                   phone: "9876543210",

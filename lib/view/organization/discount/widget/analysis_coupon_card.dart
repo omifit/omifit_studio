@@ -68,7 +68,7 @@ class AnalysisCouponCard extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    "Daily Members",
+                    tittle(index),
                     style: TextStyle(
                       color: index == 0
                           ? kyellow
@@ -92,5 +92,19 @@ class AnalysisCouponCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String tittle(int index) {
+    if (index == 0) {
+      return "All Coupons";
+    } else if (index == 1) {
+      return "Active Coupons";
+    } else if (index == 2) {
+      return "Expired Coupons";
+    } else if (index == 3) {
+      return "Upcoming Coupons";
+    } else {
+      return "";
+    }
   }
 }

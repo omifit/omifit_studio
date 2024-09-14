@@ -2,11 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:iconly/iconly.dart';
+import 'package:omifit/services/shared_preference_service.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/attendance/attendance_view.dart';
 import 'package:omifit/view/organization/dashboard/dashboard_view.dart';
 import 'package:omifit/view/organization/discount/discount_view.dart';
-import 'package:omifit/view/organization/guidance/guidance/guidance_view.dart';
+import 'package:omifit/view/organization/guidance/guidance_view.dart';
 import 'package:omifit/view/organization/member/member/member_view.dart';
 import 'package:omifit/view/organization/organization_view_model.dart';
 import 'package:omifit/view/organization/plan/plan_view.dart';
@@ -109,6 +110,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ),
                     PullDownMenuItem(
                       onTap: () {
+                        SharedPreferenceService.clearAll();
                         context.pushNamed(AppRoute.splash.name);
                       },
                       title: 'Logout',

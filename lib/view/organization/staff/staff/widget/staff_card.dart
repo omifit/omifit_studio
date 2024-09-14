@@ -4,7 +4,7 @@ import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 
 class StaffCard extends StatelessWidget {
-  final String memid;
+  final String staffid;
   final String profilePic;
   final String name;
   final String phone;
@@ -17,7 +17,7 @@ class StaffCard extends StatelessWidget {
   const StaffCard({
     super.key,
     this.onPressed,
-    required this.memid,
+    required this.staffid,
     required this.profilePic,
     required this.name,
     required this.phone,
@@ -44,7 +44,7 @@ class StaffCard extends StatelessWidget {
             leading: ProfileImg(url: profilePic),
             title: Text(name,
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w600)),
-            subtitle: Text('SID-$memid',
+            subtitle: Text('SID-$staffid',
                 style: TextStyle(fontSize: 12.sp, color: kGrey)),
             trailing: const ChipWidget(
               tittle: 'Trainer',
@@ -65,8 +65,7 @@ class StaffCard extends StatelessWidget {
               children: [
                 gapH10,
                 ListTile(
-                  leading:
-                      const ProfileImg(url: "https://i.imgur.com/UnWWlu3.png"),
+                  leading: ProfileImg(url: profilePic),
                   title: Text(
                     name,
                     style: const TextStyle(
@@ -76,7 +75,7 @@ class StaffCard extends StatelessWidget {
                     ),
                   ),
                   subtitle: Text(
-                    "SID-$memid",
+                    "SID-$staffid",
                     style: const TextStyle(
                         color: secondaryColor,
                         fontSize: 14,
@@ -189,7 +188,7 @@ class StaffCard extends StatelessWidget {
               SizedBox(
                 width: 30,
                 child: Text(
-                  memid,
+                  staffid,
                   style: const TextStyle(color: kWhite),
                 ),
               ),
@@ -229,7 +228,7 @@ class StaffCard extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                  width: 120,
+                  width: 140,
                   child: Text(
                     totalMember ?? "--",
                     style: const TextStyle(color: kWhite),
@@ -242,10 +241,17 @@ class StaffCard extends StatelessWidget {
                   bgColor: kyellowbg,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 50,
-                child: InkWell(
-                    onTap: () {}, child: const Icon(Icons.more_vert_rounded)),
+                child: Text(
+                  "View",
+                  style: TextStyle(
+                    color: primaryColor,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                // InkWell(
+                //     onTap: () {}, child: const Icon(Icons.more_vert_rounded)),
               )
             ],
           ),

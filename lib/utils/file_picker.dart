@@ -8,7 +8,6 @@ import 'package:camera/camera.dart';
 import 'package:colorful_circular_progress_indicator/colorful_circular_progress_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gif_view/gif_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -521,9 +520,9 @@ Future<String?> pickImageWeb(
                                   final image = await controller.takePicture();
                                   file = File(image.path);
                                 } catch (e) {
-                                  Fluttertoast.showToast(
-                                    msg: "Failed to capture image: $e",
-                                  );
+                                  // Fluttertoast.showToast(
+                                  //   msg: "Failed to capture image: $e",
+                                  // );
                                 }
                                 context.pop();
                                 return;
@@ -698,17 +697,17 @@ Future<String> uploadImageMobile(File? picture, BuildContext context) async {
       final responseText = await response.stream.bytesToString();
       final imageUrl =
           jsonDecode(responseText)["data"]; // "data" from api response
-      Fluttertoast.showToast(msg: "Image uploaded successfully");
+      //  Fluttertoast.showToast(msg: "Image uploaded successfully");
       return imageUrl;
     } else {
-      Fluttertoast.showToast(
-        msg: "Failed to upload image. Status code: ${response.statusCode}",
-      );
+      // Fluttertoast.showToast(
+      //   msg: "Failed to upload image. Status code: ${response.statusCode}",
+      // );
       return "";
     }
   } catch (e) {
     Navigator.pop(dcontext!);
-    Fluttertoast.showToast(msg: "Error uploading image: $e");
+    //  Fluttertoast.showToast(msg: "Error uploading image: $e");
     return "";
   }
 }

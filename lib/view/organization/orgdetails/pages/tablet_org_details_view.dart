@@ -10,8 +10,6 @@ class TabletOrgDetailsView extends StatefulWidget {
 class _TabletOrgDetailsViewState extends State<TabletOrgDetailsView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body : Text("new mason page")
-    );
+    return const Scaffold(body: Text("new mason page"));
   }
 }

@@ -1,15 +1,16 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/data/organization/model/selectorg_model.dart';
 import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:omifit/view/profile/others/add_org/add_org_dialog.dart';
+import 'package:omifit/view/profile/dialog/add_org/add_org_dialog.dart';
+import 'package:omifit/view/profile/dialog/edit_profile/editprofile_dialog.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/view/profile/widget/org_add.dart';
 import 'package:omifit/view/profile/widget/org_card.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class DesktopProfileView extends ConsumerStatefulWidget {
   final bool isBack;
@@ -63,7 +64,7 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                 organizationViewModel.lodingorglistbyuser)
               const LinearProgressIndicator(
                 backgroundColor: kyellowbg,
-                minHeight: 5,
+                minHeight: 3,
                 valueColor: AlwaysStoppedAnimation<Color>(secondaryColor),
               )
             else
@@ -85,8 +86,12 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                   top: 16,
                   right: 16,
                   child: BouncingWidget(
+                    scaleFactor: 1,
+                    duration: const Duration(milliseconds: 200),
                     onPressed: () {
-                      context.pushNamed(AppRoute.editProfile.name);
+                      showCupertinoModalSheet(
+                          context: context,
+                          builder: (context) => const EditProfileDialog());
                     },
                     child: CircleAvatar(
                       radius: 25,
@@ -133,14 +138,9 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                 return index == 0
                     ? OrgAddBtn(
                         onPressed: () {
-                          WoltModalSheet.show(
+                          showCupertinoModalSheet(
                               context: context,
-                              barrierDismissible: false,
-                              pageListBuilder: (BuildContext context) {
-                                return [
-                                  AddOrgDialog.build(context),
-                                ];
-                              });
+                              builder: (context) => const AddOrgDialog());
                         },
                       )
                     : OrgCard(
@@ -171,6 +171,7 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                                       .organization!
                                       .id),
                               context);
+                        
                         },
                         role: (organizationViewModel.orglistbyuserRes!.body!
                                     .organizations![index - 1].role ??

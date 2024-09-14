@@ -36,7 +36,7 @@ class OrganizationViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // create org *****************> (Apis)
+  // create org (Apis)
   bool _lodingcreateorg = false;
   bool get lodingcreateorg => _lodingcreateorg;
   Future<void> createOrg(CreateorgReq createorgReq, BuildContext ctx) async {
@@ -84,7 +84,7 @@ class OrganizationViewModel extends ChangeNotifier {
     });
   }
 
-  // selected org *****************> (Apis)
+  // selected org  (Apis)
   Future<void> selectOrg(SelectorgReq selectorgReq, BuildContext ctx) async {
     BuildContext? dcontext;
     showCupertinoDialog(
@@ -125,7 +125,7 @@ class OrganizationViewModel extends ChangeNotifier {
     });
   }
 
-  // org list by user *****************> (Apis)
+  // org list by user (Apis)
   bool _lodingorglistbyuser = false;
   bool get lodingorglistbyuser => _lodingorglistbyuser;
   OrglistbyuserRes? _orglistbyuserRes;

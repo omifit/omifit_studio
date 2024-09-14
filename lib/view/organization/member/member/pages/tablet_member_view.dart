@@ -27,9 +27,7 @@ class _TabletMemberViewState extends ConsumerState<TabletMemberView> {
               borderRadius: BorderRadius.circular(50),
             ),
           ),
-          onPressed: () {
-            context.pushNamed(AppRoute.addmember.name);
-          },
+          onPressed: () {},
           icon: const Icon(CupertinoIcons.add_circled, color: kWhite),
           label: const Text(
             "Add Member",

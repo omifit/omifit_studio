@@ -1,5 +1,6 @@
+import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/widget/imageicon/banner_image.dart';
+import 'package:omifit/widget/imageicon/profile_img.dart';
 
 class OrgCard extends StatelessWidget {
   final String url;
@@ -18,9 +19,10 @@ class OrgCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    return InkWell(
-      onTap: onPressed,
+    return BouncingWidget(
+      scaleFactor: 0.8,
+      duration: const Duration(milliseconds: 100),
+      onPressed: onPressed,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: darkBlack,
@@ -34,52 +36,87 @@ class OrgCard extends StatelessWidget {
             ),
           ],
         ),
-        child: Column(
-          children: [
-            BannerImg(
-              url: url,
-              height: width > 730
-                  ? 160
-                  : width > 600
-                      ? 120
-                      : width > 449
-                          ? 100
-                          : 160,
-              width: double.infinity,
-              fit: BoxFit.fitWidth,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
+        child: Align(
+          child: ListTile(
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            leading: ProfileImg(url: url),
+            title: Text(
+              tittle,
+            ),
+            trailing: Text(
+              role.toUpperCase(),
+              style: const TextStyle(
+                color: primaryColor,
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
               ),
             ),
-            gapH8,
-            PaddedColumn(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                children: [
-                  Text(
-                    tittle,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  gapH6,
-                  Text(
-                    subTittle,
-                    style: const TextStyle(
-                      color: Color(0xFFA8A8A8),
-                      fontSize: 12,
-                    ),
-                  ),
-                  gapH12,
-                  OutlinedBtn(text: role, onPressed: () {}),
-                  gapH18,
-                ]),
-          ],
+          ),
         ),
       ),
     );
+    // return InkWell(
+    //   onTap: onPressed,
+    //   child: DecoratedBox(
+    //     decoration: BoxDecoration(
+    //       color: darkBlack,
+    //       borderRadius: BorderRadius.circular(12),
+    //       boxShadow: [
+    //         BoxShadow(
+    //           color: Colors.black.withOpacity(0.2),
+    //           spreadRadius: 1,
+    //           blurRadius: 60,
+    //           offset: const Offset(0, 5),
+    //         ),
+    //       ],
+    //     ),
+    //     child: Column(
+    //       children: [
+    //         BannerImg(
+    //           url: url,
+    //           height: width > 730
+    //               ? 160
+    //               : width > 600
+    //                   ? 120
+    //                   : width > 449
+    //                       ? 100
+    //                       : 160,
+    //           width: double.infinity,
+    //           fit: BoxFit.fitWidth,
+    //           borderRadius: const BorderRadius.only(
+    //             topLeft: Radius.circular(12),
+    //             topRight: Radius.circular(12),
+    //           ),
+    //         ),
+    //         gapH8,
+    //         PaddedColumn(
+    //             padding: const EdgeInsets.symmetric(horizontal: 16),
+    //             children: [
+    //               Text(
+    //                 tittle,
+    //                 style: const TextStyle(
+    //                   color: Colors.white,
+    //                   fontSize: 16,
+    //                   fontWeight: FontWeight.bold,
+    //                 ),
+    //                 textAlign: TextAlign.center,
+    //               ),
+    //               gapH6,
+    //               Text(
+    //                 subTittle,
+    //                 style: const TextStyle(
+    //                   color: Color(0xFFA8A8A8),
+    //                   fontSize: 12,
+    //                 ),
+    //               ),
+    //               gapH12,
+    //               OutlinedBtn(text: role, onPressed: () {}),
+    //               gapH18,
+    //             ]),
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 }

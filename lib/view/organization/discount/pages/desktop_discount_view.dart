@@ -1,6 +1,8 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/organization/discount/dialog/create_coupon_dialog.dart';
 import 'package:omifit/view/organization/discount/widget/analysis_coupon_card.dart';
 import 'package:omifit/view/organization/discount/widget/coupon_card.dart';
 import 'package:omifit/view/organization/discount/widget/top_coupon_card.dart';
@@ -33,31 +35,40 @@ class _DesktopDiscountViewState extends State<DesktopDiscountView> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   children: [
                     gapH10,
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      title: const Text("Coupons",
-                          style: TextStyle(
-                              color: kWhite,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600)),
-                      trailing: ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(20),
-                            elevation: 0,
-                            backgroundColor:
-                                const Color.fromRGBO(194, 117, 39, 0.2),
-                          ),
-                          onPressed: () {},
-                          icon: const Icon(CupertinoIcons.add_circled,
-                              color: secondaryColor),
-                          label: const Text(
-                            "Create coupon",
+                    Row(
+                      children: [
+                        const Text("Coupons",
                             style: TextStyle(
-                                color: secondaryColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600),
-                          )),
+                                color: kWhite,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600)),
+                        gapW15,
+                        ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(15),
+                              elevation: 0,
+                              backgroundColor:
+                                  const Color.fromRGBO(194, 117, 39, 0.2),
+                            ),
+                            onPressed: () {
+                              showCupertinoModalSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return const CreateCouponDialog();
+                                  });
+                            },
+                            icon: const Icon(CupertinoIcons.add_circled,
+                                color: secondaryColor),
+                            label: const Text(
+                              "Create coupon",
+                              style: TextStyle(
+                                  color: secondaryColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400),
+                            )),
+                      ],
                     ),
+                    gapH10,
                     const Divider(color: kGrey, thickness: 0.2),
                     gapH10,
                     AlignedGridView.count(
@@ -72,7 +83,15 @@ class _DesktopDiscountViewState extends State<DesktopDiscountView> {
                       crossAxisSpacing: 25,
                       itemCount: 6,
                       itemBuilder: (context, index) {
-                        return const CouponCard();
+                        return InkWell(
+                            onTap: () {
+                              showCupertinoModalSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return const CreateCouponDialog();
+                                  });
+                            },
+                            child: const CouponCard());
                       },
                     ),
                     gapH20,

@@ -1,20 +1,36 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/plan/widget/add_plan_dialog.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
+import 'package:omifit/view/organization/plan/dialog/add_plan_dialog.dart';
+import 'package:omifit/view/organization/plan/dialog/edit_plan_dialog.dart';
+import 'package:omifit/view/organization/plan/plan_view_model.dart';
+import 'package:omifit/view/organization/plan/widget/plantile_widget.dart';
 
-class DesktopPlanView extends StatefulWidget {
+class DesktopPlanView extends ConsumerStatefulWidget {
   const DesktopPlanView({super.key});
 
   @override
-  State<DesktopPlanView> createState() => _DesktopPlanViewState();
+  ConsumerState<DesktopPlanView> createState() => _DesktopPlanViewState();
 }
 
-class _DesktopPlanViewState extends State<DesktopPlanView> {
+class _DesktopPlanViewState extends ConsumerState<DesktopPlanView> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _gedata();
+    });
+  }
+
+  void _gedata() {
+    ref.read(planViewModelProvider).getplanlist(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final PlanViewModelProvider planViewModel =
+        ref.watch(planViewModelProvider);
     return Scaffold(
         body: SingleChildScrollView(
       child: PaddedColumn(
@@ -22,7 +38,7 @@ class _DesktopPlanViewState extends State<DesktopPlanView> {
         children: [
           gapH20,
           Container(
-            constraints: BoxConstraints(minHeight: 600.h),
+            constraints: BoxConstraints(minHeight: 620.h),
             width: double.infinity,
             decoration: const BoxDecoration(
               color: darkBlack,
@@ -35,7 +51,7 @@ class _DesktopPlanViewState extends State<DesktopPlanView> {
                 gapH10,
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  title: const Text("Plan",
+                  title: const Text("Plans",
                       style: TextStyle(
                           color: kWhite,
                           fontSize: 18,
@@ -50,16 +66,10 @@ class _DesktopPlanViewState extends State<DesktopPlanView> {
                             const Color.fromRGBO(194, 117, 39, 0.2),
                       ),
                       onPressed: () {
-                        WoltModalSheet.show(
+                        showCupertinoModalSheet(
+                            fullscreenDialog: false,
                             context: context,
-                            barrierDismissible: false,
-                            minDialogWidth: 750,
-                            maxDialogWidth: 1000,
-                            pageListBuilder: (BuildContext context) {
-                              return [
-                                AddPlanDialog.build(context),
-                              ];
-                            });
+                            builder: (_) => const AddPlanDialog());
                       },
                       icon: const Icon(CupertinoIcons.add_circled,
                           color: secondaryColor),
@@ -81,78 +91,44 @@ class _DesktopPlanViewState extends State<DesktopPlanView> {
                       ? 4
                       : MediaQuery.of(context).size.width > 1000
                           ? 3
-                          : MediaQuery.of(context).size.width > 600
-                              ? 2
-                              : 1,
+                          : 2,
                   mainAxisSpacing: 25,
                   crossAxisSpacing: 25,
-                  itemCount: 7,
+                  itemCount: planViewModel
+                          .getPlanListRes?.body?.organizationPlans?.length ??
+                      0,
                   itemBuilder: (context, index) {
-                    return DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: lightBlack,
-                        borderRadius: BorderRadius.all(Radius.circular(26)),
-                      ),
-                      child: PaddedColumn(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 5),
-                        children: [
-                          const ListTile(
-                            contentPadding: EdgeInsets.zero,
-                            visualDensity: VisualDensity.compact,
-                            titleAlignment: ListTileTitleAlignment.center,
-                            horizontalTitleGap: 0,
-                            minVerticalPadding: 0,
-                            trailing: CircleAvatar(
-                              radius: 4,
-                              backgroundColor: kGreen,
-                            ),
-                            title: Text("Gold Plan for 3 months",
-                                style: TextStyle(
-                                    color: kWhite,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                          const Text("₹ 90",
-                              style: TextStyle(
-                                  color: kWhite,
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w700)),
-                          gapH10,
-                          const Text(
-                              "We advertise on social media to drive local clients onto Cosmetropolis and directly to your profile",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 208, 208, 208),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400)),
-                          gapH10,
-                          Container(
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            decoration: const BoxDecoration(
-                              color: kyellowbg,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(12)),
-                            ),
-                            child: ListTile(
-                                onTap: () {
-                                  HapticFeedback.lightImpact();
-                                },
-                                contentPadding: EdgeInsets.zero,
-                                title: const Text("Duration - 6 months",
-                                    style: TextStyle(
-                                        color: secondaryColor,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600)),
-                                trailing: const Icon(
-                                  CupertinoIcons.arrow_right,
-                                  color: secondaryColor,
-                                )),
-                          ),
-                          gapH12,
-                        ],
-                      ),
+                    return PlanTile(
+                      onTap: () {
+                        showCupertinoModalSheet(
+                            fullscreenDialog: false,
+                            context: context,
+                            builder: (_) => EditPlanDialog(
+                                  pid: planViewModel.getPlanListRes?.body
+                                          ?.organizationPlans?[index].id ??
+                                      "",
+                                ));
+                      },
+                      tittle: planViewModel.getPlanListRes?.body
+                              ?.organizationPlans?[index].name ??
+                          "N/A",
+                      price: (planViewModel.getPlanListRes?.body
+                                  ?.organizationPlans?[index].price ??
+                              "N/A")
+                          .toString(),
+                      description: planViewModel.getPlanListRes?.body
+                              ?.organizationPlans?[index].description ??
+                          "N/A",
+                      durationValue: (planViewModel.getPlanListRes?.body
+                                  ?.organizationPlans?[index].duration?.value ??
+                              0)
+                          .toString(),
+                      durationUnit: planViewModel.getPlanListRes?.body
+                              ?.organizationPlans?[index].duration?.unit ??
+                          "",
+                      isActive: planViewModel.getPlanListRes?.body
+                              ?.organizationPlans?[index].isActive ??
+                          false,
                     );
                   },
                 ),
@@ -160,6 +136,7 @@ class _DesktopPlanViewState extends State<DesktopPlanView> {
               ],
             ),
           ),
+          gapH16,
         ],
       ),
     ));

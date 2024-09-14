@@ -2,15 +2,12 @@ import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/auth/signin/signin_view.dart';
 import 'package:omifit/view/auth/signup/signup_view.dart';
 import 'package:omifit/view/auth/verify/verify_view.dart';
-import 'package:omifit/view/organization/guidance/guidance_details/guidance_details_view.dart';
-import 'package:omifit/view/organization/member/add_member/addmember_view.dart';
 import 'package:omifit/view/organization/member/add_member/payment_view.dart';
 import 'package:omifit/view/organization/member/add_member/plan_picker_view.dart';
 import 'package:omifit/view/organization/member/member_details/member_details_view.dart';
 import 'package:omifit/view/organization/organization_view.dart';
 import 'package:omifit/view/organization/orgdetails/orgdetails_view.dart';
-import 'package:omifit/view/profile/others/edit_profile/editprofile_view.dart';
-import 'package:omifit/view/profile/others/edit_profile/update_phone_view.dart';
+import 'package:omifit/view/organization/staff/staff_details/staff_details_view.dart';
 import 'package:omifit/view/profile/profile_view.dart';
 import 'package:omifit/view/splash/splash_view.dart';
 
@@ -24,9 +21,8 @@ enum AppRoute {
   profile,
   editProfile,
   updatePhone,
-  guidanceDetails,
   memberDetails,
-  addmember,
+  staffDetails,
   planpicker,
   payment,
   organizationDetails
@@ -61,24 +57,9 @@ final routers = [
         isBack: state.pathParameters['isBack'] == 'true' ? true : false),
   ),
   GoRoute(
-    path: '/editProfile',
-    name: AppRoute.editProfile.name,
-    builder: (context, state) => const EditProfileDetailView(),
-  ),
-  GoRoute(
-    path: '/updatePhone',
-    name: AppRoute.updatePhone.name,
-    builder: (context, state) => const UpdatePhoneView(),
-  ),
-  GoRoute(
     path: '/home',
     name: AppRoute.home.name,
     builder: (context, state) => const HomeView(),
-  ),
-  GoRoute(
-    path: '/guidanceDetails',
-    name: AppRoute.guidanceDetails.name,
-    builder: (context, state) => const GuidanceDetailsView(),
   ),
   GoRoute(
     path: '/memberDetails',
@@ -86,9 +67,9 @@ final routers = [
     builder: (context, state) => const MemberDetailsView(),
   ),
   GoRoute(
-    path: '/addmember',
-    name: AppRoute.addmember.name,
-    builder: (context, state) => const AddMemberView(),
+    path: '/staffDetails',
+    name: AppRoute.staffDetails.name,
+    builder: (context, state) => const StaffDetailsView(),
   ),
   GoRoute(
     path: '/planpicker',

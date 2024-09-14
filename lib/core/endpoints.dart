@@ -10,3 +10,26 @@ const userDetailsUpdateurl = "/private/users";
 const createorgurl = "/private/organization/create";
 const selectorgurl = "/private/organization/select";
 const orglistbyuserurl = "/private/organization";
+
+// create member
+const creatememberurl = "/private/member/";
+
+// plan
+const createplanurl = "/private/plans/create";
+const planlisturl = "/private/plans/filter";
+String plandetailsurl(String pid) => "/private/plans/$pid";
+String deleteplanurl(String pid) => "/private/plans/$pid";
+String editplanurl(String pid) => "/private/plans/$pid";
+
+// guidance
+const createplaylisturl = "/private/guidance/create-playlist";
+const getplaylisturl = "/private/guidance/get-all-playlist";
+String editplaylisturl = "/private/guidance/update-playlist";
+String deleteplaylisturl(String playlistid) =>
+    "/private/guidance/delete-playlist/$playlistid";
+String getplaylistdetailsurl(String playlistid) =>
+    "/private/guidance/get-documents-by-playlist/$playlistid";
+const addDocumenturl = "/private/guidance/add-document";
+String editDocumenturl = "/private/guidance/edit-document";
+String removeDocumenturl(String docid) =>
+    "/private/guidance/remove-document-by-id/$docid";

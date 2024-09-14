@@ -6,20 +6,25 @@ class FilledBtn extends StatelessWidget {
   final String text;
   final Function() onPressed;
   final bool? isLoading;
+  final Color? color;
+  final double? radius;
   const FilledBtn({
     super.key,
     required this.text,
     required this.onPressed,
     this.isLoading = false,
+    this.color = primaryColor,
+    this.radius = 12,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        backgroundColor: color,
         padding: const EdgeInsets.symmetric(vertical: 15),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(radius!),
         ),
       ),
       onPressed: isLoading! ? null : onPressed,

@@ -102,6 +102,13 @@ class AppThemes {
         borderSide: BorderSide.none,
         borderRadius: BorderRadius.all(Radius.circular(6)),
       ),
+      errorBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: kRed),
+        borderRadius: BorderRadius.all(Radius.circular(6)),
+      ),
+      errorStyle: TextStyle(
+        color: kRed,
+      ),
     ),
     datePickerTheme: const DatePickerThemeData(),
   );

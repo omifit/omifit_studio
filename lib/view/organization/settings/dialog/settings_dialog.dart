@@ -75,7 +75,7 @@ class _SettingsDialogState extends ConsumerState<SettingsDialog> {
                                           ?.profileImage ==
                                       '')
                               ? damiProfile(
-                                  genderViewParse(profileViewModel
+                                  stringTogender(profileViewModel
                                       .userDetailsRes?.body?.user?.gender),
                                   profileViewModel.userDetailsRes?.body?.user
                                           ?.dateOfBirth ??

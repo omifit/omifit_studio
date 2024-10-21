@@ -44,13 +44,16 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () {
-            HapticFeedback.lightImpact();
-            context.pop();
-          },
-          icon: const Icon(Icons.arrow_back_ios_new),
-        ),
+        automaticallyImplyLeading: false,
+        leading: widget.isBack
+            ? IconButton(
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  context.pop();
+                },
+                icon: const Icon(Icons.arrow_back_ios_new),
+              )
+            : null,
         actions: [
           BouncingWidget(
             onPressed: () {
@@ -71,7 +74,7 @@ class _MobileProfileViewState extends ConsumerState<MobileProfileView> {
                                   .userDetailsRes?.body?.user?.profileImage ==
                               '')
                       ? damiProfile(
-                          genderViewParse(profileViewModel
+                          stringTogender(profileViewModel
                               .userDetailsRes?.body?.user?.gender),
                           profileViewModel
                                   .userDetailsRes?.body?.user?.dateOfBirth ??

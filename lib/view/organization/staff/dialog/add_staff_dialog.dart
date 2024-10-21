@@ -113,7 +113,7 @@ class _AddStaffDialogState extends ConsumerState<AddStaffDialog> {
                                             ?.profileImage ==
                                         '')
                                 ? damiProfile(
-                                    genderViewParse(profileViewModel
+                                    stringTogender(profileViewModel
                                         .userDetailsRes?.body?.user?.gender),
                                     profileViewModel.userDetailsRes?.body?.user
                                             ?.dateOfBirth ??

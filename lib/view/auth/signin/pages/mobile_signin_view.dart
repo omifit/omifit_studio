@@ -46,11 +46,11 @@ class _MobileSigninViewState extends ConsumerState<MobileSigninView> {
             ],
           ),
           gapHR15,
-          Text(
+          const Text(
             'New to Omifit ?',
             style: TextStyle(
               color: kWhite,
-              fontSize: 12.sp,
+              fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -105,8 +105,8 @@ class _MobileSigninViewState extends ConsumerState<MobileSigninView> {
                   if (_formKey.currentState!.validate()) {
                     authViewModel.sendOtp(
                         SendOtpReq(
-                          phoneNumber: phonesendParse(
-                              authViewModel.phoneSigninCtrl.text),
+                          phoneNumber:
+                              add91(authViewModel.phoneSigninCtrl.text),
                           forOldUser: true,
                           forNewUser: false,
                         ),
@@ -155,8 +155,8 @@ class _MobileSigninViewState extends ConsumerState<MobileSigninView> {
                     if (_formKey.currentState!.validate()) {
                       authViewModel.sendOtp(
                           SendOtpReq(
-                            phoneNumber: phonesendParse(
-                                authViewModel.phoneSigninCtrl.text),
+                            phoneNumber:
+                                add91(authViewModel.phoneSigninCtrl.text),
                             forOldUser: true,
                             forNewUser: false,
                           ),

@@ -106,7 +106,7 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                                           ?.profileImage ==
                                       '')
                               ? damiProfile(
-                                  genderViewParse(profileViewModel
+                                  stringTogender(profileViewModel
                                       .userDetailsRes?.body?.user?.gender),
                                   profileViewModel.userDetailsRes?.body?.user
                                           ?.dateOfBirth ??
@@ -171,7 +171,6 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                                       .organization!
                                       .id),
                               context);
-                        
                         },
                         role: (organizationViewModel.orglistbyuserRes!.body!
                                     .organizations![index - 1].role ??

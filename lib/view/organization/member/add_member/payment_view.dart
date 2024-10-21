@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 //! Payment member dialog
@@ -451,7 +450,6 @@ class SuccessMemberDialog {
           ),
           onPressed: () {
             Navigator.of(context).pop();
-            ref.read(memberViewModelProvider).addMemberDialogPage.value = 0;
           },
           icon: const Icon(Icons.close, color: primaryColor),
         ),

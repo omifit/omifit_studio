@@ -1,22 +1,41 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/organization/member/edit_member/editmember_view.dart';
 import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
 import 'package:omifit/view/organization/member/member_details/widget/analysis_mem_card.dart';
 import 'package:omifit/view/organization/member/member_details/widget/attendance_memdetails_card.dart';
 import 'package:omifit/view/organization/member/member_details/widget/meminfo_card.dart';
 import 'package:omifit/view/organization/member/member_details/widget/subscription_mem_card.dart';
+import 'package:omifit/view/organization/member/member_view_model.dart';
 
-class DesktopMemberDetailsView extends StatefulWidget {
-  const DesktopMemberDetailsView({super.key});
+class DesktopMemberDetailsView extends ConsumerStatefulWidget {
+  final String uid;
+  const DesktopMemberDetailsView({super.key, required this.uid});
 
   @override
-  State<DesktopMemberDetailsView> createState() =>
+  ConsumerState<DesktopMemberDetailsView> createState() =>
       _DesktopMemberDetailsViewState();
 }
 
-class _DesktopMemberDetailsViewState extends State<DesktopMemberDetailsView> {
+class _DesktopMemberDetailsViewState
+    extends ConsumerState<DesktopMemberDetailsView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getData();
+    });
+    super.initState();
+  }
+
+  void getData() {
+    ref.read(memberViewModelProvider).memberdetails(context, widget.uid);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Member Details"),
@@ -26,7 +45,37 @@ class _DesktopMemberDetailsViewState extends State<DesktopMemberDetailsView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
             children: [
-              const MeminfoCard(),
+              MeminfoCard(
+                name: memberViewModel.memberDetailsRes?.body?.organizationMember
+                        ?.user?.name ??
+                    "",
+                phone: memberViewModel.memberDetailsRes?.body
+                        ?.organizationMember?.user?.phoneNumber ??
+                    "",
+                age: calculateAge(memberViewModel.memberDetailsRes?.body
+                            ?.organizationMember?.user?.dateOfBirth ??
+                        "") ??
+                    "",
+                gender: capitalizeFirst(memberViewModel
+                    .memberDetailsRes?.body?.organizationMember?.user?.gender),
+                profession: capitalizeFirst(memberViewModel.memberDetailsRes
+                    ?.body?.organizationMember?.user?.profession),
+                joinDate: memberViewModel.memberDetailsRes?.body
+                        ?.organizationMember?.joiningDate ??
+                    "",
+                picture: memberViewModel.memberDetailsRes?.body
+                        ?.organizationMember?.user?.profileImage ??
+                    "",
+                isVerify: memberViewModel.memberDetailsRes?.body
+                        ?.organizationMember?.user?.isVerified ??
+                    false,
+                onEdit: () {
+                  showCupertinoModalSheet(
+                    context: context,
+                    builder: (_) => const EditMemberView(),
+                  );
+                },
+              ),
               gapW20,
               Expanded(
                   child: PaddedColumn(

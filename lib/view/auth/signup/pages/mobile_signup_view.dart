@@ -264,8 +264,8 @@ class _MobileSignupViewState extends ConsumerState<MobileSignupView> {
                     if (formKey.currentState!.validate()) {
                       authViewModel.sendOtp(
                           SendOtpReq(
-                              phoneNumber: phonesendParse(
-                                  authViewModel.phoneSignupCtrl.text),
+                              phoneNumber:
+                                  add91(authViewModel.phoneSignupCtrl.text),
                               forNewUser: true,
                               forOldUser: false),
                           context);

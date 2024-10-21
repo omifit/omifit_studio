@@ -116,23 +116,21 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                                 widget.isLogin
                                     ? authViewModel.login(
                                         LoginReq(
-                                          phoneNumber: phonesendParse(
-                                              authViewModel
-                                                  .phoneSigninCtrl.text),
+                                          phoneNumber: add91(authViewModel
+                                              .phoneSigninCtrl.text),
                                           otp: pinCode,
                                         ),
                                         context)
                                     : authViewModel.register(
                                         RegisterReq(
                                             name: authViewModel.nameCtrl.text,
-                                            phoneNumber: phonesendParse(
-                                                authViewModel
-                                                    .phoneSignupCtrl.text),
+                                            phoneNumber: add91(authViewModel
+                                                .phoneSignupCtrl.text),
                                             dateOfBirth:
                                                 authViewModel.dobCtrl.text,
-                                            gender: genderSendParse(
+                                            gender: genderToString(
                                                 authViewModel.gender),
-                                            profession: professionSendParse(
+                                            profession: lowercaseAll(
                                                 authViewModel.profession),
                                             otp: pinCode,
                                             address: "testing",
@@ -164,30 +162,24 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                               widget.isLogin
                                   ? authViewModel.login(
                                       LoginReq(
-                                        phoneNumber: phonesendParse(
+                                        phoneNumber: add91(
                                             authViewModel.phoneSigninCtrl.text),
                                         otp: pinCode,
                                       ),
                                       context)
                                   : authViewModel.register(
                                       RegisterReq(
-                                          name: authViewModel.nameCtrl.text
-                                              .trim(),
-                                          phoneNumber: phonesendParse(
-                                              authViewModel
-                                                  .phoneSignupCtrl.text),
-                                          dateOfBirth:
-                                              authViewModel.dobCtrl.text,
-                                          gender: genderSendParse(
-                                              authViewModel.gender),
-                                          profession: professionSendParse(
-                                              authViewModel.profession),
-                                          otp: pinCode,
-                                          address: "testing",
-                                          location: const LocationReq(
-                                            latitude: 34.4,
-                                            longitude: 34.4,
-                                          )),
+                                        name:
+                                            authViewModel.nameCtrl.text.trim(),
+                                        phoneNumber: add91(
+                                            authViewModel.phoneSignupCtrl.text),
+                                        dateOfBirth: authViewModel.dobCtrl.text,
+                                        gender: genderToString(
+                                            authViewModel.gender),
+                                        profession: lowercaseAll(
+                                            authViewModel.profession),
+                                        otp: pinCode,
+                                      ),
                                       context);
                             }
                           },

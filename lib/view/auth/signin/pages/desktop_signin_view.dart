@@ -110,8 +110,8 @@ class _DesktopSigninViewState extends ConsumerState<DesktopSigninView> {
                           if (_formKey.currentState!.validate()) {
                             authViewModel.sendOtp(
                                 SendOtpReq(
-                                  phoneNumber: phonesendParse(
-                                      authViewModel.phoneSigninCtrl.text),
+                                  phoneNumber:
+                                      add91(authViewModel.phoneSigninCtrl.text),
                                   forOldUser: true,
                                   forNewUser: false,
                                 ),
@@ -131,7 +131,7 @@ class _DesktopSigninViewState extends ConsumerState<DesktopSigninView> {
                             if (_formKey.currentState!.validate()) {
                               authViewModel.sendOtp(
                                   SendOtpReq(
-                                    phoneNumber: phonesendParse(
+                                    phoneNumber: add91(
                                         authViewModel.phoneSigninCtrl.text),
                                     forOldUser: true,
                                     forNewUser: false,

@@ -111,12 +111,12 @@ class _TabletVerifyViewState extends ConsumerState<TabletVerifyView> {
                           : authViewModel.register(
                               RegisterReq(
                                   name: authViewModel.nameCtrl.text.trim(),
-                                  phoneNumber: phonesendParse(
-                                      authViewModel.phoneSignupCtrl.text),
+                                  phoneNumber:
+                                      add91(authViewModel.phoneSignupCtrl.text),
                                   dateOfBirth: authViewModel.dobCtrl.text,
-                                  gender: genderSendParse(authViewModel.gender),
-                                  profession: professionSendParse(
-                                      authViewModel.profession),
+                                  gender: genderToString(authViewModel.gender),
+                                  profession:
+                                      lowercaseAll(authViewModel.profession),
                                   otp: pinCode,
                                   address: "testing",
                                   location: const LocationReq(

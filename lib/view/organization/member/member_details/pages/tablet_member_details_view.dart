@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/member/member_details/widget/analysis_mem_card.dart';
 import 'package:omifit/view/organization/member/member_details/widget/attendance_memdetails_card.dart';
-import 'package:omifit/view/organization/member/member_details/widget/meminfo_card.dart';
 import 'package:omifit/view/organization/member/member_details/widget/subscription_mem_card.dart';
 
 class TabletMemberDetailsView extends StatefulWidget {
-  const TabletMemberDetailsView({super.key});
+  final String uid;
+  const TabletMemberDetailsView({super.key, required this.uid});
 
   @override
   State<TabletMemberDetailsView> createState() =>
@@ -25,7 +25,7 @@ class _TabletMemberDetailsViewState extends State<TabletMemberDetailsView> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             children: [
               gapH20,
-              const MeminfoCard(),
+              // const MeminfoCard(),
               gapH20,
               const AnalysisMemCard(),
               gapH20,

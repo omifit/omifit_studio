@@ -1,5 +1,8 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
+import 'package:omifit/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/member/add_member/addmember_view.dart';
 import 'package:omifit/view/organization/member/member/widget/joindate_dropdown.dart';
@@ -17,8 +20,22 @@ class DesktopMemberView extends ConsumerStatefulWidget {
 
 class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
   @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getData();
+    });
+    super.initState();
+  }
+
+  void getData() {
+    ref
+        .read(memberViewModelProvider)
+        .getmemberlist(context, const GetMemberListReq());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final MemberViewModel memberViewModel = ref.read(memberViewModelProvider);
+    final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -40,7 +57,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                     style: TextStyle(
                       color: kWhite,
                       fontSize: 18,
-                      fontWeight: FontWeight.w800,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                   gapW10,
@@ -217,20 +234,83 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                   child: PaddedColumn(
                     children: [
                       ...List.generate(
-                        50,
+                        memberViewModel.getMemberListRes?.body
+                                ?.organizationMembers?.length ??
+                            0,
                         (index) => Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: MemCard(
                             memid: '101',
-                            name: "Ayush Maji",
-                            profilePic: "https://i.imgur.com/UnWWlu3.png",
-                            phone: "9876543210",
-                            age: "25",
-                            joinDate: "12/12/2021",
+                            name: memberViewModel.getMemberListRes?.body
+                                    ?.organizationMembers?[index].user?.name ??
+                                " -- ",
+                            profilePic: (memberViewModel
+                                            .getMemberListRes
+                                            ?.body
+                                            ?.organizationMembers?[index]
+                                            .user
+                                            ?.profileImage ==
+                                        null ||
+                                    memberViewModel
+                                            .getMemberListRes
+                                            ?.body
+                                            ?.organizationMembers?[index]
+                                            .user
+                                            ?.profileImage ==
+                                        '')
+                                ? damiProfile(
+                                    stringTogender(memberViewModel
+                                        .getMemberListRes
+                                        ?.body
+                                        ?.organizationMembers?[index]
+                                        .user
+                                        ?.gender),
+                                    memberViewModel
+                                            .getMemberListRes
+                                            ?.body
+                                            ?.organizationMembers?[index]
+                                            .user
+                                            ?.dateOfBirth ??
+                                        "")
+                                : memberViewModel
+                                    .getMemberListRes!
+                                    .body!
+                                    .organizationMembers![index]
+                                    .user!
+                                    .profileImage!,
+                            phone: remove91(memberViewModel
+                                    .getMemberListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.phoneNumber) ??
+                                " -- ",
+                            age: calculateAge(memberViewModel
+                                    .getMemberListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.dateOfBirth) ??
+                                " -- ",
+                            joinDate: DateFormat('dd MMM yyyy').format(
+                                DateTime.parse(
+                                    "${memberViewModel.getMemberListRes?.body?.organizationMembers?[index].joiningDate}")),
+                            status: memberViewModel.getMemberListRes?.body
+                                    ?.organizationMembers?[index].status ??
+                                " -- ",
                             coachPic: "https://i.imgur.com/UnWWlu3.png",
                             coachName: "vijay thalapathi roudy",
                             onPressed: () {
-                              context.pushNamed(AppRoute.memberDetails.name);
+                              context.pushNamed(AppRoute.memberDetails.name,
+                                  pathParameters: {
+                                    'uid': memberViewModel
+                                            .getMemberListRes
+                                            ?.body
+                                            ?.organizationMembers?[index]
+                                            .user
+                                            ?.id ??
+                                        ""
+                                  });
                             },
                           ),
                         ),

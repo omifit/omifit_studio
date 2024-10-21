@@ -104,7 +104,7 @@ class _TabletProfileViewState extends ConsumerState<TabletProfileView> {
                                           ?.profileImage ==
                                       '')
                               ? damiProfile(
-                                  genderViewParse(profileViewModel
+                                  stringTogender(profileViewModel
                                       .userDetailsRes?.body?.user?.gender),
                                   profileViewModel.userDetailsRes?.body?.user
                                           ?.dateOfBirth ??

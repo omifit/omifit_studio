@@ -28,7 +28,8 @@ class _ProfessionDropdownState extends State<ProfessionDropdown> {
   Widget build(BuildContext context) {
     return PullDownButton(
       menuOffset: 0,
-      buttonAnchor: widget.ismobile! ? PullDownMenuAnchor.end : null,
+      buttonAnchor:
+          widget.ismobile! ? PullDownMenuAnchor.end : PullDownMenuAnchor.end,
       routeTheme: PullDownMenuRouteTheme(
         backgroundColor: const Color.fromARGB(73, 72, 72, 72),
         borderRadius: BorderRadius.circular(10),

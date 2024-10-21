@@ -62,9 +62,10 @@ final routers = [
     builder: (context, state) => const HomeView(),
   ),
   GoRoute(
-    path: '/memberDetails',
+    path: '/memberDetails/:uid',
     name: AppRoute.memberDetails.name,
-    builder: (context, state) => const MemberDetailsView(),
+    builder: (context, state) =>
+        MemberDetailsView(uid: state.pathParameters['uid']!),
   ),
   GoRoute(
     path: '/staffDetails',

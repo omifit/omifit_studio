@@ -43,15 +43,14 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
         ref.watch(profileViewModelProvider);
     _nameController.text =
         profileViewModel.userDetailsRes?.body?.user?.name ?? "";
-    _phoneController.text = phoneviewParse(
-        profileViewModel.userDetailsRes?.body?.user?.phoneNumber);
+    _phoneController.text =
+        remove91(profileViewModel.userDetailsRes?.body?.user?.phoneNumber);
     _dobController.text =
         dobviewParse(profileViewModel.userDetailsRes?.body?.user?.dateOfBirth);
-    _profession = professionviewParse(
+    _profession = capitalizeFirst(
         profileViewModel.userDetailsRes?.body?.user?.profession);
-    print("profession - $_profession");
     _gender =
-        genderViewParse(profileViewModel.userDetailsRes?.body?.user?.gender);
+        stringTogender(profileViewModel.userDetailsRes?.body?.user?.gender);
     setState(() {});
   }
 
@@ -122,7 +121,7 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                                               ?.user?.profileImage ==
                                           '')
                                   ? damiProfile(
-                                      genderViewParse(profileViewModel
+                                      stringTogender(profileViewModel
                                           .userDetailsRes?.body?.user?.gender),
                                       profileViewModel.userDetailsRes?.body
                                               ?.user?.dateOfBirth ??
@@ -297,7 +296,7 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                   height: 52,
                   child: FilledBtn(
                     isLoading: (_phoneController.text !=
-                            phoneviewParse(profileViewModel
+                            remove91(profileViewModel
                                 .userDetailsRes?.body?.user?.phoneNumber))
                         ? profileViewModel.lodingsendotp
                         : profileViewModel.lodinguserupdate,
@@ -305,20 +304,19 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                     onPressed: () {
                       if (_formkey.currentState!.validate()) {
                         if (_phoneController.text.trim() !=
-                            phoneviewParse(profileViewModel
+                            remove91(profileViewModel
                                 .userDetailsRes?.body?.user?.phoneNumber)) {
                           profileViewModel.setUserupReq(UserDetailsUpdateReq(
                             name: _nameController.text.trim(),
-                            phoneNumber:
-                                phonesendParse(_phoneController.text.trim()),
+                            phoneNumber: add91(_phoneController.text.trim()),
                             dateOfBirth: _dobController.text,
-                            profession: professionSendParse(_profession),
-                            gender: genderSendParse(_gender),
+                            profession: lowercaseAll(_profession),
+                            gender: genderToString(_gender),
                           ));
                           profileViewModel.sendOtp(
                             SendOtpReq(
-                                phoneNumber: phonesendParse(
-                                    _phoneController.text.trim()),
+                                phoneNumber:
+                                    add91(_phoneController.text.trim()),
                                 forOldUser: false,
                                 forNewUser: true),
                             context,
@@ -327,8 +325,8 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                           profileViewModel.setUserupReq(UserDetailsUpdateReq(
                             name: _nameController.text,
                             dateOfBirth: _dobController.text,
-                            profession: professionSendParse(_profession),
-                            gender: genderSendParse(_gender),
+                            profession: lowercaseAll(_profession),
+                            gender: genderToString(_gender),
                           ));
                           profileViewModel.userUpdate(
                             profileViewModel.userupReq,

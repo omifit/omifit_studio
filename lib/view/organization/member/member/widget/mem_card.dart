@@ -1,4 +1,5 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
 import 'package:omifit/utils/utils.dart';
@@ -197,9 +198,17 @@ class MemCard extends StatelessWidget {
               ),
               SizedBox(
                 width: 48,
-                child: ProfileImg(
-                  url: profilePic,
-                  height: 48,
+                child: InkWell(
+                  onTap: () async {
+                    await showDialog(
+                      context: context,
+                      builder: (_) => imageDialog(profilePic),
+                    );
+                  },
+                  child: ProfileImg(
+                    url: profilePic,
+                    height: 48,
+                  ),
                 ),
               ),
               SizedBox(
@@ -248,10 +257,10 @@ class MemCard extends StatelessWidget {
                       ),
                     ],
                   )),
-              const SizedBox(
+              SizedBox(
                 width: 80,
                 child: ChipWidget(
-                  tittle: "Active",
+                  tittle: status ?? " -- ",
                   color: kyellow,
                   bgColor: kyellowbg,
                 ),
@@ -385,4 +394,28 @@ class MemCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget imageDialog(String path) {
+  return Dialog(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: CachedNetworkImage(
+            imageUrl: path,
+            height: 300,
+            fit: BoxFit.cover,
+            errorWidget: (context, url, error) => const Icon(
+              Icons.error,
+              color: primaryColor,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }

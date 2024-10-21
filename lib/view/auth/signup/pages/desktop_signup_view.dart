@@ -135,7 +135,7 @@ class _DesktopSignupViewState extends ConsumerState<DesktopSignupView> {
                                 ).then((value) {
                                   print(value);
                                   if (value != null) {
-                                    authViewModel.dobCtrl.text = 
+                                    authViewModel.dobCtrl.text =
                                         DateFormat('MM/dd/yyyy').format(value);
                                   }
                                 });
@@ -213,7 +213,7 @@ class _DesktopSignupViewState extends ConsumerState<DesktopSignupView> {
                             if (_formKey.currentState!.validate()) {
                               authViewModel.sendOtp(
                                   SendOtpReq(
-                                      phoneNumber: phonesendParse(
+                                      phoneNumber: add91(
                                           authViewModel.phoneSignupCtrl.text),
                                       forNewUser: true,
                                       forOldUser: false),

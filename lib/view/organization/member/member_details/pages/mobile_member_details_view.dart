@@ -6,7 +6,8 @@ import 'package:omifit/view/organization/member/member_details/widget/meminfo_ca
 import 'package:omifit/view/organization/member/member_details/widget/subscription_mem_card.dart';
 
 class MobileMemberDetailsView extends StatefulWidget {
-  const MobileMemberDetailsView({super.key});
+  final String uid;
+  const MobileMemberDetailsView({super.key, required this.uid});
 
   @override
   State<MobileMemberDetailsView> createState() =>
@@ -52,7 +53,7 @@ class _MobileMemberDetailsViewState extends State<MobileMemberDetailsView> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   children: [
                     gapH22,
-                    const MeminfoCard(),
+                    // const MeminfoCard(),
                     gapH20,
                     const AnalysisMemCard(),
                     gapH20,

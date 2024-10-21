@@ -1,9 +1,31 @@
 import 'package:flutter/cupertino.dart';
+import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 
 class MeminfoCard extends StatelessWidget {
-  const MeminfoCard({super.key});
+  final String name;
+  final String phone;
+  final String age;
+  final bool isVerify;
+  final String gender;
+  final String profession;
+  final String joinDate;
+  final String picture;
+  final Function()? onEdit;
+  const MeminfoCard({
+    super.key,
+    required this.name,
+    required this.phone,
+    required this.age,
+    required this.gender,
+    required this.profession,
+    required this.joinDate,
+    required this.picture,
+    required this.isVerify,
+    this.onEdit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,33 +40,36 @@ class MeminfoCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: [
           gapH12,
-          Align(
-            alignment: Alignment.topRight,
-            child: CircleAvatar(
-                backgroundColor: kGrey.withOpacity(0.5),
-                radius: 16,
-                child: const Icon(
-                  Icons.edit,
-                  color: kWhite,
-                  size: 20,
-                )),
+          InkWell(
+            onTap: onEdit,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: CircleAvatar(
+                  backgroundColor: kGrey.withOpacity(0.5),
+                  radius: 16,
+                  child: const Icon(
+                    IconlyLight.edit,
+                    color: kWhite,
+                    size: 20,
+                  )),
+            ),
           ),
-          const Align(
+          Align(
             child: CircleAvatar(
               radius: 47,
               backgroundColor: kWhite,
               child: ProfileImg(
-                url: "https://i.imgur.com/UnWWlu3.png",
+                url: picture,
                 height: 90,
                 width: 90,
               ),
             ),
           ),
           gapH15,
-          const Align(
+          Align(
             child: Text(
-              "Ayush Maji",
-              style: TextStyle(
+              name,
+              style: const TextStyle(
                 color: kGrey,
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
@@ -57,109 +82,131 @@ class MeminfoCard extends StatelessWidget {
             thickness: 0.3,
           ),
           gapH4,
-          const ListTile(
+          ListTile(
             dense: true,
             visualDensity: VisualDensity.compact,
             contentPadding: EdgeInsets.zero,
-            leading: Icon(
+            leading: const Icon(
               CupertinoIcons.phone,
               color: Color(0xffB2B2B2),
             ),
             title: Text(
-              "9749003015",
-              style: TextStyle(
+              phone,
+              style: const TextStyle(
                 color: Color(0xffB2B2B2),
                 fontSize: 14,
               ),
             ),
           ),
-          const ListTile(
+          ListTile(
             dense: true,
             visualDensity: VisualDensity.compact,
             contentPadding: EdgeInsets.zero,
-            leading: Icon(
+            leading: const Icon(
               CupertinoIcons.calendar,
               color: Color(0xffB2B2B2),
             ),
             title: Text(
-              "34 years (age)",
-              style: TextStyle(
+              "$age (age)",
+              style: const TextStyle(
                 color: Color(0xffB2B2B2),
                 fontSize: 14,
               ),
             ),
           ),
-          const ListTile(
+          ListTile(
             dense: true,
             visualDensity: VisualDensity.compact,
             contentPadding: EdgeInsets.zero,
-            leading: Icon(
+            leading: const Icon(
               CupertinoIcons.person_fill,
               color: Color(0xffB2B2B2),
             ),
             title: Text(
-              "Female",
-              style: TextStyle(
+              gender,
+              style: const TextStyle(
                 color: Color(0xffB2B2B2),
                 fontSize: 14,
               ),
             ),
           ),
-          const ListTile(
+          ListTile(
             dense: true,
             visualDensity: VisualDensity.compact,
             contentPadding: EdgeInsets.zero,
             leading: Icon(
-              CupertinoIcons.location,
-              color: Color(0xffB2B2B2),
+              isVerify ? IconlyLight.shield_done : IconlyLight.shield_fail,
+              color: isVerify ? kBlue : kyellow,
             ),
             title: Text(
-              "170a, picnic garden, kolkata, wb, 721008",
+              isVerify ? 'Verified' : 'Not-Verified',
               style: TextStyle(
-                color: Color(0xffB2B2B2),
+                color: isVerify ? kBlue : kyellow,
                 fontSize: 14,
               ),
             ),
           ),
-          gapH10,
+          // const ListTile(
+          //   dense: true,
+          //   visualDensity: VisualDensity.compact,
+          //   contentPadding: EdgeInsets.zero,
+          //   leading: Icon(
+          //     CupertinoIcons.location,
+          //     color: Color(0xffB2B2B2),
+          //   ),
+          //   title: Text(
+          //     "170a, picnic garden, kolkata, wb, 721008",
+          //     style: TextStyle(
+          //       color: Color(0xffB2B2B2),
+          //       fontSize: 14,
+          //     ),
+          //   ),
+          // ),
+
           Wrap(
             children: [
-              Chip(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: const BorderSide(
-                      color: kGreenbg,
-                    )),
-                backgroundColor: kGreenbg,
-                avatar: const Icon(
-                  CupertinoIcons.bag,
-                  color: kGreen,
-                ),
-                label: const Text(
-                  'Student',
-                  style: TextStyle(
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Chip(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: const BorderSide(
+                        color: kGreenbg,
+                      )),
+                  backgroundColor: kGreenbg,
+                  avatar: const Icon(
+                    CupertinoIcons.bag,
                     color: kGreen,
-                  ), //TextStyle
-                ), //Text
+                  ),
+                  label: Text(
+                    profession,
+                    style: const TextStyle(
+                      color: kGreen,
+                    ), //TextStyle
+                  ), //Text
+                ),
               ),
               gapW10,
-              Chip(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50),
-                    side: const BorderSide(
-                      color: lightBlack,
-                    )),
-                backgroundColor: lightBlack,
-                avatar: const Icon(
-                  CupertinoIcons.timer,
-                  color: kWhite,
-                ),
-                label: const Text(
-                  'joined 27sep 2001',
-                  style: TextStyle(
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Chip(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                      side: const BorderSide(
+                        color: lightBlack,
+                      )),
+                  backgroundColor: lightBlack,
+                  avatar: const Icon(
+                    CupertinoIcons.timer,
                     color: kWhite,
-                  ), //TextStyle
-                ), //Text
+                  ),
+                  label: Text(
+                    'joined ${DateFormat('dd MMM yyyy').format(DateTime.parse(joinDate))}',
+                    style: const TextStyle(
+                      color: kWhite,
+                    ), //TextStyle
+                  ), //Text
+                ),
               ),
             ],
           ),

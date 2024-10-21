@@ -22,7 +22,7 @@ class _MobileStaffViewState extends ConsumerState<MobileStaffView> {
         style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.all(15),
           elevation: 0,
-          backgroundColor: primaryColor,
+          backgroundColor: kRed,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -41,22 +41,6 @@ class _MobileStaffViewState extends ConsumerState<MobileStaffView> {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            const ListTile(
-                tileColor: kRedbg,
-                visualDensity: VisualDensity(vertical: -4),
-                title: Text(
-                  "Deleted Staff",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: kRed,
-                  ),
-                ),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: kRed,
-                  size: 14,
-                )),
             gapH20,
             PaddedColumn(
               padding: const EdgeInsets.symmetric(horizontal: 16),

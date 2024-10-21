@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:omifit/core/constants.dart';
 
-String phoneviewParse(String? phone) {
+String remove91(String? phone) {
   if (phone == null) {
     return '';
   } else {
@@ -9,7 +9,7 @@ String phoneviewParse(String? phone) {
   }
 }
 
-String phonesendParse(String? phone) {
+String add91(String? phone) {
   if (phone == null) {
     return '';
   } else {
@@ -35,7 +35,7 @@ String dobsendParse(DateTime? dob) {
   }
 }
 
-String professionviewParse(String? profession) {
+String capitalizeFirst(String? profession) {
   if (profession == null) {
     return 'Student';
   } else {
@@ -44,7 +44,7 @@ String professionviewParse(String? profession) {
   }
 }
 
-String professionSendParse(String? profession) {
+String lowercaseAll(String? profession) {
   if (profession == null) {
     return 'student';
   } else {
@@ -52,7 +52,7 @@ String professionSendParse(String? profession) {
   }
 }
 
-Gender genderViewParse(String? gender) {
+Gender stringTogender(String? gender) {
   if (gender == null) {
     return Gender.male;
   } else {
@@ -64,7 +64,7 @@ Gender genderViewParse(String? gender) {
   }
 }
 
-String genderSendParse(Gender? gender) {
+String genderToString(Gender? gender) {
   if (gender == null) {
     return 'male';
   } else {
@@ -114,3 +114,7 @@ int age(String dob) {
   }
   return age;
 }
+
+String? calculateAge(String? birthDateStr) => birthDateStr != null
+    ? '${DateTime.now().year - DateTime.parse(birthDateStr).year} years'
+    : null;

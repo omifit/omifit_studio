@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:omifit/core/constants.dart';
+import 'package:omifit/data/home/member/model/add_member_model.dart';
 import 'package:omifit/utils/file_picker.dart';
 import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/add_member/plan_picker_view.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
+import 'package:omifit/view/organization/member/member_view_model.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:omifit/widget/picker/profession_dropdown.dart';
 
@@ -37,8 +36,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
 
   @override
   Widget build(BuildContext context) {
-    final ProfileViewModel profileViewModel =
-        ref.watch(profileViewModelProvider);
+    final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
     return Scaffold(
       backgroundColor: darkBlack,
       appBar: AppBar(
@@ -60,12 +58,21 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
         actions: [
           TextButton(
             onPressed: () {
-              showCupertinoModalSheet(
-                  context: context,
-                  builder: (context) => const PlanPickerView());
+              memberViewModel.createmember(
+                  context,
+                  AddMemberReq(
+                    name: _nameController.text.trim(),
+                    phoneNumber: add91(_phoneController.text),
+                    dateOfBirth: _dobController.text,
+                    gender: genderToString(_gender),
+                    profession: lowercaseAll(_profession),
+                  ));
+              // showCupertinoModalSheet(
+              //     context: context,
+              //     builder: (context) => const PlanPickerView());
             },
             child: const Text(
-              "Next",
+              "Done",
               style: TextStyle(
                 color: primaryColor,
                 fontSize: 16,
@@ -110,20 +117,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                         child: Padding(
                           padding: const EdgeInsets.all(3),
                           child: ProfileImg(
-                            url: (profileViewModel.userDetailsRes?.body?.user
-                                            ?.profileImage ==
-                                        null ||
-                                    profileViewModel.userDetailsRes?.body?.user
-                                            ?.profileImage ==
-                                        '')
-                                ? damiProfile(
-                                    genderViewParse(profileViewModel
-                                        .userDetailsRes?.body?.user?.gender),
-                                    profileViewModel.userDetailsRes?.body?.user
-                                            ?.dateOfBirth ??
-                                        "")
-                                : profileViewModel
-                                    .userDetailsRes!.body!.user!.profileImage!,
+                            url: damiProfile(_gender, _dobController.text),
                             height: double.infinity,
                             width: double.infinity,
                           ),
@@ -154,6 +148,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                 ],
                 cursorColor: primaryColor,
                 keyboardType: TextInputType.phone,
+                textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   prefixIcon: CountryCodePicker(
                     enabled: false,
@@ -191,6 +186,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                 decoration: InputDecoration(
                   hintText: 'Enter Your Name',
                   hintStyle: const TextStyle(
+                    color: kGrey,
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
                   ),
@@ -202,55 +198,120 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                     value!.isEmpty ? "Name can't be empty" : null,
               ),
               gapH25,
-              TextFormField(
-                controller: _dobController,
-                readOnly: true,
-                onTap: () {
-                  showDatePicker(
-                    context: context,
-                    initialDatePickerMode: DatePickerMode.year,
-                    initialDate: _dobController.text == ""
-                        ? DateTime.now()
-                        : DateFormat('MM/dd/yyyy').parse(_dobController.text),
-                    firstDate: DateTime(1900),
-                    lastDate: DateTime.now(),
-                    onDatePickerModeChange: (value) => print(value),
-                  ).then((value) {
-                    if (value != null) {
-                      _dobController.text = dobsendParse(value);
-                      setState(() {});
-                    }
-                  });
-                },
-                cursorColor: primaryColor,
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  hintText: 'Enter Your Date of Birth',
-                  hintStyle: const TextStyle(
-                    color: kGrey,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  suffixIcon: const Icon(
-                    IconlyBold.calendar,
-                    color: kGrey,
-                  ),
+              if (ResponsiveMember.isMobile(context))
+                Column(
+                  children: [
+                    TextFormField(
+                      controller: _dobController,
+                      readOnly: true,
+                      onTap: () {
+                        showDatePicker(
+                          context: context,
+                          initialDatePickerMode: DatePickerMode.year,
+                          initialDate: _dobController.text == ""
+                              ? DateTime.now()
+                              : DateFormat('MM/dd/yyyy')
+                                  .parse(_dobController.text),
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime.now(),
+                          onDatePickerModeChange: (value) => print(value),
+                        ).then((value) {
+                          if (value != null) {
+                            _dobController.text = dobsendParse(value);
+                            setState(() {});
+                          }
+                        });
+                      },
+                      cursorColor: primaryColor,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Your Date of Birth',
+                        hintStyle: const TextStyle(
+                          color: kGrey,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        suffixIcon: const Icon(
+                          IconlyBold.calendar,
+                          color: kGrey,
+                        ),
+                      ),
+                      validator: (value) =>
+                          value!.isEmpty ? "DOB can't be empty" : null,
+                    ),
+                    gapH25,
+                    ProfessionDropdown(
+                      onChange: (value) {
+                        _profession = value;
+                        setState(() {});
+                      },
+                      initialValue: _profession,
+                    ),
+                  ],
+                )
+              else
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: _dobController,
+                        readOnly: true,
+                        onTap: () {
+                          showDatePicker(
+                            context: context,
+                            initialDatePickerMode: DatePickerMode.year,
+                            initialDate: _dobController.text == ""
+                                ? DateTime.now()
+                                : DateFormat('MM/dd/yyyy')
+                                    .parse(_dobController.text),
+                            firstDate: DateTime(1900),
+                            lastDate: DateTime.now(),
+                            onDatePickerModeChange: (value) => print(value),
+                          ).then((value) {
+                            if (value != null) {
+                              _dobController.text = dobsendParse(value);
+                              setState(() {});
+                            }
+                          });
+                        },
+                        cursorColor: primaryColor,
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          hintText: 'Enter Your Date of Birth',
+                          hintStyle: const TextStyle(
+                            color: kGrey,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          suffixIcon: const Icon(
+                            IconlyBold.calendar,
+                            color: kGrey,
+                          ),
+                        ),
+                        validator: (value) =>
+                            value!.isEmpty ? "DOB can't be empty" : null,
+                      ),
+                    ),
+                    gapW10,
+                    Expanded(
+                      child: ProfessionDropdown(
+                        onChange: (value) {
+                          _profession = value;
+                          setState(() {});
+                        },
+                        initialValue: _profession,
+                      ),
+                    ),
+                  ],
                 ),
-                validator: (value) =>
-                    value!.isEmpty ? "DOB can't be empty" : null,
-              ),
-              gapH25,
-              ProfessionDropdown(
-                onChange: (value) {
-                  _profession = value;
-                  setState(() {});
-                },
-                initialValue: _profession,
-              ),
               gapH25,
               SizedBox(
                 width: double.infinity,
@@ -283,6 +344,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                         : (v == 2)
                             ? Gender.female
                             : Gender.others;
+                    setState(() {});
                   },
                 ),
               ),

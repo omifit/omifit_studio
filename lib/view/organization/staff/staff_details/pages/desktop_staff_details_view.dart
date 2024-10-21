@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/member/member_details/widget/attendance_memdetails_card.dart';
-import 'package:omifit/view/organization/member/member_details/widget/meminfo_card.dart';
 import 'package:omifit/view/organization/staff/staff_details/widget/assignedmem_card.dart';
 
 class DesktopStaffDetailsView extends StatefulWidget {
@@ -24,7 +23,7 @@ class _DesktopStaffDetailsViewState extends State<DesktopStaffDetailsView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
             children: [
-              const MeminfoCard(),
+              // const MeminfoCard(),
               gapW20,
               Expanded(
                   child: PaddedColumn(

@@ -11,8 +11,12 @@ const createorgurl = "/private/organization/create";
 const selectorgurl = "/private/organization/select";
 const orglistbyuserurl = "/private/organization";
 
-// create member
-const creatememberurl = "/private/member/";
+// member
+const creatememberurl = "/private/member";
+const memberlisturl = "/private/member/filter";
+String memberdetailsurl(String uid) => "/private/member/$uid";
+const editmemberurl = "/private/member";
+String deletememberurl(String uid) => "/private/member/$uid";
 
 // plan
 const createplanurl = "/private/plans/create";

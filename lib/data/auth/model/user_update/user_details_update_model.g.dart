@@ -11,7 +11,9 @@ _$UserDetailsUpdateReqImpl _$$UserDetailsUpdateReqImplFromJson(
     _$UserDetailsUpdateReqImpl(
       name: json['name'] as String?,
       phoneNumber: json['phoneNumber'],
-      dateOfBirth: json['dateOfBirth'] as String?,
+      dateOfBirth: json['dateOfBirth'] == null
+          ? null
+          : DateTime.parse(json['dateOfBirth'] as String),
       gender: json['gender'] as String?,
       profession: json['profession'] as String?,
       address: json['address'] as String?,
@@ -26,7 +28,7 @@ Map<String, dynamic> _$$UserDetailsUpdateReqImplToJson(
     <String, dynamic>{
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
-      'dateOfBirth': instance.dateOfBirth,
+      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'gender': instance.gender,
       'profession': instance.profession,
       'address': instance.address,

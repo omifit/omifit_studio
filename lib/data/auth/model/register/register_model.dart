@@ -16,7 +16,7 @@ class RegisterReq with _$RegisterReq {
   const factory RegisterReq({
     String? name,
     String? phoneNumber,
-    String? dateOfBirth,
+    DateTime? dateOfBirth,
     String? gender,
     String? profession,
     String? profileImage,

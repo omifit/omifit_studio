@@ -17,21 +17,22 @@ String add91(String? phone) {
   }
 }
 
-String dobviewParse(String? dob) {
+// dobviewParse
+DateTime stringToDateTime(String? dob) {
   if (dob == null) {
-    return '';
+    return DateTime.now();
   } else {
-    return DateFormat('MM/dd/yyyy')
-        .format(DateTime.parse(dob)); // convert "2021-09-01" to "09/01/2021"
+    return DateFormat('dd/MM/yyyy')
+        .parse(dob); // convert 27/02/2003 to 2003-02-27 00:00:00.000
   }
 }
 
-String dobsendParse(DateTime? dob) {
+String stringToDateFormatString(String? dob) {
   if (dob == null) {
     return '';
   } else {
-    return DateFormat('MM/dd/yyyy')
-        .format(dob); // convert "2021-09-01" to "09/01/2021
+    return DateFormat("dd/MM/yyyy").format(
+        DateTime.parse(dob)); // convert 2003-02-27 00:00:00.000 to 27/02/2003
   }
 }
 

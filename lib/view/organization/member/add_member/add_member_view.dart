@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +14,8 @@ import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:omifit/widget/picker/profession_dropdown.dart';
 
 class AddMemberView extends ConsumerStatefulWidget {
-  const AddMemberView({super.key});
+  final String phonenumber;
+  const AddMemberView({super.key, required this.phonenumber});
   @override
   ConsumerState<AddMemberView> createState() => _AddMemberViewState();
 }
@@ -27,10 +27,11 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
   final TextEditingController _dobController = TextEditingController();
   Gender _gender = Gender.male;
   String _profession = "Student";
-  File? _image;
+  String? _image;
 
   @override
   void initState() {
+    _phoneController.text = widget.phonenumber;
     super.initState();
   }
 
@@ -67,18 +68,17 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                     gender: genderToString(_gender),
                     profession: lowercaseAll(_profession),
                   ));
-              // showCupertinoModalSheet(
-              //     context: context,
-              //     builder: (context) => const PlanPickerView());
             },
-            child: const Text(
-              "Done",
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
+            child: memberViewModel.lodingaddmember
+                ? const CupertinoActivityIndicator()
+                : const Text(
+                    "Done",
+                    style: TextStyle(
+                      color: kRed,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
           ),
           gapW10
         ],
@@ -101,33 +101,24 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                 child: Stack(
                   alignment: Alignment.bottomRight,
                   children: [
-                    if (_image != null)
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundColor: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: Image.network(_image!.path),
-                        ),
-                      )
-                    else
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundColor: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: ProfileImg(
-                            url: damiProfile(_gender, _dobController.text),
-                            height: double.infinity,
-                            width: double.infinity,
-                          ),
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(3),
+                        child: ProfileImg(
+                          url: _image ??
+                              damiProfile(_gender, _dobController.text),
+                          height: double.infinity,
+                          width: double.infinity,
                         ),
                       ),
+                    ),
                     const CircleAvatar(
                       backgroundColor: kWhite,
                       radius: 16,
                       child: CircleAvatar(
-                        backgroundColor: secondaryColor,
+                        backgroundColor: kRed,
                         radius: 14,
                         child: Icon(
                           Icons.edit,
@@ -141,6 +132,28 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
               ),
               gapH25,
               TextFormField(
+                controller: _nameController,
+                cursorColor: primaryColor,
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(
+                  hintText: 'Enter Your Name',
+                  hintStyle: const TextStyle(
+                    color: kGrey,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 14,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                validator: (value) =>
+                    value!.isEmpty ? "Name can't be empty" : null,
+              ),
+              gapH25,
+              TextFormField(
+                readOnly: true,
+                // enabled: false,
                 controller: _phoneController,
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(10),
@@ -178,26 +191,6 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                         : null,
               ),
               gapH25,
-              TextFormField(
-                controller: _nameController,
-                cursorColor: primaryColor,
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  hintText: 'Enter Your Name',
-                  hintStyle: const TextStyle(
-                    color: kGrey,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                validator: (value) =>
-                    value!.isEmpty ? "Name can't be empty" : null,
-              ),
-              gapH25,
               if (ResponsiveMember.isMobile(context))
                 Column(
                   children: [
@@ -217,7 +210,8 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                           onDatePickerModeChange: (value) => print(value),
                         ).then((value) {
                           if (value != null) {
-                            _dobController.text = dobsendParse(value);
+                            _dobController.text =
+                                DateFormat('dd/MM/yyyy').format(value);
                             setState(() {});
                           }
                         });
@@ -263,7 +257,6 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                         onTap: () {
                           showDatePicker(
                             context: context,
-                            initialDatePickerMode: DatePickerMode.year,
                             initialDate: _dobController.text == ""
                                 ? DateTime.now()
                                 : DateFormat('MM/dd/yyyy')
@@ -273,7 +266,8 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                             onDatePickerModeChange: (value) => print(value),
                           ).then((value) {
                             if (value != null) {
-                              _dobController.text = dobsendParse(value);
+                              _dobController.text =
+                                  DateFormat('dd/MM/yyyy').format(value);
                               setState(() {});
                             }
                           });

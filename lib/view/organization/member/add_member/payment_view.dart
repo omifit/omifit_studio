@@ -1,17 +1,24 @@
 import 'package:flutter/cupertino.dart';
-import 'package:iconly/iconly.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 //! Payment member dialog
-class PaymentView extends ConsumerWidget {
+class PaymentView extends ConsumerStatefulWidget {
+  final List<dynamic> selectedItems;
   const PaymentView({
     super.key,
+    required this.selectedItems,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PaymentView> createState() => _PaymentViewState();
+}
+
+class _PaymentViewState extends ConsumerState<PaymentView> {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -50,7 +57,7 @@ class PaymentView extends ConsumerWidget {
         children: [
           gapH22,
           ...List.generate(
-              2,
+              widget.selectedItems.length,
               (index) => Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: DecoratedBox(
@@ -75,14 +82,14 @@ class PaymentView extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const ListTile(
+                          ListTile(
                             titleAlignment: ListTileTitleAlignment.bottom,
-                            title: Text("Gold Plan for 3 months",
-                                style: TextStyle(
+                            title: Text(widget.selectedItems[index]["planName"],
+                                style: const TextStyle(
                                     color: kWhite,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w500)),
-                            trailing: Text("\$ 90",
+                            trailing: const Text("\$ 90",
                                 style: TextStyle(
                                     color: primaryColor,
                                     fontSize: 18,
@@ -92,13 +99,23 @@ class PaymentView extends ConsumerWidget {
                             crossAxisAlignment: WrapCrossAlignment.start,
                             children: [
                               TextButton.icon(
-                                  label: const Text(
-                                      "Activation Date - 2 jan 2024",
-                                      style: TextStyle(
+                                  label: Text(
+                                      "Activation Date - ${widget.selectedItems[index]["membershipStartDate"]}",
+                                      style: const TextStyle(
                                           color: kGrey,
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500)),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showDatePicker(
+                                      context: context,
+                                      initialDate: widget.selectedItems[index]
+                                          ["membershipStartDate"],
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime.now(),
+                                      onDatePickerModeChange: (value) =>
+                                          print(value),
+                                    ).then((value) {});
+                                  },
                                   icon: const Icon(
                                     Icons.mode_edit,
                                     color: primaryColor,
@@ -138,14 +155,6 @@ class PaymentView extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: lightBlack.withOpacity(0.4),
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
-                    // boxShadow: [
-                    //   BoxShadow(
-                    //     color: darkBlack.withOpacity(0.9),
-                    //     spreadRadius: 2,
-                    //     blurRadius: 90,
-                    //     offset: const Offset(0, 3),
-                    //   ),
-                    // ],
                   ),
                   child: PaddedColumn(
                     padding: const EdgeInsets.symmetric(
@@ -169,7 +178,7 @@ class PaymentView extends ConsumerWidget {
                           ),
                         ),
                         trailing: const Text(
-                          "\$90",
+                          "₹ 90",
                           style: TextStyle(
                             color: kWhite,
                             fontSize: 14,
@@ -177,32 +186,32 @@ class PaymentView extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      ListTile(
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        contentPadding: EdgeInsets.zero,
-                        leading: Icon(
-                          Icons.account_balance_rounded,
-                          color: kWhite.withOpacity(0.5),
-                          size: 19,
-                        ),
-                        title: const Text(
-                          "GST and orgaization fee",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: const Text(
-                          "\$90",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
+                      // ListTile(
+                      //   dense: true,
+                      //   visualDensity: VisualDensity.compact,
+                      //   contentPadding: EdgeInsets.zero,
+                      //   leading: Icon(
+                      //     Icons.account_balance_rounded,
+                      //     color: kWhite.withOpacity(0.5),
+                      //     size: 19,
+                      //   ),
+                      //   title: const Text(
+                      //     "GST and orgaization fee",
+                      //     style: TextStyle(
+                      //       color: kWhite,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.w400,
+                      //     ),
+                      //   ),
+                      //   trailing: const Text(
+                      //     "\$90",
+                      //     style: TextStyle(
+                      //       color: kWhite,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.w400,
+                      //     ),
+                      //   ),
+                      // ),
                       ListTile(
                         dense: true,
                         visualDensity: VisualDensity.compact,
@@ -229,32 +238,32 @@ class PaymentView extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      ListTile(
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        contentPadding: EdgeInsets.zero,
-                        leading: Icon(
-                          IconlyLight.discount,
-                          color: kWhite.withOpacity(0.5),
-                          size: 19,
-                        ),
-                        title: const Text(
-                          "Coupon Discount",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: const Text(
-                          "\$ 90",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
+                      // ListTile(
+                      //   dense: true,
+                      //   visualDensity: VisualDensity.compact,
+                      //   contentPadding: EdgeInsets.zero,
+                      //   leading: Icon(
+                      //     IconlyLight.discount,
+                      //     color: kWhite.withOpacity(0.5),
+                      //     size: 19,
+                      //   ),
+                      //   title: const Text(
+                      //     "Coupon Discount",
+                      //     style: TextStyle(
+                      //       color: kWhite,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.w400,
+                      //     ),
+                      //   ),
+                      //   trailing: const Text(
+                      //     "\$ 90",
+                      //     style: TextStyle(
+                      //       color: kWhite,
+                      //       fontSize: 14,
+                      //       fontWeight: FontWeight.w500,
+                      //     ),
+                      //   ),
+                      // ),
 
                       // DecoratedBox(
                       //   decoration: BoxDecoration(
@@ -333,7 +342,7 @@ class PaymentView extends ConsumerWidget {
                           ),
                         ),
                         trailing: const Text(
-                          "\$ 90",
+                          "₹ 90",
                           style: TextStyle(
                             color: kWhite,
                             fontSize: 14,
@@ -365,11 +374,15 @@ class PaymentView extends ConsumerWidget {
                           CupertinoTextFormFieldRow(
                             padding: EdgeInsets.zero,
                             keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(10),
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             prefix: const SizedBox(
                                 width: 80,
                                 child: Text(
                                   'Pay',
-                                  style: TextStyle(fontSize: 16),
+                                  style: TextStyle(fontSize: 15),
                                 )),
                             placeholder: 'Enter Amount',
                             style: const TextStyle(color: kWhite),
@@ -387,10 +400,14 @@ class PaymentView extends ConsumerWidget {
                           CupertinoTextFormFieldRow(
                             padding: EdgeInsets.zero,
                             keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              LengthLimitingTextInputFormatter(10),
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                             prefix: const SizedBox(
                                 width: 80,
                                 child: Text('Due',
-                                    style: TextStyle(fontSize: 16))),
+                                    style: TextStyle(fontSize: 15))),
                             placeholder: 'Enter Amount',
                             style: const TextStyle(color: kWhite),
                             validator: (String? value) {
@@ -406,10 +423,11 @@ class PaymentView extends ConsumerWidget {
                           ),
                           CupertinoTextFormFieldRow(
                             padding: EdgeInsets.zero,
+                            maxLines: 2,
                             prefix: const SizedBox(
                                 width: 80,
                                 child: Text('Remark',
-                                    style: TextStyle(fontSize: 16))),
+                                    style: TextStyle(fontSize: 15))),
                             placeholder: ' Enter Remark',
                             style: const TextStyle(color: kWhite),
                             validator: (String? value) {

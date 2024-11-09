@@ -217,7 +217,8 @@ class _EditMemberViewState extends ConsumerState<EditMemberView> {
                           onDatePickerModeChange: (value) => print(value),
                         ).then((value) {
                           if (value != null) {
-                            _dobController.text = dobsendParse(value);
+                            _dobController.text =
+                                DateFormat('dd/MM/yyyy').format(value);
                             setState(() {});
                           }
                         });
@@ -273,7 +274,8 @@ class _EditMemberViewState extends ConsumerState<EditMemberView> {
                             onDatePickerModeChange: (value) => print(value),
                           ).then((value) {
                             if (value != null) {
-                              _dobController.text = dobsendParse(value);
+                              _dobController.text =
+                                  DateFormat('dd/MM/yyyy').format(value);
                               setState(() {});
                             }
                           });

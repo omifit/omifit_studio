@@ -123,24 +123,17 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                                         context)
                                     : authViewModel.register(
                                         RegisterReq(
-                                            name: authViewModel.nameCtrl.text,
-                                            phoneNumber: add91(authViewModel
-                                                .phoneSignupCtrl.text),
-                                            dateOfBirth:
-                                                authViewModel.dobCtrl.text,
-                                            gender: genderToString(
-                                                authViewModel.gender),
-                                            profession: lowercaseAll(
-                                                authViewModel.profession),
-                                            otp: pinCode,
-                                            address: "testing",
-                                            profileImage: damiProfile(
-                                                authViewModel.gender,
-                                                authViewModel.dobCtrl.text),
-                                            location: const LocationReq(
-                                              latitude: 34.4,
-                                              longitude: 34.4,
-                                            )),
+                                          name: authViewModel.nameCtrl.text,
+                                          phoneNumber: add91(authViewModel
+                                              .phoneSignupCtrl.text),
+                                          dateOfBirth: stringToDateTime(
+                                              authViewModel.dobCtrl.text),
+                                          gender: genderToString(
+                                              authViewModel.gender),
+                                          profession: lowercaseAll(
+                                              authViewModel.profession),
+                                          otp: pinCode,
+                                        ),
                                         context);
                               }
                             },
@@ -173,7 +166,8 @@ class _DesktopVerifyViewState extends ConsumerState<DesktopVerifyView> {
                                             authViewModel.nameCtrl.text.trim(),
                                         phoneNumber: add91(
                                             authViewModel.phoneSignupCtrl.text),
-                                        dateOfBirth: authViewModel.dobCtrl.text,
+                                        dateOfBirth: stringToDateTime(
+                                            authViewModel.dobCtrl.text),
                                         gender: genderToString(
                                             authViewModel.gender),
                                         profession: lowercaseAll(

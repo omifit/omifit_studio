@@ -43,7 +43,8 @@ class ProfileImg extends StatelessWidget {
         progressIndicatorBuilder: (context, url, downloadProgress) =>
             Shimmer.fromColors(
           baseColor: darkBlack.withOpacity(0.2),
-          highlightColor: kWhite.withOpacity(0.4),
+          highlightColor:
+              const Color.fromARGB(89, 255, 255, 255).withOpacity(0.4),
           child: const CircleAvatar(),
         ),
         errorWidget: (context, url, error) => const Icon(

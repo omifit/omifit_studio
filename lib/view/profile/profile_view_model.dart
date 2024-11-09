@@ -118,4 +118,28 @@ class ProfileViewModel extends ChangeNotifier {
       notifyListeners();
     });
   }
+
+  Future<void> pictureUpdate(
+      UserDetailsUpdateReq userupReq, BuildContext ctx, String? oldUrl) async {
+    notifyListeners();
+    await _authRepo.updateDetails(userupReq).then((value) {
+      value.fold((l) {
+        ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+          content: Text(l.message),
+        ));
+      }, (r) {
+        ScaffoldMessenger.of(ctx).showSnackBar(const SnackBar(
+          content: Text("Profile Updated Successfully"),
+        ));
+        // delete old picture from storage
+        if (oldUrl != null) {
+          _authRepo.deletefileFromStorage(oldUrl);
+        }
+        // update user details
+        userDetails(ctx);
+        notifyListeners();
+      });
+      notifyListeners();
+    });
+  }
 }

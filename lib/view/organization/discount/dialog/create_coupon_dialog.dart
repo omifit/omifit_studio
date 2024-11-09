@@ -1,6 +1,5 @@
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/profile/profile_view_model.dart';
 
@@ -126,7 +125,8 @@ class _CreateCouponDialogState extends ConsumerState<CreateCouponDialog> {
                           onDatePickerModeChange: (value) => print(value),
                         ).then((value) {
                           if (value != null) {
-                            _startDateController.text = dobsendParse(value);
+                            _startDateController.text =
+                                DateFormat('dd/MM/yyyy').format(value);
                             setState(() {});
                           }
                         });
@@ -171,7 +171,8 @@ class _CreateCouponDialogState extends ConsumerState<CreateCouponDialog> {
                           onDatePickerModeChange: (value) => print(value),
                         ).then((value) {
                           if (value != null) {
-                            _startDateController.text = dobsendParse(value);
+                            _startDateController.text =
+                                DateFormat('dd/MM/yyyy').format(value);
                             setState(() {});
                           }
                         });

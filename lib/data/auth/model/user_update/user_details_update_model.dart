@@ -21,7 +21,7 @@ class UserDetailsUpdateReq with _$UserDetailsUpdateReq {
   const factory UserDetailsUpdateReq({
     String? name,
     dynamic phoneNumber,
-    String? dateOfBirth,
+    DateTime? dateOfBirth,
     String? gender,
     String? profession,
     String? address,

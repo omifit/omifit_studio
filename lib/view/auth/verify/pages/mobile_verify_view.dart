@@ -98,19 +98,16 @@ class _MobileVerifyViewState extends ConsumerState<MobileVerifyView> {
                               context)
                           : authViewModel.register(
                               RegisterReq(
-                                  name: authViewModel.nameCtrl.text.trim(),
-                                  phoneNumber:
-                                      add91(authViewModel.phoneSignupCtrl.text),
-                                  dateOfBirth: authViewModel.dobCtrl.text,
-                                  gender: genderToString(authViewModel.gender),
-                                  profession:
-                                      lowercaseAll(authViewModel.profession),
-                                  otp: pinCode,
-                                  address: "testing",
-                                  location: const LocationReq(
-                                    latitude: 34.4,
-                                    longitude: 34.4,
-                                  )),
+                                name: authViewModel.nameCtrl.text.trim(),
+                                phoneNumber:
+                                    add91(authViewModel.phoneSignupCtrl.text),
+                                dateOfBirth: stringToDateTime(
+                                    authViewModel.dobCtrl.text),
+                                gender: genderToString(authViewModel.gender),
+                                profession:
+                                    lowercaseAll(authViewModel.profession),
+                                otp: pinCode,
+                              ),
                               context);
                     }
                     setState(() {});
@@ -141,19 +138,17 @@ class _MobileVerifyViewState extends ConsumerState<MobileVerifyView> {
                               context)
                           : authViewModel.register(
                               RegisterReq(
-                                  name: authViewModel.nameCtrl.text,
-                                  phoneNumber:
-                                      add91(authViewModel.phoneSignupCtrl.text),
-                                  dateOfBirth: authViewModel.dobCtrl.text,
-                                  gender: genderToString(authViewModel.gender),
-                                  profession:
-                                      lowercaseAll(authViewModel.profession),
-                                  otp: pinCode,
-                                  address: "testing",
-                                  location: const LocationReq(
-                                    latitude: 34.4,
-                                    longitude: 34.4,
-                                  )),
+                                name: authViewModel.nameCtrl.text,
+                                phoneNumber:
+                                    add91(authViewModel.phoneSignupCtrl.text),
+                                dateOfBirth: stringToDateTime(
+                                    authViewModel.dobCtrl.text),
+                                gender: genderToString(authViewModel.gender),
+                                profession:
+                                    lowercaseAll(authViewModel.profession),
+                                otp: pinCode,
+                                address: "testing",
+                              ),
                               context);
                     }
                   },

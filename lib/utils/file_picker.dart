@@ -186,6 +186,7 @@ Future<String?> pickImageMobile(
                   Expanded(
                     child: FilledBtn(
                         text: "Save",
+                        radius: 30,
                         onPressed: () async {
                           imagelink = await uploadImageMobile(
                               File(imagePickedFile.path), ctx);
@@ -679,13 +680,13 @@ Future<String> uploadImageMobile(File? picture, BuildContext context) async {
     return "";
   }
   final url = Uri.parse(
-    "https://z2tbmjixu6.us-east-1.awsapprunner.com/v1/auth/upload",
+    "https://omifit-backend-9pmb.onrender.com/common/file-upload",
   );
 
   final request = http.MultipartRequest('POST', url);
   request.files.add(
     await http.MultipartFile.fromPath(
-      'image',
+      'file',
       picture.path,
     ),
   ); // `image` from postman parameter
@@ -695,19 +696,15 @@ Future<String> uploadImageMobile(File? picture, BuildContext context) async {
     Navigator.pop(dcontext!);
     if (response.statusCode == 200) {
       final responseText = await response.stream.bytesToString();
-      final imageUrl =
-          jsonDecode(responseText)["data"]; // "data" from api response
-      //  Fluttertoast.showToast(msg: "Image uploaded successfully");
+      final imageUrl = jsonDecode(responseText)["body"]
+          ["fileLocation"]; // "data" from api response
       return imageUrl;
     } else {
-      // Fluttertoast.showToast(
-      //   msg: "Failed to upload image. Status code: ${response.statusCode}",
-      // );
       return "";
     }
   } catch (e) {
     Navigator.pop(dcontext!);
-    //  Fluttertoast.showToast(msg: "Error uploading image: $e");
+    print("Error uploading image: $e");
     return "";
   }
 }
@@ -743,13 +740,13 @@ Future<String> uploadImageCameraWeb(
   try {
     final bytes = await getBytesFromBlobUrl(blobUrl);
     final multipartFile = http.MultipartFile.fromBytes(
-      'image',
+      'file',
       bytes,
       filename: 'image.png',
       contentType: MediaType('image', 'png'),
     );
     final url = Uri.parse(
-      "https://z2tbmjixu6.us-east-1.awsapprunner.com/v1/auth/upload",
+      "https://omifit-backend-9pmb.onrender.com/common/file-upload",
     );
     final request = http.MultipartRequest('POST', url)
       ..files.add(multipartFile);
@@ -758,8 +755,7 @@ Future<String> uploadImageCameraWeb(
     if (response.statusCode == 200) {
       print('File uploaded successfully.');
       final responseText = await response.stream.bytesToString();
-      final imageUrl = jsonDecode(responseText)["data"];
-
+      final imageUrl = jsonDecode(responseText)["body"]["fileLocation"];
       return imageUrl;
     }
   } catch (e) {
@@ -823,22 +819,20 @@ Future<String> uploadImageGallaryWeb(
   );
   final bytes = await getBytesFromBlobUrl(blobUrl);
   final multipartFile = http.MultipartFile.fromBytes(
-    'image',
+    'file',
     bytes,
     filename: 'image.png',
     contentType: MediaType('image', 'png'),
   );
-  final url = Uri.parse(
-    "https://z2tbmjixu6.us-east-1.awsapprunner.com/v1/auth/upload",
-  );
+  final url =
+      Uri.parse("https://omifit-backend-9pmb.onrender.com/common/file-upload");
   final request = http.MultipartRequest('POST', url)..files.add(multipartFile);
   final response = await request.send();
   Navigator.pop(dcontext!);
   if (response.statusCode == 200) {
     print('File uploaded successfully.');
     final responseText = await response.stream.bytesToString();
-    final imageUrl = jsonDecode(responseText)["data"];
-
+    final imageUrl = jsonDecode(responseText)["body"]["fileLocation"];
     return imageUrl;
   } else {
     print('Failed to upload file. Status code: ${response.statusCode}');

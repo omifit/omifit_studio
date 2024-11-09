@@ -99,4 +99,19 @@ class AuthRepoImpl implements AuthRepo {
       return Left(ApiException(e.toString()));
     }
   }
+
+  @override
+  Future<Either<ApiException, dynamic>> deletefileFromStorage(
+      String url) async {
+    try {
+      final response = await _apiClient.post(
+        "${AppConstants.baseUrl}$deletefilefromstorage",
+        {"fileUrl": url},
+      );
+      return Right(response.data);
+    } catch (e) {
+      logger.e(e);
+      return Left(ApiException(e.toString()));
+    }
+  }
 }

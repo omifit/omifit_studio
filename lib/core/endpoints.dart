@@ -5,6 +5,7 @@ const loginurl = "/auth/users/verify-otp-and-login";
 const registerurl = "/auth/users/verify-otp-and-register";
 const userDetailsurl = "/private/users/details";
 const userDetailsUpdateurl = "/private/users";
+const deletefilefromstorage = "/common/file-delete";
 
 // Organization
 const createorgurl = "/private/organization/create";
@@ -12,6 +13,7 @@ const selectorgurl = "/private/organization/select";
 const orglistbyuserurl = "/private/organization";
 
 // member
+String usersearchurl(String number) => "/private/users/searc/:$number";
 const creatememberurl = "/private/member";
 const memberlisturl = "/private/member/filter";
 String memberdetailsurl(String uid) => "/private/member/$uid";

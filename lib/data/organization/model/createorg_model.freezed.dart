@@ -21,7 +21,7 @@ CreateorgReq _$CreateorgReqFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CreateorgReq {
   String? get name => throw _privateConstructorUsedError;
-  String? get establishedDate => throw _privateConstructorUsedError;
+  DateTime? get establishedDate => throw _privateConstructorUsedError;
   String? get organizationImage => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   double? get latitude => throw _privateConstructorUsedError;
@@ -41,7 +41,7 @@ abstract class $CreateorgReqCopyWith<$Res> {
   @useResult
   $Res call(
       {String? name,
-      String? establishedDate,
+      DateTime? establishedDate,
       String? organizationImage,
       String? address,
       double? latitude,
@@ -76,7 +76,7 @@ class _$CreateorgReqCopyWithImpl<$Res, $Val extends CreateorgReq>
       establishedDate: freezed == establishedDate
           ? _value.establishedDate
           : establishedDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       organizationImage: freezed == organizationImage
           ? _value.organizationImage
           : organizationImage // ignore: cast_nullable_to_non_nullable
@@ -107,7 +107,7 @@ abstract class _$$CreateorgReqImplCopyWith<$Res>
   @useResult
   $Res call(
       {String? name,
-      String? establishedDate,
+      DateTime? establishedDate,
       String? organizationImage,
       String? address,
       double? latitude,
@@ -140,7 +140,7 @@ class __$$CreateorgReqImplCopyWithImpl<$Res>
       establishedDate: freezed == establishedDate
           ? _value.establishedDate
           : establishedDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       organizationImage: freezed == organizationImage
           ? _value.organizationImage
           : organizationImage // ignore: cast_nullable_to_non_nullable
@@ -178,7 +178,7 @@ class _$CreateorgReqImpl implements _CreateorgReq {
   @override
   final String? name;
   @override
-  final String? establishedDate;
+  final DateTime? establishedDate;
   @override
   final String? organizationImage;
   @override
@@ -232,7 +232,7 @@ class _$CreateorgReqImpl implements _CreateorgReq {
 abstract class _CreateorgReq implements CreateorgReq {
   const factory _CreateorgReq(
       {final String? name,
-      final String? establishedDate,
+      final DateTime? establishedDate,
       final String? organizationImage,
       final String? address,
       final double? latitude,
@@ -244,7 +244,7 @@ abstract class _CreateorgReq implements CreateorgReq {
   @override
   String? get name;
   @override
-  String? get establishedDate;
+  DateTime? get establishedDate;
   @override
   String? get organizationImage;
   @override

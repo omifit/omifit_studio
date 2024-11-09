@@ -15,7 +15,7 @@ String createorgReqToJson(CreateorgReq data) => json.encode(data.toJson());
 class CreateorgReq with _$CreateorgReq {
   const factory CreateorgReq({
     String? name,
-    String? establishedDate,
+    DateTime? establishedDate,
     String? organizationImage,
     String? address,
     double? latitude,

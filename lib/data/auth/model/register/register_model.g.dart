@@ -10,7 +10,9 @@ _$RegisterReqImpl _$$RegisterReqImplFromJson(Map<String, dynamic> json) =>
     _$RegisterReqImpl(
       name: json['name'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
-      dateOfBirth: json['dateOfBirth'] as String?,
+      dateOfBirth: json['dateOfBirth'] == null
+          ? null
+          : DateTime.parse(json['dateOfBirth'] as String),
       gender: json['gender'] as String?,
       profession: json['profession'] as String?,
       profileImage: json['profileImage'] as String?,
@@ -25,7 +27,7 @@ Map<String, dynamic> _$$RegisterReqImplToJson(_$RegisterReqImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
-      'dateOfBirth': instance.dateOfBirth,
+      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'gender': instance.gender,
       'profession': instance.profession,
       'profileImage': instance.profileImage,

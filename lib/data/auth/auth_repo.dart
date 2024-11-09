@@ -14,4 +14,6 @@ abstract class AuthRepo {
   Future<Either<ApiException, RegisterRes>> register(RegisterReq registerReq);
   Future<Either<ApiException, UserDetailsRes>> userDetails();
   Future<Either<ApiException, UserDetailsUpdateRes>> updateDetails(UserDetailsUpdateReq userupReq);
+    Future<Either<ApiException, dynamic>> deletefileFromStorage(String url);
+
 }

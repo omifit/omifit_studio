@@ -2,8 +2,6 @@ import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/auth/signin/signin_view.dart';
 import 'package:omifit/view/auth/signup/signup_view.dart';
 import 'package:omifit/view/auth/verify/verify_view.dart';
-import 'package:omifit/view/organization/member/add_member/payment_view.dart';
-import 'package:omifit/view/organization/member/add_member/plan_picker_view.dart';
 import 'package:omifit/view/organization/member/member_details/member_details_view.dart';
 import 'package:omifit/view/organization/organization_view.dart';
 import 'package:omifit/view/organization/orgdetails/orgdetails_view.dart';
@@ -23,8 +21,6 @@ enum AppRoute {
   updatePhone,
   memberDetails,
   staffDetails,
-  planpicker,
-  payment,
   organizationDetails
 }
 
@@ -71,16 +67,6 @@ final routers = [
     path: '/staffDetails',
     name: AppRoute.staffDetails.name,
     builder: (context, state) => const StaffDetailsView(),
-  ),
-  GoRoute(
-    path: '/planpicker',
-    name: AppRoute.planpicker.name,
-    builder: (context, state) => const PlanPickerView(),
-  ),
-  GoRoute(
-    path: '/payment',
-    name: AppRoute.payment.name,
-    builder: (context, state) => const PaymentView(),
   ),
   GoRoute(
     path: '/organizationDetails',

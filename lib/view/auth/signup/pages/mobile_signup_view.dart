@@ -172,9 +172,10 @@ class _MobileSignupViewState extends ConsumerState<MobileSignupView> {
                 onTap: () {
                   showDatePicker(
                     context: context,
+                    keyboardType: TextInputType.datetime,
                     initialDate: authViewModel.dobCtrl.text == ""
                         ? DateTime.now()
-                        : DateFormat('MM/dd/yyyy')
+                        : DateFormat('dd/MM/yyyy')
                             .parse(authViewModel.dobCtrl.text),
                     firstDate: DateTime(1900),
                     lastDate: DateTime.now(),
@@ -182,7 +183,7 @@ class _MobileSignupViewState extends ConsumerState<MobileSignupView> {
                   ).then((value) {
                     if (value != null) {
                       authViewModel.dobCtrl.text =
-                          DateFormat('MM/dd/yyyy').format(value);
+                          DateFormat('dd/MM/yyyy').format(value);
                     }
                   });
                 },

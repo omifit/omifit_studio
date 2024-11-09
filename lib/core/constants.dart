@@ -5,6 +5,7 @@ class AppConstants {
       "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   static const String noBannerImg =
       "https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg";
+  static const String orgLogoPlaceholder = "https://i.imgur.com/hMoWklG.png";
 }
 
 enum Gender { male, female, others }

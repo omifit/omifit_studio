@@ -4,19 +4,22 @@ import 'package:omifit/utils/colors.dart';
 class OutlinedBtn extends StatelessWidget {
   final String text;
   final Color? color;
+  final double? radius;
   final Function() onPressed;
   const OutlinedBtn(
       {super.key,
       required this.text,
       required this.onPressed,
-      this.color = primaryColor});
+      this.color = primaryColor,
+      this.radius});
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
-      style: ButtonStyle(
-        side: WidgetStateProperty.all<BorderSide>(
-          BorderSide(color: color!),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(radius ?? 50),
         ),
       ),
       onPressed: onPressed,

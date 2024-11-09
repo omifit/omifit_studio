@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +26,7 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
   final TextEditingController _dobController = TextEditingController();
   Gender _gender = Gender.male;
   String _profession = "Student";
-  File? _image;
+  String? _image;
 
   @override
   void initState() {
@@ -45,8 +43,8 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
         profileViewModel.userDetailsRes?.body?.user?.name ?? "";
     _phoneController.text =
         remove91(profileViewModel.userDetailsRes?.body?.user?.phoneNumber);
-    _dobController.text =
-        dobviewParse(profileViewModel.userDetailsRes?.body?.user?.dateOfBirth);
+    _dobController.text = DateFormat("dd/MM/yyyy").format(DateTime.parse(
+        profileViewModel.userDetailsRes?.body?.user?.dateOfBirth ?? ""));
     _profession = capitalizeFirst(
         profileViewModel.userDetailsRes?.body?.user?.profession);
     _gender =
@@ -92,47 +90,52 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                   onTap: () async {
                     HapticFeedback.lightImpact();
                     await openPickImageModalSheet(context).then((value) {
-                      print("uploade-img link - $value");
+                      if (value != null) {
+                        _image = value;
+                        setState(() {});
+                        profileViewModel.pictureUpdate(
+                            UserDetailsUpdateReq(
+                              profileImage: _image,
+                            ),
+                            context,
+                            profileViewModel
+                                .userDetailsRes?.body?.user?.profileImage);
+                        print("uploade-img link - $value");
+                      }
                     });
                   },
                   child: Stack(
                     alignment: Alignment.bottomRight,
                     children: [
-                      if (_image != null)
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(3),
-                            child: Image.network(_image!.path),
-                          ),
-                        )
-                      else
-                        CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(3),
-                            child: ProfileImg(
-                              url: (profileViewModel.userDetailsRes?.body?.user
-                                              ?.profileImage ==
-                                          null ||
-                                      profileViewModel.userDetailsRes?.body
-                                              ?.user?.profileImage ==
-                                          '')
-                                  ? damiProfile(
-                                      stringTogender(profileViewModel
-                                          .userDetailsRes?.body?.user?.gender),
-                                      profileViewModel.userDetailsRes?.body
-                                              ?.user?.dateOfBirth ??
-                                          "")
-                                  : profileViewModel.userDetailsRes!.body!.user!
-                                      .profileImage!,
-                              height: double.infinity,
-                              width: double.infinity,
-                            ),
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(3),
+                          child: ProfileImg(
+                            url: _image ??
+                                ((profileViewModel.userDetailsRes?.body?.user
+                                                ?.profileImage ==
+                                            null ||
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.profileImage ==
+                                            '')
+                                    ? damiProfile(
+                                        stringTogender(profileViewModel
+                                            .userDetailsRes
+                                            ?.body
+                                            ?.user
+                                            ?.gender),
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.dateOfBirth ??
+                                            "")
+                                    : profileViewModel.userDetailsRes!.body!
+                                        .user!.profileImage!),
+                            height: double.infinity,
+                            width: double.infinity,
                           ),
                         ),
+                      ),
                       const CircleAvatar(
                         backgroundColor: kWhite,
                         radius: 16,
@@ -212,16 +215,16 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                   onTap: () {
                     showDatePicker(
                       context: context,
-                      initialDatePickerMode: DatePickerMode.year,
                       initialDate: _dobController.text == ""
                           ? DateTime.now()
-                          : DateFormat('MM/dd/yyyy').parse(_dobController.text),
+                          : DateFormat('dd/MM/yyyy').parse(_dobController.text),
                       firstDate: DateTime(1900),
                       lastDate: DateTime.now(),
                       onDatePickerModeChange: (value) => print(value),
                     ).then((value) {
                       if (value != null) {
-                        _dobController.text = dobsendParse(value);
+                        _dobController.text =
+                            DateFormat('dd/MM/yyyy').format(value);
                         setState(() {});
                       }
                     });
@@ -253,7 +256,8 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                     _profession = value;
                     setState(() {});
                   },
-                  initialValue: _profession,
+                  initialValue: capitalizeFirst(
+                      profileViewModel.userDetailsRes?.body?.user?.profession),
                 ),
                 gapH25,
                 SizedBox(
@@ -309,7 +313,8 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                           profileViewModel.setUserupReq(UserDetailsUpdateReq(
                             name: _nameController.text.trim(),
                             phoneNumber: add91(_phoneController.text.trim()),
-                            dateOfBirth: _dobController.text,
+                            dateOfBirth: DateFormat('dd/MM/yyyy')
+                                .parse(_dobController.text),
                             profession: lowercaseAll(_profession),
                             gender: genderToString(_gender),
                           ));
@@ -324,7 +329,8 @@ class _EditProfileDialogState extends ConsumerState<EditProfileDialog> {
                         } else {
                           profileViewModel.setUserupReq(UserDetailsUpdateReq(
                             name: _nameController.text,
-                            dateOfBirth: _dobController.text,
+                            dateOfBirth: DateFormat("dd/MM/yyyy")
+                                .parse(_dobController.text),
                             profession: lowercaseAll(_profession),
                             gender: genderToString(_gender),
                           ));

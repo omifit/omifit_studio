@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:omifit/data/home/member/model/get_memberlist_model.dart';
 import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/add_member/addmember_view.dart';
+import 'package:omifit/view/organization/member/add_member/plan_picker_view.dart';
 import 'package:omifit/view/organization/member/member/widget/joindate_dropdown.dart';
 import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
 import 'package:omifit/view/organization/member/member/widget/pagination_dropdown.dart';
@@ -73,7 +73,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                     onPressed: () {
                       showCupertinoModalSheet(
                         context: context,
-                        builder: (_) => const AddMemberView(),
+                        builder: (_) => const PlanPickerView(uid: ""),
                       );
                     },
                     icon: const Icon(CupertinoIcons.add_circled,

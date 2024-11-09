@@ -1,6 +1,7 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:omifit/core/constants.dart';
 import 'package:omifit/data/organization/model/selectorg_model.dart';
 import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
@@ -140,6 +141,7 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                         onPressed: () {
                           showCupertinoModalSheet(
                               context: context,
+                              barrierDismissible: false,
                               builder: (context) => const AddOrgDialog());
                         },
                       )
@@ -150,7 +152,7 @@ class _DesktopProfileViewState extends ConsumerState<DesktopProfileView> {
                                 .organizations![index - 1]
                                 .organization
                                 ?.orgImage ??
-                            "https://i.imgur.com/ocbA2RA.png",
+                            AppConstants.orgLogoPlaceholder,
                         tittle: organizationViewModel.orglistbyuserRes!.body!
                                 .organizations![index - 1].organization?.name ??
                             "",

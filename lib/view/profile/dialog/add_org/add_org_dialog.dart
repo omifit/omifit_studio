@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
+import 'package:omifit/core/constants.dart';
+import 'package:omifit/data/auth/auth_repo_impl.dart';
 import 'package:omifit/data/organization/model/createorg_model.dart';
 import 'package:omifit/utils/file_picker.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/organization_view_model.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
@@ -20,6 +22,7 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _dobController = TextEditingController();
+  String? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,9 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
         ),
         leading: IconButton(
           onPressed: () {
+            if (_selectedImage != null) {
+              AuthRepoImpl().deletefileFromStorage(_selectedImage!);
+            }
             context.pop();
           },
           icon: const Icon(Icons.arrow_back_ios, color: kWhite),
@@ -59,24 +65,38 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
                   HapticFeedback.lightImpact();
                   await openPickImageModalSheet(context).then((value) {
                     print("uploade-img link - $value");
+                    if (value != null) {
+                      if (_selectedImage != null) {
+                        AuthRepoImpl()
+                            .deletefileFromStorage(_selectedImage!)
+                            .then((v) {
+                          _selectedImage = value;
+                          setState(() {});
+                        });
+                      } else {
+                        _selectedImage = value;
+                      }
+                      setState(() {});
+                    }
                   });
                 },
-                child: const Stack(
+                child: Stack(
                   alignment: Alignment.bottomRight,
                   children: [
                     CircleAvatar(
                       radius: 60,
                       backgroundColor: Colors.white,
                       child: Padding(
-                        padding: EdgeInsets.all(3),
+                        padding: const EdgeInsets.all(3),
                         child: ProfileImg(
-                          url: "https://i.imgur.com/UnWWlu3.png",
+                          url:
+                              _selectedImage ?? AppConstants.orgLogoPlaceholder,
                           height: double.infinity,
                           width: double.infinity,
                         ),
                       ),
                     ),
-                    CircleAvatar(
+                    const CircleAvatar(
                       backgroundColor: kWhite,
                       radius: 14,
                       child: CircleAvatar(
@@ -122,7 +142,7 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
                     context: context,
                     initialDate: _dobController.text == ""
                         ? DateTime.now()
-                        : DateFormat('MM/dd/yyyy').parse(_dobController.text),
+                        : DateFormat('dd/MM/yyyy').parse(_dobController.text),
                     firstDate: DateTime(1900),
                     lastDate: DateTime.now(),
                     onDatePickerModeChange: (value) => print(value),
@@ -132,16 +152,12 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
                           colorScheme: const ColorScheme.dark(
                             primary: kRed,
                             onPrimary: Colors.white,
-                            surface: Color.fromARGB(255, 35, 35, 35),
+                            surface: Color.fromARGB(255, 40, 40, 40),
                             onSurface: Colors.white,
                           ),
-                          brightness: Brightness.dark,
                           primaryColor: Colors.red,
                           buttonTheme: const ButtonThemeData(
-                            textTheme: ButtonTextTheme.primary,
-                          ),
-                          dialogBackgroundColor: Colors
-                              .black, // Background color of the date picker
+                              textTheme: ButtonTextTheme.primary),
                         ),
                         child: child!,
                       );
@@ -149,7 +165,7 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
                   ).then((value) {
                     if (value != null) {
                       _dobController.text =
-                          DateFormat('MM/dd/yyyy').format(value);
+                          DateFormat('dd/MM/yyyy').format(value);
                     }
                   });
                 },
@@ -182,14 +198,17 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
                   text: "Continue",
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {
-                      HapticFeedback.lightImpact();
-                      organizationViewModel.createOrg(
-                          CreateorgReq(
-                              name: _nameController.text,
-                              establishedDate: _dobController.text,
-                              organizationImage:
-                                  "https://i.imgur.com/UnWWlu3.png"),
-                          context);
+                      if (_selectedImage != null) {
+                        HapticFeedback.lightImpact();
+                        organizationViewModel.createOrg(
+                            CreateorgReq(
+                              name: _nameController.text.trim(),
+                              establishedDate:
+                                  stringToDateTime(_dobController.text),
+                              organizationImage: _selectedImage,
+                            ),
+                            context);
+                      } else {}
                     }
                   },
                 ),
@@ -197,36 +216,6 @@ class _AddOrgDialogState extends ConsumerState<AddOrgDialog> {
               gapH32,
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _MyWidget extends StatelessWidget {
-  const _MyWidget({
-    required this.title,
-    required this.onTap,
-  });
-
-  final String title;
-  final void Function(BuildContext) onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      /// Passing exactly this `BuildContext` is mandatory to get
-      /// the `RenderBox` of the appropriate widget.
-      onTap: () => onTap(context),
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: CupertinoColors.tertiarySystemFill.resolveFrom(context),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          title,
-          textAlign: TextAlign.center,
         ),
       ),
     );

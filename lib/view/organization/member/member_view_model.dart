@@ -1,3 +1,4 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:omifit/data/home/member/member_repo.dart';
 import 'package:omifit/data/home/member/member_repo_impl.dart';
 import 'package:omifit/data/home/member/model/add_member_model.dart';
@@ -5,6 +6,7 @@ import 'package:omifit/data/home/member/model/edit_member_model.dart';
 import 'package:omifit/data/home/member/model/get_member_details_model.dart';
 import 'package:omifit/data/home/member/model/get_memberlist_model.dart';
 import 'package:omifit/utils/utils.dart';
+import 'package:omifit/view/organization/member/add_member/plan_picker_view.dart';
 
 final memberViewModelProvider =
     ChangeNotifierProvider((ref) => MemberViewModel(ref: ref));
@@ -13,6 +15,8 @@ class MemberViewModel extends ChangeNotifier {
   Ref ref;
   MemberViewModel({required this.ref});
   final MemberRepo _memberRepo = MemberRepoImpl();
+
+  //* ================> Member (ADD, EDIT, DELETE, DETAILS, LIST)
 
   // Add Member
   bool _lodingaddmember = false;
@@ -28,9 +32,10 @@ class MemberViewModel extends ChangeNotifier {
             .showSnackBar(SnackBar(content: Text(l.message ?? "")));
       }, (r) {
         ctx.pop();
+        ctx.pop();
         getmemberlist(ctx, const GetMemberListReq());
-        ScaffoldMessenger.of(ctx)
-            .showSnackBar(SnackBar(content: Text(r.message ?? "")));
+        showCupertinoModalSheet(
+            context: ctx, builder: (context) => const PlanPickerView(uid: ""));
       });
     });
   }
@@ -120,4 +125,6 @@ class MemberViewModel extends ChangeNotifier {
       });
     });
   }
+
+  //* ==========================> Buy Subscription
 }

@@ -9,7 +9,9 @@ part of 'createorg_model.dart';
 _$CreateorgReqImpl _$$CreateorgReqImplFromJson(Map<String, dynamic> json) =>
     _$CreateorgReqImpl(
       name: json['name'] as String?,
-      establishedDate: json['establishedDate'] as String?,
+      establishedDate: json['establishedDate'] == null
+          ? null
+          : DateTime.parse(json['establishedDate'] as String),
       organizationImage: json['organizationImage'] as String?,
       address: json['address'] as String?,
       latitude: (json['latitude'] as num?)?.toDouble(),
@@ -19,7 +21,7 @@ _$CreateorgReqImpl _$$CreateorgReqImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$CreateorgReqImplToJson(_$CreateorgReqImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'establishedDate': instance.establishedDate,
+      'establishedDate': instance.establishedDate?.toIso8601String(),
       'organizationImage': instance.organizationImage,
       'address': instance.address,
       'latitude': instance.latitude,

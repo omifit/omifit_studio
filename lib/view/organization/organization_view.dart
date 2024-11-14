@@ -12,6 +12,7 @@ import 'package:omifit/view/organization/member/member/member_view.dart';
 import 'package:omifit/view/organization/organization_view_model.dart';
 import 'package:omifit/view/organization/plan/plan_view.dart';
 import 'package:omifit/view/organization/staff/staff/staff_view.dart';
+import 'package:omifit/view/profile/profile_view_model.dart';
 import 'package:omifit/widget/appbar/appbar_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:omifit/widget/sidebar/sidebar_widget.dart';
@@ -33,6 +34,15 @@ class _HomeViewState extends ConsumerState<HomeView> {
     const PlanView(),
     const DiscountView(),
   ];
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(profileViewModelProvider).userDetails(context);
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final OrganizationViewModel organizationViewModel =

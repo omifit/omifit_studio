@@ -2,7 +2,7 @@ import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/add_member/find_member_view.dart';
+import 'package:omifit/view/organization/member/add_member/find_user_view.dart';
 import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
 import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
 
@@ -31,7 +31,7 @@ class _MobileMemberViewState extends ConsumerState<MobileMemberView> {
             HapticFeedback.lightImpact();
             showCupertinoModalSheet(
               context: context,
-              builder: (context) => const FindMemberView(),
+              builder: (context) => const FindUserView(),
             );
           },
           icon: const Icon(CupertinoIcons.add_circled, color: kWhite),

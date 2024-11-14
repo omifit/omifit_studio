@@ -41,6 +41,7 @@ class _TimeDropdown1State extends State<JoindateDropdown> {
       itemBuilder: (context) => [
         PullDownMenuItem.selectable(
           title: 'Lifetime',
+          selected: selectedValue == 'Lifetime',
           onTap: () {
             selectedValue = 'Lifetime';
             widget.onChange('Lifetime');
@@ -48,7 +49,26 @@ class _TimeDropdown1State extends State<JoindateDropdown> {
           },
         ),
         PullDownMenuItem.selectable(
+          title: 'Today',
+          selected: selectedValue == 'Today',
+          onTap: () {
+            selectedValue = 'Today';
+            widget.onChange('Today');
+            setState(() {});
+          },
+        ),
+        PullDownMenuItem.selectable(
+          title: 'Yesterday',
+          selected: selectedValue == 'Yesterday',
+          onTap: () {
+            selectedValue = 'Yesterday';
+            widget.onChange('Yesterday');
+            setState(() {});
+          },
+        ),
+        PullDownMenuItem.selectable(
           title: 'Last 7 days',
+          selected: selectedValue == 'Last 7 days',
           onTap: () {
             selectedValue = 'Last 7 days';
             widget.onChange('Last 7 days');
@@ -57,6 +77,7 @@ class _TimeDropdown1State extends State<JoindateDropdown> {
         ),
         PullDownMenuItem.selectable(
           title: 'Last 28 days',
+          selected: selectedValue == 'Last 28 days',
           onTap: () {
             selectedValue = 'Last 28 days';
             widget.onChange('Last 28 days');
@@ -65,13 +86,18 @@ class _TimeDropdown1State extends State<JoindateDropdown> {
         ),
         PullDownMenuItem.selectable(
             title: 'Custom Date',
+            selected: selectedValue != 'Today' &&
+                selectedValue != 'Yesterday' &&
+                selectedValue != 'Last 7 days' &&
+                selectedValue != 'Last 28 days' &&
+                selectedValue != 'Lifetime',
             onTap: () {
               final dataRange = showDateRangePicker(
                 context: context,
                 firstDate: DateTime(2024),
                 lastDate: DateTime.now(),
                 currentDate: DateTime.now(),
-                initialEntryMode: DatePickerEntryMode.input,
+                //initialEntryMode: DatePickerEntryMode.input,
               );
               dataRange.then((value) {
                 if (value != null) {

@@ -13,7 +13,7 @@ const selectorgurl = "/private/organization/select";
 const orglistbyuserurl = "/private/organization";
 
 // member
-String usersearchurl(String number) => "/private/users/searc/:$number";
+String usersearchurl(String number) => "/private/users/search/$number";
 const creatememberurl = "/private/member";
 const memberlisturl = "/private/member/filter";
 String memberdetailsurl(String uid) => "/private/member/$uid";
@@ -26,6 +26,13 @@ const planlisturl = "/private/plans/filter";
 String plandetailsurl(String pid) => "/private/plans/$pid";
 String deleteplanurl(String pid) => "/private/plans/$pid";
 String editplanurl(String pid) => "/private/plans/$pid";
+
+// subscription (sid = subscriptionId)
+const purchasePlanurl = "/private/subscription/purchase";
+const editsubscriptionurl = "/private/subscription/update";
+String pausedsubscriptionurl(String sid) => "/private/subscription/pause/$sid";
+String cancelsubscriptionurl(String sid) => "/private/subscription/cancel/$sid";
+String getallsubscriptionurl = "/private/subscription/get-all-subscriptions";
 
 // guidance
 const createplaylisturl = "/private/guidance/create-playlist";

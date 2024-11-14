@@ -22,7 +22,7 @@ AddMemberReq _$AddMemberReqFromJson(Map<String, dynamic> json) {
 mixin _$AddMemberReq {
   String? get phoneNumber => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
-  String? get dateOfBirth => throw _privateConstructorUsedError;
+  DateTime? get dateOfBirth => throw _privateConstructorUsedError;
   String? get profession => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
   String? get profileImage => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $AddMemberReqCopyWith<$Res> {
   $Res call(
       {String? phoneNumber,
       String? name,
-      String? dateOfBirth,
+      DateTime? dateOfBirth,
       String? profession,
       String? gender,
       String? profileImage});
@@ -80,7 +80,7 @@ class _$AddMemberReqCopyWithImpl<$Res, $Val extends AddMemberReq>
       dateOfBirth: freezed == dateOfBirth
           ? _value.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       profession: freezed == profession
           ? _value.profession
           : profession // ignore: cast_nullable_to_non_nullable
@@ -108,7 +108,7 @@ abstract class _$$AddMemberReqImplCopyWith<$Res>
   $Res call(
       {String? phoneNumber,
       String? name,
-      String? dateOfBirth,
+      DateTime? dateOfBirth,
       String? profession,
       String? gender,
       String? profileImage});
@@ -144,7 +144,7 @@ class __$$AddMemberReqImplCopyWithImpl<$Res>
       dateOfBirth: freezed == dateOfBirth
           ? _value.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       profession: freezed == profession
           ? _value.profession
           : profession // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$AddMemberReqImpl implements _AddMemberReq {
   @override
   final String? name;
   @override
-  final String? dateOfBirth;
+  final DateTime? dateOfBirth;
   @override
   final String? profession;
   @override
@@ -233,7 +233,7 @@ abstract class _AddMemberReq implements AddMemberReq {
   const factory _AddMemberReq(
       {final String? phoneNumber,
       final String? name,
-      final String? dateOfBirth,
+      final DateTime? dateOfBirth,
       final String? profession,
       final String? gender,
       final String? profileImage}) = _$AddMemberReqImpl;
@@ -246,7 +246,7 @@ abstract class _AddMemberReq implements AddMemberReq {
   @override
   String? get name;
   @override
-  String? get dateOfBirth;
+  DateTime? get dateOfBirth;
   @override
   String? get profession;
   @override

@@ -12,7 +12,9 @@ _$EditMemberReqImpl _$$EditMemberReqImplFromJson(Map<String, dynamic> json) =>
       otp: json['otp'] as String?,
       name: json['name'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
-      dateOfBirth: json['dateOfBirth'] as String?,
+      dateOfBirth: json['dateOfBirth'] == null
+          ? null
+          : DateTime.parse(json['dateOfBirth'] as String),
       gender: json['gender'] as String?,
       profession: json['profession'] as String?,
       address: json['address'] as String?,
@@ -29,7 +31,7 @@ Map<String, dynamic> _$$EditMemberReqImplToJson(_$EditMemberReqImpl instance) =>
       'otp': instance.otp,
       'name': instance.name,
       'phoneNumber': instance.phoneNumber,
-      'dateOfBirth': instance.dateOfBirth,
+      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'gender': instance.gender,
       'profession': instance.profession,
       'address': instance.address,

@@ -36,7 +36,7 @@ class Body with _$Body {
 @freezed
 class OrganizationMember with _$OrganizationMember {
   const factory OrganizationMember({
-    String? id,
+    @JsonKey(name: '_id') String? id,
     User? user,
     String? organization,
     String? status,
@@ -54,7 +54,7 @@ class OrganizationMember with _$OrganizationMember {
 class User with _$User {
   const factory User({
     Location? location,
-    String? id,
+    @JsonKey(name: '_id') String? id,
     String? name,
     String? phoneNumber,
     String? dateOfBirth,

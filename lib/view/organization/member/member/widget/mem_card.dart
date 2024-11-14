@@ -2,11 +2,11 @@ import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/widget/chips/chip_widget.dart';
 import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class MemCard extends StatelessWidget {
   final String memid;
@@ -19,10 +19,13 @@ class MemCard extends StatelessWidget {
   final String? coachPic;
   final String? status;
   final Function()? onPressed;
-
+  final Function()? onRemove;
+  final Function()? onEdit;
   const MemCard({
     super.key,
     this.onPressed,
+    this.onRemove,
+    this.onEdit,
     required this.memid,
     required this.profilePic,
     required this.name,
@@ -268,31 +271,20 @@ class MemCard extends StatelessWidget {
               SizedBox(
                 width: 50,
                 child: PullDownButton(
+                  routeTheme: PullDownMenuRouteTheme(
+                    backgroundColor: const Color.fromARGB(72, 72, 72, 72),
+                    borderRadius: BorderRadius.circular(10),
+                    width: 150,
+                    accessibilityWidth: 200,
+                  ),
                   itemBuilder: (context) => [
                     PullDownMenuItem(
-                      onTap: () {},
-                      tapHandler: (context, onTap) {
-                        context.pop();
-                        onPressed!();
-                      },
-                      title: 'View Details',
-                      icon: CupertinoIcons.person_crop_circle,
-                    ),
-                    PullDownMenuItem(
                       title: 'Edit Member',
-                      onTap: () {},
+                      onTap: onEdit,
                       tapHandler: (context, onTap) {
                         context.pop();
-                        WoltModalSheet.show(
-                            context: context,
-                            barrierDismissible: false,
-                            minDialogWidth: 750,
-                            maxDialogWidth: 1000,
-                            pageListBuilder: (BuildContext context) {
-                              return [];
-                            });
                       },
-                      icon: CupertinoIcons.pencil,
+                      icon: HugeIcons.strokeRoundedUserEdit01,
                     ),
                     PullDownMenuItem(
                       onTap: () {},
@@ -311,14 +303,27 @@ class MemCard extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
+                                          gapH14,
+                                          ProfileImg(
+                                            url: profilePic,
+                                            height: 60,
+                                            width: 60,
+                                          ),
+                                          gapH10,
+                                          Text(
+                                            name,
+                                            style: const TextStyle(
+                                                color: kWhite, fontSize: 14),
+                                          ),
+                                          gapH14,
                                           const Text(
-                                            "Are you sure you want to delete this member?",
+                                            "Are you sure you want to remove this member?",
                                             style: TextStyle(
                                                 color: kWhite,
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w400),
                                           ),
-                                          gapH10,
+                                          gapH5,
                                           const Text(
                                             "This action cannot be undone.",
                                             style: TextStyle(
@@ -326,6 +331,7 @@ class MemCard extends StatelessWidget {
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w400),
                                           ),
+                                          gapH20,
                                         ],
                                       )
                                     ],
@@ -344,38 +350,21 @@ class MemCard extends StatelessWidget {
                                       },
                                     ),
                                     CupertinoDialogAction(
+                                      onPressed: onRemove,
                                       child: const Text(
-                                        'Delete',
+                                        'Remove',
                                         style: TextStyle(
                                             color: kRed,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400),
                                       ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
                                     ),
                                   ],
                                 ));
                       },
-                      title: 'Delete',
+                      title: 'Remove',
                       isDestructive: true,
-                      icon: CupertinoIcons.delete,
-                    ),
-                    PullDownMenuActionsRow.medium(
-                      items: [
-                        PullDownMenuItem(
-                          onTap: () {},
-                          tapHandler: (context, onTap) {},
-                          title: 'Message',
-                          icon: CupertinoIcons.paperplane_fill,
-                        ),
-                        PullDownMenuItem(
-                          onTap: () {},
-                          title: 'Attendance',
-                          icon: CupertinoIcons.qrcode_viewfinder,
-                        ),
-                      ],
+                      icon: HugeIcons.strokeRoundedDelete02,
                     ),
                   ],
                   buttonBuilder: (context, showMenu) => BouncingWidget(
@@ -404,10 +393,10 @@ Widget imageDialog(String path) {
       mainAxisSize: MainAxisSize.min,
       children: [
         ClipRRect(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(900),
           child: CachedNetworkImage(
             imageUrl: path,
-            height: 300,
+            width: 90.w,
             fit: BoxFit.cover,
             errorWidget: (context, url, error) => const Icon(
               Icons.error,

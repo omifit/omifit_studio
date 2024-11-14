@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:lottie/lottie.dart';
+import 'package:intl/intl.dart';
+import 'package:omifit/data/home/subscription/model/purchase_plan_model.dart';
+import 'package:omifit/utils/json_parse.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
+import 'package:omifit/view/organization/member/member_view_model.dart';
+import 'package:omifit/widget/picker/payment_type_dropdown.dart';
 
 //! Payment member dialog
 class PaymentView extends ConsumerStatefulWidget {
-  final List<dynamic> selectedItems;
+  final List<SelectedPlan> selectedItems;
   const PaymentView({
     super.key,
     required this.selectedItems,
@@ -17,8 +21,19 @@ class PaymentView extends ConsumerStatefulWidget {
 }
 
 class _PaymentViewState extends ConsumerState<PaymentView> {
+  List<SelectedPlan> tempSelectedPlan = [];
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    tempSelectedPlan.addAll(
+        widget.selectedItems.map((e) => e.copyWith(paymentForm: "cash")));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -26,11 +41,26 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
           width: double.infinity,
           height: 52,
           child: FilledBtn(
-            text: "Continue",
+            color: (tempSelectedPlan.any((plan) =>
+                        (plan.totalAmount ?? 0) >= (plan.paidAmount ?? 0)) &&
+                    tempSelectedPlan.any((plan) =>
+                        plan.paidAmount != 0 || plan.paidAmount != null))
+                ? kRed
+                : kGrey,
+            isLoading: memberViewModel.lodingBuySubscription,
+            text: "Pay",
             onPressed: () {
-              // if (_formkey.currentState!.validate()) {
-
-              // }
+              double totalPaidAmount = 0;
+              double totalAmount = 0;
+              for (final plan in tempSelectedPlan) {
+                totalPaidAmount += plan.paidAmount ?? 0;
+                totalAmount += plan.totalAmount ?? 0;
+              }
+              if (totalAmount >= totalPaidAmount &&
+                  !tempSelectedPlan.any((plan) =>
+                      plan.paidAmount == 0 || plan.paidAmount == null)) {
+                memberViewModel.buySubscription(context, tempSelectedPlan);
+              }
             },
           ),
         ),
@@ -52,460 +82,392 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
       ),
       body: SingleChildScrollView(
           child: PaddedColumn(
-        padding: const EdgeInsets.symmetric(horizontal: 22),
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          gapH22,
-          ...List.generate(
-              widget.selectedItems.length,
-              (index) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: lightBlack,
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                        border: Border(
-                          left: BorderSide(
-                            color: kRed,
-                            width: 2,
-                          ),
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromARGB(255, 46, 46, 46),
-                            spreadRadius: 2,
-                            blurRadius: 40,
-                            offset: Offset(0, 3),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ListTile(
-                            titleAlignment: ListTileTitleAlignment.bottom,
-                            title: Text(widget.selectedItems[index]["planName"],
-                                style: const TextStyle(
-                                    color: kWhite,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500)),
-                            trailing: const Text("\$ 90",
-                                style: TextStyle(
-                                    color: primaryColor,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600)),
-                          ),
-                          Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            children: [
-                              TextButton.icon(
-                                  label: Text(
-                                      "Activation Date - ${widget.selectedItems[index]["membershipStartDate"]}",
-                                      style: const TextStyle(
-                                          color: kGrey,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500)),
-                                  onPressed: () {
-                                    showDatePicker(
-                                      context: context,
-                                      initialDate: widget.selectedItems[index]
-                                          ["membershipStartDate"],
-                                      firstDate: DateTime(1900),
-                                      lastDate: DateTime.now(),
-                                      onDatePickerModeChange: (value) =>
-                                          print(value),
-                                    ).then((value) {});
-                                  },
-                                  icon: const Icon(
-                                    Icons.mode_edit,
-                                    color: primaryColor,
-                                    size: 14,
-                                  )),
-                              TextButton.icon(
-                                  label: const Text("Expire Date - 2 jan 2024",
-                                      style: TextStyle(
-                                          color: kGrey,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500)),
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.mode_edit,
-                                    color: primaryColor,
-                                    size: 14,
-                                  )),
-                            ],
-                          ),
-                          gapH10
-                        ],
-                      ),
-                    ),
-                  )),
-          gapW20,
-          const Divider(
-            color: kGrey,
-            thickness: 0.1,
-          ),
-          gapW20,
-          Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          gapH10,
+          DecoratedBox(
+            decoration: BoxDecoration(
+              color: lightBlack.withOpacity(0.4),
+              borderRadius: const BorderRadius.all(Radius.circular(0)),
+            ),
+            child: PaddedColumn(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               children: [
-                gapH12,
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: lightBlack.withOpacity(0.4),
-                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                ListTile(
+                  dense: true,
+                  visualDensity: VisualDensity.compact,
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    Icons.payments_rounded,
+                    color: kWhite.withOpacity(0.5),
+                    size: 19,
                   ),
-                  child: PaddedColumn(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    children: [
-                      ListTile(
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        contentPadding: EdgeInsets.zero,
-                        leading: Icon(
-                          Icons.card_membership_rounded,
-                          color: kWhite.withOpacity(0.5),
-                          size: 19,
-                        ),
-                        title: const Text(
-                          "Iteam Total",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: const Text(
-                          "₹ 90",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                      // ListTile(
-                      //   dense: true,
-                      //   visualDensity: VisualDensity.compact,
-                      //   contentPadding: EdgeInsets.zero,
-                      //   leading: Icon(
-                      //     Icons.account_balance_rounded,
-                      //     color: kWhite.withOpacity(0.5),
-                      //     size: 19,
-                      //   ),
-                      //   title: const Text(
-                      //     "GST and orgaization fee",
-                      //     style: TextStyle(
-                      //       color: kWhite,
-                      //       fontSize: 14,
-                      //       fontWeight: FontWeight.w400,
-                      //     ),
-                      //   ),
-                      //   trailing: const Text(
-                      //     "\$90",
-                      //     style: TextStyle(
-                      //       color: kWhite,
-                      //       fontSize: 14,
-                      //       fontWeight: FontWeight.w400,
-                      //     ),
-                      //   ),
-                      // ),
-                      ListTile(
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        contentPadding: EdgeInsets.zero,
-                        leading: Icon(
-                          Icons.phone_iphone,
-                          color: kWhite.withOpacity(0.5),
-                          size: 19,
-                        ),
-                        title: const Text(
-                          "Platform Fee",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: const Text(
-                          "FREE",
-                          style: TextStyle(
-                            color: kBlue,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                      // ListTile(
-                      //   dense: true,
-                      //   visualDensity: VisualDensity.compact,
-                      //   contentPadding: EdgeInsets.zero,
-                      //   leading: Icon(
-                      //     IconlyLight.discount,
-                      //     color: kWhite.withOpacity(0.5),
-                      //     size: 19,
-                      //   ),
-                      //   title: const Text(
-                      //     "Coupon Discount",
-                      //     style: TextStyle(
-                      //       color: kWhite,
-                      //       fontSize: 14,
-                      //       fontWeight: FontWeight.w400,
-                      //     ),
-                      //   ),
-                      //   trailing: const Text(
-                      //     "\$ 90",
-                      //     style: TextStyle(
-                      //       color: kWhite,
-                      //       fontSize: 14,
-                      //       fontWeight: FontWeight.w500,
-                      //     ),
-                      //   ),
-                      // ),
-
-                      // DecoratedBox(
-                      //   decoration: BoxDecoration(
-                      //     color: darkBlack,
-                      //     borderRadius: BorderRadius.circular(12),
-                      //     border: Border.all(
-                      //       color: kRed,
-                      //       width: 0.3,
-                      //     ),
-                      //   ),
-                      //   child: const ListTile(
-                      //     dense: true,
-                      //     titleAlignment: ListTileTitleAlignment.center,
-                      //     // visualDensity: VisualDensity.compact,
-                      //     contentPadding: EdgeInsets.only(
-                      //       left: 10,
-                      //     ),
-                      //     leading: Icon(
-                      //       IconlyLight.discount,
-                      //       color: kWhite,
-                      //     ),
-                      //     title: Text(
-                      //       "Coupon Discount",
-                      //       style: TextStyle(
-                      //         color: kWhite,
-                      //         fontSize: 16,
-                      //         fontWeight: FontWeight.w400,
-                      //       ),
-                      //     ),
-                      //     subtitle: Text(
-                      //       "Remove",
-                      //       style: TextStyle(
-                      //         color: kRed,
-                      //         fontSize: 14,
-                      //         fontWeight: FontWeight.w400,
-                      //       ),
-                      //     ),
-                      //     trailing: Row(
-                      //       mainAxisSize: MainAxisSize.min,
-                      //       children: [
-                      //         Text(
-                      //           "\$ 90",
-                      //           style: TextStyle(
-                      //             color: kWhite,
-                      //             fontSize: 16,
-                      //             fontWeight: FontWeight.w400,
-                      //           ),
-                      //         ),
-                      //         SizedBox(
-                      //           width: 10,
-                      //         ),
-                      //       ],
-                      //     ),
-                      //   ),
-                      // ),
-                      // gapH10,
-                      const Divider(
-                        color: kGrey,
-                        thickness: 0.5,
-                      ),
-                      ListTile(
-                        dense: true,
-                        visualDensity: VisualDensity.compact,
-                        contentPadding: EdgeInsets.zero,
-                        leading: Icon(
-                          Icons.money,
-                          color: kWhite.withOpacity(0.5),
-                          size: 19,
-                        ),
-                        title: const Text(
-                          "Grand Total",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        trailing: const Text(
-                          "₹ 90",
-                          style: TextStyle(
-                            color: kWhite,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ],
+                  title: const Text(
+                    "Total Item Cost",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  trailing: Text(
+                    "₹ ${tempSelectedPlan.fold(0, (sum, plan) => sum + plan.totalAmount!)}",
+                    style: const TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
-                gapH20,
-                DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: lightBlack.withOpacity(0.4),
-                      borderRadius: const BorderRadius.all(Radius.circular(12)),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: darkBlack.withOpacity(0.9),
-                      //     spreadRadius: 2,
-                      //     blurRadius: 90,
-                      //     offset: const Offset(0, 3),
-                      //   ),
-                      // ],
+                ListTile(
+                  dense: true,
+                  visualDensity: VisualDensity.compact,
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    Icons.account_balance_wallet,
+                    color: kWhite.withOpacity(0.5),
+                    size: 19,
+                  ),
+                  title: const Text(
+                    "Amount Paid",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
                     ),
-                    child: PaddedColumn(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 8),
-                        children: [
-                          CupertinoTextFormFieldRow(
-                            padding: EdgeInsets.zero,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(10),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            prefix: const SizedBox(
-                                width: 80,
-                                child: Text(
-                                  'Pay',
-                                  style: TextStyle(fontSize: 15),
-                                )),
-                            placeholder: 'Enter Amount',
-                            style: const TextStyle(color: kWhite),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a value';
-                              }
-                              return null;
-                            },
-                          ),
-                          const Divider(
-                            color: kWhite,
-                            thickness: 0.1,
-                          ),
-                          CupertinoTextFormFieldRow(
-                            padding: EdgeInsets.zero,
-                            keyboardType: TextInputType.number,
-                            inputFormatters: [
-                              LengthLimitingTextInputFormatter(10),
-                              FilteringTextInputFormatter.digitsOnly,
-                            ],
-                            prefix: const SizedBox(
-                                width: 80,
-                                child: Text('Due',
-                                    style: TextStyle(fontSize: 15))),
-                            placeholder: 'Enter Amount',
-                            style: const TextStyle(color: kWhite),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a value';
-                              }
-                              return null;
-                            },
-                          ),
-                          const Divider(
-                            color: kWhite,
-                            thickness: 0.1,
-                          ),
-                          CupertinoTextFormFieldRow(
-                            padding: EdgeInsets.zero,
-                            maxLines: 2,
-                            prefix: const SizedBox(
-                                width: 80,
-                                child: Text('Remark',
-                                    style: TextStyle(fontSize: 15))),
-                            placeholder: ' Enter Remark',
-                            style: const TextStyle(color: kWhite),
-                            validator: (String? value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter a value';
-                              }
-                              return null;
-                            },
-                          ),
-                        ])),
+                  ),
+                  trailing: Text(
+                    "₹ ${tempSelectedPlan.fold(0, (sum, plan) => sum + (plan.paidAmount ?? 0))}",
+                    style: const TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  dense: true,
+                  visualDensity: VisualDensity.compact,
+                  contentPadding: EdgeInsets.zero,
+                  leading: Icon(
+                    Icons.credit_card,
+                    color: kWhite.withOpacity(0.5),
+                    size: 19,
+                  ),
+                  title: const Text(
+                    "Due Payment",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  trailing: Text(
+                    "₹ ${tempSelectedPlan.fold(0, (sum, plan) => sum + (plan.dueAmount ?? 0))}",
+                    style: const TextStyle(
+                      color: kWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+                ListTile(
+                    dense: true,
+                    visualDensity: VisualDensity.compact,
+                    contentPadding: EdgeInsets.zero,
+                    leading: Icon(
+                      Icons.credit_card,
+                      color: kWhite.withOpacity(0.5),
+                      size: 19,
+                    ),
+                    title: const Text(
+                      "Payment Type",
+                      style: TextStyle(
+                        color: kWhite,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    trailing: PaymentTypeDropdown(
+                      initialValue: 'Cash',
+                      onChange: (value) {
+                        tempSelectedPlan = tempSelectedPlan
+                            .map((e) =>
+                                e.copyWith(paymentForm: lowercaseAll(value)))
+                            .toList();
+                        setState(() {});
+                      },
+                    )),
               ],
             ),
+          ),
+          gapH22,
+          PaddedColumn(
+            padding: const EdgeInsets.symmetric(horizontal: 22),
+            children: [
+              ...List.generate(
+                  tempSelectedPlan.length,
+                  (index) => Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: lightBlack.withOpacity(0.4),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                            border: const Border(
+                              left: BorderSide(
+                                color: kRed,
+                                width: 2,
+                              ),
+                            ),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: Color.fromARGB(255, 46, 46, 46),
+                                spreadRadius: 2,
+                                blurRadius: 40,
+                                offset: Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                titleAlignment: ListTileTitleAlignment.bottom,
+                                title: Text(
+                                    tempSelectedPlan[index].planName ?? "",
+                                    style: const TextStyle(
+                                        color: kWhite,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)),
+                                trailing: Text(
+                                    "₹ ${tempSelectedPlan[index].totalAmount}",
+                                    style: const TextStyle(
+                                        color: kWhite,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                              Wrap(
+                                crossAxisAlignment: WrapCrossAlignment.start,
+                                children: [
+                                  TextButton.icon(
+                                      label: Text(
+                                          "Activation Date - ${formatDateTime(tempSelectedPlan[index].membershipStartDate!)}",
+                                          style: const TextStyle(
+                                              color: kGrey,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500)),
+                                      onPressed: () {
+                                        showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime.now()
+                                              .add(const Duration(days: 365)),
+                                        ).then((selectedStartDate) {
+                                          if (selectedStartDate != null) {
+                                            tempSelectedPlan[
+                                                index] = tempSelectedPlan[
+                                                    index]
+                                                .copyWith(
+                                                    membershipStartDate:
+                                                        selectedStartDate,
+                                                    membershipEndDate:
+                                                        calculateStartAndExpireDate(
+                                                                selectedStartDate,
+                                                                tempSelectedPlan[
+                                                                        index]
+                                                                    .durationValue!,
+                                                                tempSelectedPlan[
+                                                                        index]
+                                                                    .durationUnit!)
+                                                            .end);
+                                            setState(() {});
+                                          }
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.mode_edit,
+                                        color: primaryColor,
+                                        size: 18,
+                                      )),
+                                  TextButton.icon(
+                                      label: Text(
+                                          "Expire Date - ${formatDateTime(tempSelectedPlan[index].membershipEndDate!)}",
+                                          style: const TextStyle(
+                                              color: kGrey,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500)),
+                                      onPressed: () {
+                                        showDatePicker(
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime.now()
+                                              .add(const Duration(days: 365)),
+                                        ).then((selectedStartDate) {
+                                          if (selectedStartDate != null) {
+                                            tempSelectedPlan[index] =
+                                                tempSelectedPlan[index]
+                                                    .copyWith(
+                                                        membershipEndDate:
+                                                            selectedStartDate);
+                                            setState(() {});
+                                          }
+                                        });
+                                      },
+                                      icon: const Icon(
+                                        Icons.mode_edit,
+                                        color: primaryColor,
+                                        size: 16,
+                                      )),
+                                ],
+                              ),
+                              gapH10,
+                              Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: lightBlack.withOpacity(0.9),
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(12),
+                                      ),
+                                    ),
+                                    child: PaddedRow(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 8),
+                                        children: [
+                                          Expanded(
+                                            child: CupertinoTextFormFieldRow(
+                                              padding: EdgeInsets.zero,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              inputFormatters: [
+                                                LengthLimitingTextInputFormatter(
+                                                    10),
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
+                                              ],
+                                              prefix: const SizedBox(
+                                                  child: Text(
+                                                'Pay       ₹',
+                                                style: TextStyle(fontSize: 15),
+                                              )),
+                                              placeholder: 'Enter Amount',
+                                              style: const TextStyle(
+                                                  color: kWhite),
+                                              validator: (String? value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return 'Please enter a value';
+                                                }
+                                                return null;
+                                              },
+                                              onChanged: (value) {
+                                                final int totalAmount =
+                                                    tempSelectedPlan[index]
+                                                        .totalAmount!;
+                                                final int paidAmount =
+                                                    parseInteger(value) ?? 0;
+                                                final int dueAmount =
+                                                    totalAmount - paidAmount;
+                                                tempSelectedPlan[index] =
+                                                    tempSelectedPlan[index]
+                                                        .copyWith(
+                                                            paidAmount:
+                                                                paidAmount,
+                                                            dueAmount:
+                                                                dueAmount);
+                                                setState(() {});
+                                              },
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: CupertinoTextFormFieldRow(
+                                              controller: TextEditingController(
+                                                  text: (tempSelectedPlan[index]
+                                                              .dueAmount ??
+                                                          0)
+                                                      .toString()),
+                                              readOnly: true,
+                                              padding: EdgeInsets.zero,
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              inputFormatters: [
+                                                LengthLimitingTextInputFormatter(
+                                                    10),
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
+                                              ],
+                                              prefix: const SizedBox(
+                                                  child: Text('Due       ₹',
+                                                      style: TextStyle(
+                                                          fontSize: 15))),
+                                              placeholder: 'Enter Amount',
+                                              style: const TextStyle(
+                                                  color: kWhite),
+                                            ),
+                                          ),
+                                        ])),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
+            ],
           ),
         ],
       )),
     );
   }
-}
 
-//! Success member dialog
-class SuccessMemberDialog {
-  static WoltModalSheetPage build(BuildContext context, WidgetRef ref) {
-    return WoltModalSheetPage(
-      backgroundColor: darkBlack,
-      surfaceTintColor: darkBlack,
-      hasSabGradient: false,
-      isTopBarLayerAlwaysVisible: true,
-      topBar: const PaddedRow(
-        padding: EdgeInsets.symmetric(horizontal: 25),
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [],
-      ),
-      trailingNavBarWidget: Padding(
-        padding: const EdgeInsets.only(right: 22),
-        child: IconButton(
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all<Color>(kyellowbg),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.close, color: primaryColor),
-        ),
-      ),
-      child: StatefulBuilder(
-        builder: (BuildContext context, setState) {
-          return const SuccessMemberWidget();
-        },
-      ),
-    );
+  String formatDateTime(DateTime dateTime) {
+    return DateFormat('d MMM yyyy').format(dateTime);
   }
-}
 
-class SuccessMemberWidget extends StatelessWidget {
-  const SuccessMemberWidget({
-    super.key,
-  });
+  DateTimeRange calculateStartAndExpireDate(
+      DateTime startDate, int number, String unit) {
+    // Start DateTime is the current DateTime
+    final DateTime startDateTime = startDate;
+    DateTime expireDateTime;
 
-  @override
-  Widget build(BuildContext context) {
-    return PaddedColumn(
-      padding: EdgeInsets.symmetric(
-          horizontal: ResponsiveMember.isMobile(context) ? 16 : 22),
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        LottieBuilder.asset("assets/animations/profile_suc.json",
-            height: 250, fit: BoxFit.fill, repeat: false),
-        gapH20,
-        Text(
-          "Member Added Successfully",
-          style: TextStyle(
-            color: kWhite,
-            fontSize: ResponsiveMember.isMobile(context) ? 18 : 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        gapH20,
-      ],
-    );
+    // Check the unit and calculate expiration DateTime accordingly
+    switch (unit.toLowerCase()) {
+      case 'day':
+        expireDateTime = startDateTime.add(Duration(days: number));
+        break;
+      case 'week':
+        expireDateTime = startDateTime.add(Duration(days: number * 7));
+        break;
+      case 'month':
+        expireDateTime = DateTime(
+          startDateTime.year,
+          startDateTime.month + number,
+          startDateTime.day,
+          startDateTime.hour,
+          startDateTime.minute,
+          startDateTime.second,
+          startDateTime.millisecond,
+          startDateTime.microsecond,
+        );
+        break;
+      case 'year':
+        expireDateTime = DateTime(
+          startDateTime.year + number,
+          startDateTime.month,
+          startDateTime.day,
+          startDateTime.hour,
+          startDateTime.minute,
+          startDateTime.second,
+          startDateTime.millisecond,
+          startDateTime.microsecond,
+        );
+        break;
+      default:
+        throw ArgumentError('Invalid unit: $unit. Use day, month, or year.');
+    }
+
+    // Return the calculated DateTimeRange (start and expire datetime)
+    return DateTimeRange(start: startDateTime, end: expireDateTime);
   }
 }

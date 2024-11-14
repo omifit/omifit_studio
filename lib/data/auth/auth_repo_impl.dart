@@ -7,6 +7,7 @@ import 'package:omifit/core/exceptions.dart';
 import 'package:omifit/data/auth/auth_repo.dart';
 import 'package:omifit/data/auth/model/login/login_model.dart';
 import 'package:omifit/data/auth/model/register/register_model.dart';
+import 'package:omifit/data/auth/model/search_user/search_user_model.dart';
 import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
 import 'package:omifit/data/auth/model/user_details/user_details_model.dart';
 import 'package:omifit/data/auth/model/user_update/user_details_update_model.dart';
@@ -109,6 +110,20 @@ class AuthRepoImpl implements AuthRepo {
         {"fileUrl": url},
       );
       return Right(response.data);
+    } catch (e) {
+      logger.e(e);
+      return Left(ApiException(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<ApiException, SearchUserRes>> searchUser(
+      String phoneNum) async {
+    try {
+      final response = await _apiClient.get(
+        "${AppConstants.baseUrl}${usersearchurl(phoneNum)}",
+      );
+      return Right(SearchUserRes.fromJson(response.data!));
     } catch (e) {
       logger.e(e);
       return Left(ApiException(e.toString()));

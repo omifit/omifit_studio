@@ -1,17 +1,16 @@
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/services.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/add_member/add_member_view.dart';
 import 'package:omifit/view/organization/member/member_view_model.dart';
 
-class FindMemberView extends ConsumerStatefulWidget {
-  const FindMemberView({super.key});
+class FindUserView extends ConsumerStatefulWidget {
+  const FindUserView({super.key});
   @override
-  ConsumerState<FindMemberView> createState() => _FindMemberViewState();
+  ConsumerState<FindUserView> createState() => _FindUserViewState();
 }
 
-class _FindMemberViewState extends ConsumerState<FindMemberView> {
+class _FindUserViewState extends ConsumerState<FindUserView> {
   final _formkey = GlobalKey<FormState>();
   final TextEditingController _phoneController = TextEditingController();
 
@@ -25,41 +24,6 @@ class _FindMemberViewState extends ConsumerState<FindMemberView> {
     final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
     return Scaffold(
       backgroundColor: darkBlack,
-      // appBar: AppBar(
-      //   backgroundColor: darkBlack,
-      //   title: Text(
-      //     "Add Member",
-      //     style: TextStyle(
-      //       color: Colors.white,
-      //       fontSize: Responsive.isMobile(context) ? 16 : 18,
-      //       fontWeight: FontWeight.w600,
-      //     ),
-      //   ),
-      //   leading: IconButton(
-      //     onPressed: () {
-      //       Navigator.of(context).pop();
-      //     },
-      //     icon: const Icon(Icons.arrow_back_ios, color: kWhite),
-      //   ),
-      //   actions: [
-      //     TextButton(
-      //       onPressed: () {
-      //         // showCupertinoModalSheet(
-      //         //     context: context,
-      //         //     builder: (context) => const PlanPickerView());
-      //       },
-      //       child: const Text(
-      //         "Done",
-      //         style: TextStyle(
-      //           color: primaryColor,
-      //           fontSize: 16,
-      //           fontWeight: FontWeight.w600,
-      //         ),
-      //       ),
-      //     ),
-      //     gapW10
-      //   ],
-      // ),
       body: SingleChildScrollView(
         child: Form(
           key: _formkey,
@@ -71,12 +35,13 @@ class _FindMemberViewState extends ConsumerState<FindMemberView> {
                 fit: BoxFit.cover,
               ),
               PaddedColumn(
+                  mainAxisSize: MainAxisSize.min,
                   padding: EdgeInsets.symmetric(
-                      horizontal: Responsive.isMobile(context) ? 16 : 82),
+                      horizontal: Responsive.isMobile(context) ? 16 : 60),
                   children: [
                     gapH32,
                     const Text.rich(TextSpan(
-                        text: "Add Member to your",
+                        text: "Add",
                         style: TextStyle(
                           color: kWhite,
                           fontSize: 28,
@@ -84,15 +49,23 @@ class _FindMemberViewState extends ConsumerState<FindMemberView> {
                         ),
                         children: [
                           TextSpan(
-                            text: " Organization",
+                            text: " Member ",
                             style: TextStyle(
                               color: kRed,
                               fontSize: 28,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
+                          TextSpan(
+                            text: "to your Organization",
+                            style: TextStyle(
+                              color: kWhite,
+                              fontSize: 28,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                         ])),
-                    gapH72,
+                    gapH52,
                     TextFormField(
                       controller: _phoneController,
                       inputFormatters: [
@@ -135,15 +108,14 @@ class _FindMemberViewState extends ConsumerState<FindMemberView> {
                       width: double.infinity,
                       height: 50,
                       child: FilledBtn(
+                        isLoading: memberViewModel.loadingSearchUser,
                         color: kRed,
                         text: "Next",
                         onPressed: () {
-                          showCupertinoModalSheet(
-                            context: context,
-                            builder: (_) => AddMemberView(
-                              phonenumber: _phoneController.text.trim(),
-                            ),
-                          );
+                          if (_formkey.currentState!.validate()) {
+                            memberViewModel.searchUser(
+                                context, add91(_phoneController.text));
+                          }
                         },
                       ),
                     ),

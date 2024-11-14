@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:omifit/data/home/member/model/get_memberlist_model.dart';
 import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/add_member/plan_picker_view.dart';
+import 'package:omifit/view/organization/member/add_member/find_user_view.dart';
 import 'package:omifit/view/organization/member/member/widget/joindate_dropdown.dart';
 import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
 import 'package:omifit/view/organization/member/member/widget/pagination_dropdown.dart';
@@ -19,6 +19,12 @@ class DesktopMemberView extends ConsumerStatefulWidget {
 }
 
 class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
+  GetMemberListReq memberfilter = const GetMemberListReq(
+    status: "all",
+    //joiningDate: "lifeTime",
+    page: 1,
+    limit: 1,
+  );
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -28,9 +34,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
   }
 
   void getData() {
-    ref
-        .read(memberViewModelProvider)
-        .getmemberlist(context, const GetMemberListReq());
+    ref.read(memberViewModelProvider).getmemberlist(context, memberfilter);
   }
 
   @override
@@ -73,7 +77,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                     onPressed: () {
                       showCupertinoModalSheet(
                         context: context,
-                        builder: (_) => const PlanPickerView(uid: ""),
+                        builder: (_) => const FindUserView(),
                       );
                     },
                     icon: const Icon(CupertinoIcons.add_circled,
@@ -97,9 +101,28 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                   ),
                   gapW10,
                   JoindateDropdown(
-                      onChange: (value) {}, initialValue: "Lifetime"),
+                      onChange: (value) {
+                        memberfilter = memberfilter.copyWith(
+                          joiningDate: lowercaseAll(value),
+                          page: 1,
+                        );
+                        setState(() {});
+                        getData();
+                      },
+                      initialValue: capitalizeFirst(memberfilter.joiningDate)),
                   gapW10,
-                  StatusDropdown(onChange: (value) {}, initialValue: "Active"),
+                  StatusDropdown(
+                    onChange: (value) {
+                      memberfilter = memberfilter.copyWith(
+                        status: lowercaseAll(value),
+                        page: 1,
+                      );
+                      print(memberfilter);
+                      setState(() {});
+                      getData();
+                    },
+                    initialValue: capitalizeFirst(memberfilter.status),
+                  ),
                   gapW6,
                   SizedBox(
                     height: 35,
@@ -109,12 +132,23 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                     ),
                   ),
                   gapW10,
-                  PaginationDropdown(onChange: (value) {}, initialValue: 0),
+                  PaginationDropdown(
+                    onChange: (value) {
+                      memberfilter = memberfilter.copyWith(page: value);
+                      setState(() {});
+                      getData();
+                    },
+                    initialValue: memberfilter.page ?? 1,
+                    pagecount: memberViewModel
+                            .getMemberListRes?.body?.pagination?.totalPages ??
+                        1,
+                  ),
                 ],
               ),
               gapH5,
               const Divider(color: kGrey, thickness: 0.2),
               gapH10,
+              // Row Header
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 height: 42,
@@ -228,6 +262,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                 ),
               ),
               gapH15,
+              // Member List
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
@@ -240,7 +275,19 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                         (index) => Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: MemCard(
-                            memid: '101',
+                            memid: index.toString(),
+                            onEdit: () {},
+                            onRemove: () {
+                              memberViewModel.deletemember(
+                                  context,
+                                  memberViewModel
+                                          .getMemberListRes
+                                          ?.body
+                                          ?.organizationMembers?[index]
+                                          .user
+                                          ?.id ??
+                                      "");
+                            },
                             name: memberViewModel.getMemberListRes?.body
                                     ?.organizationMembers?[index].user?.name ??
                                 " -- ",
@@ -292,9 +339,15 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                                     .user
                                     ?.dateOfBirth) ??
                                 " -- ",
-                            joinDate: DateFormat('dd MMM yyyy').format(
-                                DateTime.parse(
-                                    "${memberViewModel.getMemberListRes?.body?.organizationMembers?[index].joiningDate}")),
+                            joinDate: memberViewModel
+                                        .getMemberListRes
+                                        ?.body
+                                        ?.organizationMembers?[index]
+                                        .joiningDate !=
+                                    null
+                                ? DateFormat('dd MMM yyyy').format(DateTime.parse(
+                                    "${memberViewModel.getMemberListRes?.body?.organizationMembers?[index].joiningDate}"))
+                                : " -- ",
                             status: memberViewModel.getMemberListRes?.body
                                     ?.organizationMembers?[index].status ??
                                 " -- ",

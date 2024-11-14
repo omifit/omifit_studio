@@ -11,6 +11,7 @@ _$GetMemberListReqImpl _$$GetMemberListReqImplFromJson(
     _$GetMemberListReqImpl(
       name: json['name'] as String?,
       number: json['number'] as String?,
+      status: json['status'] as String?,
       nameOrNumber: json['nameOrNumber'] as String?,
       joiningDate: json['joiningDate'] as String?,
       startDate: json['startDate'] as String?,
@@ -24,6 +25,7 @@ Map<String, dynamic> _$$GetMemberListReqImplToJson(
     <String, dynamic>{
       'name': instance.name,
       'number': instance.number,
+      'status': instance.status,
       'nameOrNumber': instance.nameOrNumber,
       'joiningDate': instance.joiningDate,
       'startDate': instance.startDate,

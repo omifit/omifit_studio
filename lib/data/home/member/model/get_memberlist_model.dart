@@ -22,6 +22,7 @@ class GetMemberListReq with _$GetMemberListReq {
   const factory GetMemberListReq({
     String? name,
     String? number,
+    String? status,
     String? nameOrNumber,
     String? joiningDate,
     String? startDate,

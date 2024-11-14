@@ -1,5 +1,8 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:omifit/data/auth/auth_repo_impl.dart';
+import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit/data/auth/model/verify_otp/verifyotp_model.dart';
 import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/member/edit_member/editmember_view.dart';
@@ -9,6 +12,7 @@ import 'package:omifit/view/organization/member/member_details/widget/attendance
 import 'package:omifit/view/organization/member/member_details/widget/meminfo_card.dart';
 import 'package:omifit/view/organization/member/member_details/widget/subscription_mem_card.dart';
 import 'package:omifit/view/organization/member/member_view_model.dart';
+import 'package:pinput/pinput.dart';
 
 class DesktopMemberDetailsView extends ConsumerStatefulWidget {
   final String uid;
@@ -46,6 +50,9 @@ class _DesktopMemberDetailsViewState
             padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
             children: [
               MeminfoCard(
+                uid: memberViewModel
+                        .memberDetailsRes?.body?.organizationMember?.user?.id ??
+                    "",
                 name: memberViewModel.memberDetailsRes?.body?.organizationMember
                         ?.user?.name ??
                     "",
@@ -65,15 +72,186 @@ class _DesktopMemberDetailsViewState
                     "",
                 picture: memberViewModel.memberDetailsRes?.body
                         ?.organizationMember?.user?.profileImage ??
-                    "",
+                    damiProfile(
+                        stringTogender(memberViewModel.memberDetailsRes?.body
+                            ?.organizationMember?.user?.gender),
+                        memberViewModel.memberDetailsRes?.body
+                                ?.organizationMember?.user?.dateOfBirth ??
+                            ""),
                 isVerify: memberViewModel.memberDetailsRes?.body
                         ?.organizationMember?.user?.isVerified ??
                     false,
-                onEdit: () {
-                  showCupertinoModalSheet(
-                    context: context,
-                    builder: (_) => const EditMemberView(),
-                  );
+                onEdit: () async {
+                  if (memberViewModel.memberDetailsRes?.body?.organizationMember
+                          ?.user?.isVerified ??
+                      false) {
+                    // verified
+                    // 1. send otp
+                    await AuthRepoImpl().sendOtp(SendOtpReq(
+                        phoneNumber: memberViewModel.memberDetailsRes?.body
+                            ?.organizationMember?.user?.phoneNumber));
+                    // verify otp
+                    String? pincode;
+                    bool isloading = false;
+                    await showModalBottomSheet(
+                      elevation: 2,
+                      isDismissible: true,
+                      context: context,
+                      barrierColor: Colors.transparent,
+                      builder: (context) {
+                        return StatefulBuilder(
+                          builder: (BuildContext context,
+                              StateSetter setModalState) {
+                            return Container(
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                color: lightBlack,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
+                              ),
+                              child: PaddedColumn(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        Responsive.isMobile(context) ? 16 : 42),
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: <Widget>[
+                                  gapH10,
+                                  Align(
+                                    child: PaddedColumn(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 35),
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text(
+                                          'Verify OTP to Edit Member Details',
+                                          style: TextStyle(
+                                            color: kWhite,
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        const Text(
+                                          'Enter your phone number to receive a verification code via SMS or Call. This will help us verify your identity and secure your account.',
+                                          style: TextStyle(
+                                            color: kGrey,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        gapH40,
+                                        Align(
+                                          child: Pinput(
+                                            length: 6,
+                                            defaultPinTheme: PinTheme(
+                                              width: 80,
+                                              height:
+                                                  Responsive.isMobile(context)
+                                                      ? 60
+                                                      : 80,
+                                              textStyle: const TextStyle(
+                                                fontSize: 20,
+                                                color: kWhite,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    lightBlack.withOpacity(0.5),
+                                                border:
+                                                    Border.all(color: kGrey),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                            ),
+                                            autofocus: true,
+                                            androidSmsAutofillMethod:
+                                                AndroidSmsAutofillMethod
+                                                    .smsUserConsentApi,
+                                            autofillHints: const [
+                                              AutofillHints.oneTimeCode
+                                            ],
+                                            validator: (s) {
+                                              return s!.length == 6
+                                                  ? null
+                                                  : 'Pin is incorrect';
+                                            },
+                                            onChanged: (value) {
+                                              pincode = value;
+                                              setModalState(
+                                                  () {}); // Update within modal state
+                                            },
+                                            onSubmitted: (value) {},
+                                          ),
+                                        ),
+                                        gapH40,
+                                        SizedBox(
+                                          width: double.infinity,
+                                          height: 60,
+                                          child: FilledBtn(
+                                            text: "Next",
+                                            isLoading: isloading,
+                                            onPressed: () {
+                                              setModalState(
+                                                  () => isloading = true);
+                                              AuthRepoImpl()
+                                                  .verifyOtp(VerifyOtpReq(
+                                                      phoneNumber: memberViewModel
+                                                          .memberDetailsRes
+                                                          ?.body
+                                                          ?.organizationMember
+                                                          ?.user
+                                                          ?.phoneNumber,
+                                                      otp: pincode))
+                                                  .then((value) =>
+                                                      value.fold((l) {
+                                                        setModalState(() =>
+                                                            isloading = false);
+                                                      }, (r) {
+                                                        setModalState(() =>
+                                                            isloading = false);
+                                                        context.pop();
+                                                        showCupertinoModalSheet(
+                                                          context: context,
+                                                          barrierDismissible:
+                                                              false,
+                                                          builder: (_) =>
+                                                              const EditMemberView(),
+                                                        );
+                                                      }));
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  } else {
+                    // not verified
+                    showCupertinoModalSheet(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (_) => const EditMemberView(),
+                    );
+                  }
+                },
+                onRemove: () {
+                  memberViewModel.deletemember(
+                      context,
+                      memberViewModel.memberDetailsRes?.body?.organizationMember
+                              ?.user?.id ??
+                          "");
                 },
               ),
               gapW20,

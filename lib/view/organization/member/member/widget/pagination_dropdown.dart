@@ -4,20 +4,22 @@ import 'package:pull_down_button/pull_down_button.dart';
 
 class PaginationDropdown extends StatefulWidget {
   final int initialValue;
+  final int pagecount;
   final int? selectedValue;
   final void Function(int selectedValue) onChange;
   const PaginationDropdown(
       {super.key,
       required this.onChange,
       required this.initialValue,
-      this.selectedValue});
+      this.selectedValue,
+      required this.pagecount});
 
   @override
   State<PaginationDropdown> createState() => _TimeDropdown1State();
 }
 
 class _TimeDropdown1State extends State<PaginationDropdown> {
-  int selectedValue = 0;
+  int selectedValue = 1;
   @override
   void initState() {
     selectedValue = widget.initialValue;
@@ -39,13 +41,13 @@ class _TimeDropdown1State extends State<PaginationDropdown> {
       ),
       itemBuilder: (context) => [
         ...List.generate(
-          10,
+          widget.pagecount,
           (index) => PullDownMenuItem.selectable(
-            title: index.toString(),
-            selected: selectedValue == index,
+            title: (index + 1).toString(),
+            selected: selectedValue == index + 1,
             onTap: () {
-              selectedValue = index;
-              widget.onChange(index);
+              selectedValue = index + 1;
+              widget.onChange(index + 1);
               setState(() {});
             },
           ),

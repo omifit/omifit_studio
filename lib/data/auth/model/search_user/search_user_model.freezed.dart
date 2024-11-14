@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'get_member_details_model.dart';
+part of 'search_user_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,27 +14,27 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-MemberDetailsRes _$MemberDetailsResFromJson(Map<String, dynamic> json) {
-  return _MemberDetailsRes.fromJson(json);
+SearchUserRes _$SearchUserResFromJson(Map<String, dynamic> json) {
+  return _SearchUserRes.fromJson(json);
 }
 
 /// @nodoc
-mixin _$MemberDetailsRes {
+mixin _$SearchUserRes {
   bool? get success => throw _privateConstructorUsedError;
   String? get message => throw _privateConstructorUsedError;
   Body? get body => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $MemberDetailsResCopyWith<MemberDetailsRes> get copyWith =>
+  $SearchUserResCopyWith<SearchUserRes> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $MemberDetailsResCopyWith<$Res> {
-  factory $MemberDetailsResCopyWith(
-          MemberDetailsRes value, $Res Function(MemberDetailsRes) then) =
-      _$MemberDetailsResCopyWithImpl<$Res, MemberDetailsRes>;
+abstract class $SearchUserResCopyWith<$Res> {
+  factory $SearchUserResCopyWith(
+          SearchUserRes value, $Res Function(SearchUserRes) then) =
+      _$SearchUserResCopyWithImpl<$Res, SearchUserRes>;
   @useResult
   $Res call({bool? success, String? message, Body? body});
 
@@ -42,9 +42,9 @@ abstract class $MemberDetailsResCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$MemberDetailsResCopyWithImpl<$Res, $Val extends MemberDetailsRes>
-    implements $MemberDetailsResCopyWith<$Res> {
-  _$MemberDetailsResCopyWithImpl(this._value, this._then);
+class _$SearchUserResCopyWithImpl<$Res, $Val extends SearchUserRes>
+    implements $SearchUserResCopyWith<$Res> {
+  _$SearchUserResCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -88,11 +88,11 @@ class _$MemberDetailsResCopyWithImpl<$Res, $Val extends MemberDetailsRes>
 }
 
 /// @nodoc
-abstract class _$$MemberDetailsResImplCopyWith<$Res>
-    implements $MemberDetailsResCopyWith<$Res> {
-  factory _$$MemberDetailsResImplCopyWith(_$MemberDetailsResImpl value,
-          $Res Function(_$MemberDetailsResImpl) then) =
-      __$$MemberDetailsResImplCopyWithImpl<$Res>;
+abstract class _$$SearchUserResImplCopyWith<$Res>
+    implements $SearchUserResCopyWith<$Res> {
+  factory _$$SearchUserResImplCopyWith(
+          _$SearchUserResImpl value, $Res Function(_$SearchUserResImpl) then) =
+      __$$SearchUserResImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool? success, String? message, Body? body});
@@ -102,11 +102,11 @@ abstract class _$$MemberDetailsResImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$MemberDetailsResImplCopyWithImpl<$Res>
-    extends _$MemberDetailsResCopyWithImpl<$Res, _$MemberDetailsResImpl>
-    implements _$$MemberDetailsResImplCopyWith<$Res> {
-  __$$MemberDetailsResImplCopyWithImpl(_$MemberDetailsResImpl _value,
-      $Res Function(_$MemberDetailsResImpl) _then)
+class __$$SearchUserResImplCopyWithImpl<$Res>
+    extends _$SearchUserResCopyWithImpl<$Res, _$SearchUserResImpl>
+    implements _$$SearchUserResImplCopyWith<$Res> {
+  __$$SearchUserResImplCopyWithImpl(
+      _$SearchUserResImpl _value, $Res Function(_$SearchUserResImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -116,7 +116,7 @@ class __$$MemberDetailsResImplCopyWithImpl<$Res>
     Object? message = freezed,
     Object? body = freezed,
   }) {
-    return _then(_$MemberDetailsResImpl(
+    return _then(_$SearchUserResImpl(
       success: freezed == success
           ? _value.success
           : success // ignore: cast_nullable_to_non_nullable
@@ -135,11 +135,11 @@ class __$$MemberDetailsResImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MemberDetailsResImpl implements _MemberDetailsRes {
-  const _$MemberDetailsResImpl({this.success, this.message, this.body});
+class _$SearchUserResImpl implements _SearchUserRes {
+  const _$SearchUserResImpl({this.success, this.message, this.body});
 
-  factory _$MemberDetailsResImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MemberDetailsResImplFromJson(json);
+  factory _$SearchUserResImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SearchUserResImplFromJson(json);
 
   @override
   final bool? success;
@@ -150,14 +150,14 @@ class _$MemberDetailsResImpl implements _MemberDetailsRes {
 
   @override
   String toString() {
-    return 'MemberDetailsRes(success: $success, message: $message, body: $body)';
+    return 'SearchUserRes(success: $success, message: $message, body: $body)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$MemberDetailsResImpl &&
+            other is _$SearchUserResImpl &&
             (identical(other.success, success) || other.success == success) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.body, body) || other.body == body));
@@ -170,26 +170,25 @@ class _$MemberDetailsResImpl implements _MemberDetailsRes {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$MemberDetailsResImplCopyWith<_$MemberDetailsResImpl> get copyWith =>
-      __$$MemberDetailsResImplCopyWithImpl<_$MemberDetailsResImpl>(
-          this, _$identity);
+  _$$SearchUserResImplCopyWith<_$SearchUserResImpl> get copyWith =>
+      __$$SearchUserResImplCopyWithImpl<_$SearchUserResImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MemberDetailsResImplToJson(
+    return _$$SearchUserResImplToJson(
       this,
     );
   }
 }
 
-abstract class _MemberDetailsRes implements MemberDetailsRes {
-  const factory _MemberDetailsRes(
+abstract class _SearchUserRes implements SearchUserRes {
+  const factory _SearchUserRes(
       {final bool? success,
       final String? message,
-      final Body? body}) = _$MemberDetailsResImpl;
+      final Body? body}) = _$SearchUserResImpl;
 
-  factory _MemberDetailsRes.fromJson(Map<String, dynamic> json) =
-      _$MemberDetailsResImpl.fromJson;
+  factory _SearchUserRes.fromJson(Map<String, dynamic> json) =
+      _$SearchUserResImpl.fromJson;
 
   @override
   bool? get success;
@@ -199,7 +198,7 @@ abstract class _MemberDetailsRes implements MemberDetailsRes {
   Body? get body;
   @override
   @JsonKey(ignore: true)
-  _$$MemberDetailsResImplCopyWith<_$MemberDetailsResImpl> get copyWith =>
+  _$$SearchUserResImplCopyWith<_$SearchUserResImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -209,8 +208,7 @@ Body _$BodyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Body {
-  OrganizationMember? get organizationMember =>
-      throw _privateConstructorUsedError;
+  List<User>? get user => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -222,9 +220,7 @@ abstract class $BodyCopyWith<$Res> {
   factory $BodyCopyWith(Body value, $Res Function(Body) then) =
       _$BodyCopyWithImpl<$Res, Body>;
   @useResult
-  $Res call({OrganizationMember? organizationMember});
-
-  $OrganizationMemberCopyWith<$Res>? get organizationMember;
+  $Res call({List<User>? user});
 }
 
 /// @nodoc
@@ -240,27 +236,14 @@ class _$BodyCopyWithImpl<$Res, $Val extends Body>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? organizationMember = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
-      organizationMember: freezed == organizationMember
-          ? _value.organizationMember
-          : organizationMember // ignore: cast_nullable_to_non_nullable
-              as OrganizationMember?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as List<User>?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $OrganizationMemberCopyWith<$Res>? get organizationMember {
-    if (_value.organizationMember == null) {
-      return null;
-    }
-
-    return $OrganizationMemberCopyWith<$Res>(_value.organizationMember!,
-        (value) {
-      return _then(_value.copyWith(organizationMember: value) as $Val);
-    });
   }
 }
 
@@ -271,10 +254,7 @@ abstract class _$$BodyImplCopyWith<$Res> implements $BodyCopyWith<$Res> {
       __$$BodyImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({OrganizationMember? organizationMember});
-
-  @override
-  $OrganizationMemberCopyWith<$Res>? get organizationMember;
+  $Res call({List<User>? user});
 }
 
 /// @nodoc
@@ -287,13 +267,13 @@ class __$$BodyImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? organizationMember = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$BodyImpl(
-      organizationMember: freezed == organizationMember
-          ? _value.organizationMember
-          : organizationMember // ignore: cast_nullable_to_non_nullable
-              as OrganizationMember?,
+      user: freezed == user
+          ? _value._user
+          : user // ignore: cast_nullable_to_non_nullable
+              as List<User>?,
     ));
   }
 }
@@ -301,17 +281,24 @@ class __$$BodyImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BodyImpl implements _Body {
-  const _$BodyImpl({this.organizationMember});
+  const _$BodyImpl({final List<User>? user}) : _user = user;
 
   factory _$BodyImpl.fromJson(Map<String, dynamic> json) =>
       _$$BodyImplFromJson(json);
 
+  final List<User>? _user;
   @override
-  final OrganizationMember? organizationMember;
+  List<User>? get user {
+    final value = _user;
+    if (value == null) return null;
+    if (_user is EqualUnmodifiableListView) return _user;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Body(organizationMember: $organizationMember)';
+    return 'Body(user: $user)';
   }
 
   @override
@@ -319,13 +306,13 @@ class _$BodyImpl implements _Body {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BodyImpl &&
-            (identical(other.organizationMember, organizationMember) ||
-                other.organizationMember == organizationMember));
+            const DeepCollectionEquality().equals(other._user, _user));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, organizationMember);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_user));
 
   @JsonKey(ignore: true)
   @override
@@ -342,330 +329,15 @@ class _$BodyImpl implements _Body {
 }
 
 abstract class _Body implements Body {
-  const factory _Body({final OrganizationMember? organizationMember}) =
-      _$BodyImpl;
+  const factory _Body({final List<User>? user}) = _$BodyImpl;
 
   factory _Body.fromJson(Map<String, dynamic> json) = _$BodyImpl.fromJson;
 
   @override
-  OrganizationMember? get organizationMember;
+  List<User>? get user;
   @override
   @JsonKey(ignore: true)
   _$$BodyImplCopyWith<_$BodyImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-OrganizationMember _$OrganizationMemberFromJson(Map<String, dynamic> json) {
-  return _OrganizationMember.fromJson(json);
-}
-
-/// @nodoc
-mixin _$OrganizationMember {
-  @JsonKey(name: '_id')
-  String? get id => throw _privateConstructorUsedError;
-  User? get user => throw _privateConstructorUsedError;
-  String? get organization => throw _privateConstructorUsedError;
-  String? get status => throw _privateConstructorUsedError;
-  dynamic get coach => throw _privateConstructorUsedError;
-  String? get joiningDate => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $OrganizationMemberCopyWith<OrganizationMember> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $OrganizationMemberCopyWith<$Res> {
-  factory $OrganizationMemberCopyWith(
-          OrganizationMember value, $Res Function(OrganizationMember) then) =
-      _$OrganizationMemberCopyWithImpl<$Res, OrganizationMember>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: '_id') String? id,
-      User? user,
-      String? organization,
-      String? status,
-      dynamic coach,
-      String? joiningDate,
-      String? createdAt,
-      String? updatedAt});
-
-  $UserCopyWith<$Res>? get user;
-}
-
-/// @nodoc
-class _$OrganizationMemberCopyWithImpl<$Res, $Val extends OrganizationMember>
-    implements $OrganizationMemberCopyWith<$Res> {
-  _$OrganizationMemberCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? user = freezed,
-    Object? organization = freezed,
-    Object? status = freezed,
-    Object? coach = freezed,
-    Object? joiningDate = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User?,
-      organization: freezed == organization
-          ? _value.organization
-          : organization // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      coach: freezed == coach
-          ? _value.coach
-          : coach // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      joiningDate: freezed == joiningDate
-          ? _value.joiningDate
-          : joiningDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $UserCopyWith<$Res>(_value.user!, (value) {
-      return _then(_value.copyWith(user: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$OrganizationMemberImplCopyWith<$Res>
-    implements $OrganizationMemberCopyWith<$Res> {
-  factory _$$OrganizationMemberImplCopyWith(_$OrganizationMemberImpl value,
-          $Res Function(_$OrganizationMemberImpl) then) =
-      __$$OrganizationMemberImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: '_id') String? id,
-      User? user,
-      String? organization,
-      String? status,
-      dynamic coach,
-      String? joiningDate,
-      String? createdAt,
-      String? updatedAt});
-
-  @override
-  $UserCopyWith<$Res>? get user;
-}
-
-/// @nodoc
-class __$$OrganizationMemberImplCopyWithImpl<$Res>
-    extends _$OrganizationMemberCopyWithImpl<$Res, _$OrganizationMemberImpl>
-    implements _$$OrganizationMemberImplCopyWith<$Res> {
-  __$$OrganizationMemberImplCopyWithImpl(_$OrganizationMemberImpl _value,
-      $Res Function(_$OrganizationMemberImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? user = freezed,
-    Object? organization = freezed,
-    Object? status = freezed,
-    Object? coach = freezed,
-    Object? joiningDate = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-  }) {
-    return _then(_$OrganizationMemberImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String?,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as User?,
-      organization: freezed == organization
-          ? _value.organization
-          : organization // ignore: cast_nullable_to_non_nullable
-              as String?,
-      status: freezed == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String?,
-      coach: freezed == coach
-          ? _value.coach
-          : coach // ignore: cast_nullable_to_non_nullable
-              as dynamic,
-      joiningDate: freezed == joiningDate
-          ? _value.joiningDate
-          : joiningDate // ignore: cast_nullable_to_non_nullable
-              as String?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$OrganizationMemberImpl implements _OrganizationMember {
-  const _$OrganizationMemberImpl(
-      {@JsonKey(name: '_id') this.id,
-      this.user,
-      this.organization,
-      this.status,
-      this.coach,
-      this.joiningDate,
-      this.createdAt,
-      this.updatedAt});
-
-  factory _$OrganizationMemberImpl.fromJson(Map<String, dynamic> json) =>
-      _$$OrganizationMemberImplFromJson(json);
-
-  @override
-  @JsonKey(name: '_id')
-  final String? id;
-  @override
-  final User? user;
-  @override
-  final String? organization;
-  @override
-  final String? status;
-  @override
-  final dynamic coach;
-  @override
-  final String? joiningDate;
-  @override
-  final String? createdAt;
-  @override
-  final String? updatedAt;
-
-  @override
-  String toString() {
-    return 'OrganizationMember(id: $id, user: $user, organization: $organization, status: $status, coach: $coach, joiningDate: $joiningDate, createdAt: $createdAt, updatedAt: $updatedAt)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$OrganizationMemberImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.organization, organization) ||
-                other.organization == organization) &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.coach, coach) &&
-            (identical(other.joiningDate, joiningDate) ||
-                other.joiningDate == joiningDate) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      user,
-      organization,
-      status,
-      const DeepCollectionEquality().hash(coach),
-      joiningDate,
-      createdAt,
-      updatedAt);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$OrganizationMemberImplCopyWith<_$OrganizationMemberImpl> get copyWith =>
-      __$$OrganizationMemberImplCopyWithImpl<_$OrganizationMemberImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$OrganizationMemberImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _OrganizationMember implements OrganizationMember {
-  const factory _OrganizationMember(
-      {@JsonKey(name: '_id') final String? id,
-      final User? user,
-      final String? organization,
-      final String? status,
-      final dynamic coach,
-      final String? joiningDate,
-      final String? createdAt,
-      final String? updatedAt}) = _$OrganizationMemberImpl;
-
-  factory _OrganizationMember.fromJson(Map<String, dynamic> json) =
-      _$OrganizationMemberImpl.fromJson;
-
-  @override
-  @JsonKey(name: '_id')
-  String? get id;
-  @override
-  User? get user;
-  @override
-  String? get organization;
-  @override
-  String? get status;
-  @override
-  dynamic get coach;
-  @override
-  String? get joiningDate;
-  @override
-  String? get createdAt;
-  @override
-  String? get updatedAt;
-  @override
-  @JsonKey(ignore: true)
-  _$$OrganizationMemberImplCopyWith<_$OrganizationMemberImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -686,8 +358,6 @@ mixin _$User {
   String? get address => throw _privateConstructorUsedError;
   String? get profileImage => throw _privateConstructorUsedError;
   bool? get isVerified => throw _privateConstructorUsedError;
-  String? get createdAt => throw _privateConstructorUsedError;
-  String? get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -709,9 +379,7 @@ abstract class $UserCopyWith<$Res> {
       String? profession,
       String? address,
       String? profileImage,
-      bool? isVerified,
-      String? createdAt,
-      String? updatedAt});
+      bool? isVerified});
 
   $LocationCopyWith<$Res>? get location;
 }
@@ -739,8 +407,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? address = freezed,
     Object? profileImage = freezed,
     Object? isVerified = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
       location: freezed == location
@@ -783,14 +449,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.isVerified
           : isVerified // ignore: cast_nullable_to_non_nullable
               as bool?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 
@@ -824,9 +482,7 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? profession,
       String? address,
       String? profileImage,
-      bool? isVerified,
-      String? createdAt,
-      String? updatedAt});
+      bool? isVerified});
 
   @override
   $LocationCopyWith<$Res>? get location;
@@ -852,8 +508,6 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? address = freezed,
     Object? profileImage = freezed,
     Object? isVerified = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
   }) {
     return _then(_$UserImpl(
       location: freezed == location
@@ -896,14 +550,6 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.isVerified
           : isVerified // ignore: cast_nullable_to_non_nullable
               as bool?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as String?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -921,9 +567,7 @@ class _$UserImpl implements _User {
       this.profession,
       this.address,
       this.profileImage,
-      this.isVerified,
-      this.createdAt,
-      this.updatedAt});
+      this.isVerified});
 
   factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserImplFromJson(json);
@@ -949,14 +593,10 @@ class _$UserImpl implements _User {
   final String? profileImage;
   @override
   final bool? isVerified;
-  @override
-  final String? createdAt;
-  @override
-  final String? updatedAt;
 
   @override
   String toString() {
-    return 'User(location: $location, id: $id, name: $name, phoneNumber: $phoneNumber, dateOfBirth: $dateOfBirth, gender: $gender, profession: $profession, address: $address, profileImage: $profileImage, isVerified: $isVerified, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'User(location: $location, id: $id, name: $name, phoneNumber: $phoneNumber, dateOfBirth: $dateOfBirth, gender: $gender, profession: $profession, address: $address, profileImage: $profileImage, isVerified: $isVerified)';
   }
 
   @override
@@ -979,29 +619,13 @@ class _$UserImpl implements _User {
             (identical(other.profileImage, profileImage) ||
                 other.profileImage == profileImage) &&
             (identical(other.isVerified, isVerified) ||
-                other.isVerified == isVerified) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.isVerified == isVerified));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      location,
-      id,
-      name,
-      phoneNumber,
-      dateOfBirth,
-      gender,
-      profession,
-      address,
-      profileImage,
-      isVerified,
-      createdAt,
-      updatedAt);
+  int get hashCode => Object.hash(runtimeType, location, id, name, phoneNumber,
+      dateOfBirth, gender, profession, address, profileImage, isVerified);
 
   @JsonKey(ignore: true)
   @override
@@ -1028,9 +652,7 @@ abstract class _User implements User {
       final String? profession,
       final String? address,
       final String? profileImage,
-      final bool? isVerified,
-      final String? createdAt,
-      final String? updatedAt}) = _$UserImpl;
+      final bool? isVerified}) = _$UserImpl;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
@@ -1055,10 +677,6 @@ abstract class _User implements User {
   String? get profileImage;
   @override
   bool? get isVerified;
-  @override
-  String? get createdAt;
-  @override
-  String? get updatedAt;
   @override
   @JsonKey(ignore: true)
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>

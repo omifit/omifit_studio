@@ -41,6 +41,7 @@ dependencies:
   google_fonts: ^6.2.0
   hovering: ^1.0.4
   http_parser: null
+  hugeicons: ^0.0.7
   iconly: ^1.0.1
   image_picker: ^1.1.2
   image_picker_for_web: ^3.0.5
@@ -71,7 +72,6 @@ dependencies:
   url_strategy: ^0.2.0
   win32: ^5.5.4
   wolt_modal_sheet: ^0.5.0
-  
 
 dev_dependencies:
   build_runner: null

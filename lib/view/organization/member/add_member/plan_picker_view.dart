@@ -1,7 +1,8 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:omifit/core/core.dart';
+import 'package:omifit/data/home/subscription/model/purchase_plan_model.dart';
+import 'package:omifit/utils/parse.dart';
 import 'package:omifit/utils/utils.dart';
 import 'package:omifit/view/organization/member/add_member/payment_view.dart';
 import 'package:omifit/view/organization/member/member_view_model.dart';
@@ -20,7 +21,7 @@ class PlanPickerView extends ConsumerStatefulWidget {
 }
 
 class _PlanPickerViewState extends ConsumerState<PlanPickerView> {
-  final List<dynamic> _tempSelectedPlan = [];
+  final List<SelectedPlan> tempSelectedPlan = [];
   @override
   void initState() {
     super.initState();
@@ -42,33 +43,57 @@ class _PlanPickerViewState extends ConsumerState<PlanPickerView> {
     return Scaffold(
       backgroundColor: darkBlack,
       appBar: AppBar(
+        toolbarHeight: 75,
         backgroundColor: darkBlack,
-        title: Text(
-          "Select Plan",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: Responsive.isMobile(context) ? 16 : 18,
-            fontWeight: FontWeight.w600,
-          ),
+        title: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            ProfileImg(
+              url: memberViewModel.memberDetailsRes?.body?.organizationMember
+                      ?.user?.profileImage ??
+                  damiProfile(
+                      stringTogender(memberViewModel.memberDetailsRes?.body
+                          ?.organizationMember?.user?.gender),
+                      memberViewModel.memberDetailsRes?.body?.organizationMember
+                              ?.user?.dateOfBirth ??
+                          ""),
+              height: 40,
+              width: 40,
+            ),
+            gapW20,
+            Text(
+              memberViewModel
+                      .memberDetailsRes?.body?.organizationMember?.user?.name ??
+                  "",
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pop();
           },
           icon: const Icon(Icons.arrow_back_ios, color: kWhite),
         ),
         actions: [
           TextButton(
             onPressed: () {
-              showCupertinoModalSheet(
-                  context: context,
-                  builder: (context) =>
-                      PaymentView(selectedItems: _tempSelectedPlan));
+              HapticFeedback.mediumImpact();
+              if (tempSelectedPlan.isNotEmpty) {
+                showCupertinoModalSheet(
+                    context: context,
+                    builder: (context) =>
+                        PaymentView(selectedItems: tempSelectedPlan));
+              }
             },
             child: Text(
               "Next",
               style: TextStyle(
-                color: _tempSelectedPlan.isEmpty ? kGrey : primaryColor,
+                color: tempSelectedPlan.isEmpty ? kGrey : primaryColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -91,48 +116,6 @@ class _PlanPickerViewState extends ConsumerState<PlanPickerView> {
                             ResponsiveMember.isMobile(context) ? 16 : 20),
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      gapH30,
-                      Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(255, 70, 69, 69),
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromARGB(9, 9, 9, 9),
-                              offset: Offset(0, 2),
-                              blurRadius: 30,
-                            ),
-                          ],
-                        ),
-                        child: ListTile(
-                          leading: const ProfileImg(
-                            url: AppConstants.orgLogoPlaceholder,
-                            height: 60,
-                          ),
-                          title: Text(
-                              memberViewModel.memberDetailsRes?.body
-                                      ?.organizationMember?.user?.name ??
-                                  "",
-                              style: TextStyle(
-                                  color: kWhite.withOpacity(0.9),
-                                  fontSize: ResponsiveMember.isMobile(context)
-                                      ? 14
-                                      : 17,
-                                  fontWeight: FontWeight.w500)),
-                          subtitle: Text(
-                              memberViewModel.memberDetailsRes?.body
-                                      ?.organizationMember?.user?.phoneNumber ??
-                                  "",
-                              style: TextStyle(
-                                  color:
-                                      const Color.fromARGB(185, 217, 215, 215),
-                                  fontSize: ResponsiveMember.isMobile(context)
-                                      ? 12
-                                      : 15,
-                                  fontWeight: FontWeight.w400)),
-                        ),
-                      ),
                       gapH30,
                       Container(
                           padding: const EdgeInsets.symmetric(vertical: 10),
@@ -178,32 +161,85 @@ class _PlanPickerViewState extends ConsumerState<PlanPickerView> {
                                                                 ?.unit ??
                                                             "");
 
-                                                _tempSelectedPlan.add({
-                                                  "planId":
-                                                      "6717fc3a920af2ec83621a75",
-                                                  "planName": "Basic",
-                                                  "totalAmount": "100",
-                                                  "paidAmount": "100",
-                                                  "remark": "nothing",
-                                                  "paymentForm": "cash",
-                                                  "membershipStartDate":
-                                                      dateTimeRange.start,
-                                                  "membershipEndDate":
-                                                      dateTimeRange.end,
-                                                  "userId":
-                                                      "6717f4ace2bf6bcfac45414f"
-                                                });
+                                                if (tempSelectedPlan.any(
+                                                    (element) =>
+                                                        element.planId ==
+                                                        planViewModel
+                                                            .getPlanListRes
+                                                            ?.body
+                                                            ?.organizationPlans?[
+                                                                index]
+                                                            .id)) {
+                                                  tempSelectedPlan.removeWhere(
+                                                      (element) =>
+                                                          element.planId ==
+                                                          planViewModel
+                                                              .getPlanListRes
+                                                              ?.body
+                                                              ?.organizationPlans?[
+                                                                  index]
+                                                              .id);
+                                                } else {
+                                                  tempSelectedPlan.add(SelectedPlan(
+                                                      userId: widget.uid,
+                                                      planId: planViewModel
+                                                          .getPlanListRes
+                                                          ?.body
+                                                          ?.organizationPlans?[
+                                                              index]
+                                                          .id,
+                                                      planName: planViewModel
+                                                          .getPlanListRes
+                                                          ?.body
+                                                          ?.organizationPlans?[
+                                                              index]
+                                                          .name,
+                                                      totalAmount: planViewModel
+                                                          .getPlanListRes
+                                                          ?.body
+                                                          ?.organizationPlans?[
+                                                              index]
+                                                          .price,
+                                                      membershipStartDate:
+                                                          dateTimeRange.start,
+                                                      membershipEndDate:
+                                                          dateTimeRange.end,
+                                                      durationValue: planViewModel
+                                                          .getPlanListRes
+                                                          ?.body
+                                                          ?.organizationPlans?[
+                                                              index]
+                                                          .duration
+                                                          ?.value,
+                                                      durationUnit: planViewModel
+                                                          .getPlanListRes
+                                                          ?.body
+                                                          ?.organizationPlans?[
+                                                              index]
+                                                          .duration
+                                                          ?.unit));
+                                                }
                                                 setState(() {});
                                               },
                                               padding:
                                                   const EdgeInsets.symmetric(
                                                       vertical: 8,
                                                       horizontal: 16),
-                                              leading: Checkbox(
-                                                  activeColor: kRed,
-                                                  checkColor: kWhite,
-                                                  value: index == 0,
-                                                  onChanged: (value) {}),
+                                              leading: IgnorePointer(
+                                                child: Checkbox(
+                                                    activeColor: kRed,
+                                                    checkColor: kWhite,
+                                                    value: tempSelectedPlan.any(
+                                                        (element) =>
+                                                            element.planId ==
+                                                            planViewModel
+                                                                .getPlanListRes
+                                                                ?.body
+                                                                ?.organizationPlans?[
+                                                                    index]
+                                                                .id),
+                                                    onChanged: (value) {}),
+                                              ),
                                               title: Text(
                                                   planViewModel
                                                           .getPlanListRes
@@ -284,6 +320,9 @@ class _PlanPickerViewState extends ConsumerState<PlanPickerView> {
     switch (unit.toLowerCase()) {
       case 'day':
         expireDateTime = startDateTime.add(Duration(days: number));
+        break;
+      case 'week':
+        expireDateTime = startDateTime.add(Duration(days: number * 7));
         break;
       case 'month':
         expireDateTime = DateTime(

@@ -2,6 +2,7 @@
   "files.autoSave": "afterDelay",
   "material-icon-theme.folders.color": "#fff",
   "editor.minimap.sectionHeaderFontSize": 9,
+  "editor.fontSize": 11.5,
   "files.exclude": {
     "**/node_modules": true,
     "**/dist": true,

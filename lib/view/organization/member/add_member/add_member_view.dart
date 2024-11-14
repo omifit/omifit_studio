@@ -1,6 +1,5 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
@@ -14,8 +13,17 @@ import 'package:omifit/widget/imageicon/profile_img.dart';
 import 'package:omifit/widget/picker/profession_dropdown.dart';
 
 class AddMemberView extends ConsumerStatefulWidget {
+  final bool? isEdit;
+  final String? uid;
+  final String? name;
   final String phonenumber;
-  const AddMemberView({super.key, required this.phonenumber});
+  final String? dob;
+  final String? gender;
+  final String? profession;
+  final String? image;
+  const AddMemberView(this.name, this.dob, this.gender, this.profession,
+      this.image, this.isEdit, this.uid,
+      {super.key, required this.phonenumber});
   @override
   ConsumerState<AddMemberView> createState() => _AddMemberViewState();
 }
@@ -31,7 +39,12 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
 
   @override
   void initState() {
-    _phoneController.text = widget.phonenumber;
+    _phoneController.text = remove91(widget.phonenumber);
+    _nameController.text = widget.name ?? "";
+    _dobController.text = stringToDateFormatString(widget.dob);
+    _gender = stringTogender(widget.gender);
+    _profession = capitalizeFirst(widget.profession);
+    _image = widget.image;
     super.initState();
   }
 
@@ -40,10 +53,36 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
     final MemberViewModel memberViewModel = ref.watch(memberViewModelProvider);
     return Scaffold(
       backgroundColor: darkBlack,
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        child: SizedBox(
+          width: double.infinity,
+          height: 52,
+          child: FilledBtn(
+            isLoading: memberViewModel.lodingaddmember,
+            color: primaryColor,
+            text: "Add Member",
+            onPressed: () {
+              if (_formkey.currentState!.validate()) {
+                print(_dobController.text);
+                memberViewModel.createmember(
+                    context,
+                    AddMemberReq(
+                      name: _nameController.text.trim(),
+                      phoneNumber: add91(_phoneController.text),
+                      dateOfBirth: stringToDateTime(_dobController.text),
+                      gender: genderToString(_gender),
+                      profession: lowercaseAll(_profession),
+                    ));
+              }
+            },
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: darkBlack,
         title: Text(
-          "Add Member",
+          "Member Details",
           style: TextStyle(
             color: Colors.white,
             fontSize: Responsive.isMobile(context) ? 16 : 18,
@@ -57,29 +96,29 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
           icon: const Icon(Icons.arrow_back_ios, color: kWhite),
         ),
         actions: [
-          TextButton(
-            onPressed: () {
-              memberViewModel.createmember(
-                  context,
-                  AddMemberReq(
-                    name: _nameController.text.trim(),
-                    phoneNumber: add91(_phoneController.text),
-                    dateOfBirth: _dobController.text,
-                    gender: genderToString(_gender),
-                    profession: lowercaseAll(_profession),
-                  ));
-            },
-            child: memberViewModel.lodingaddmember
-                ? const CupertinoActivityIndicator()
-                : const Text(
-                    "Done",
-                    style: TextStyle(
-                      color: kRed,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-          ),
+          // TextButton(
+          //   onPressed: () {
+          //     memberViewModel.createmember(
+          //         context,
+          //         AddMemberReq(
+          //           name: _nameController.text.trim(),
+          //           phoneNumber: add91(_phoneController.text),
+          //           dateOfBirth: _dobController.text,
+          //           gender: genderToString(_gender),
+          //           profession: lowercaseAll(_profession),
+          //         ));
+          //   },
+          //   child: memberViewModel.lodingaddmember
+          //       ? const CupertinoActivityIndicator()
+          //       : const Text(
+          //           "Done",
+          //           style: TextStyle(
+          //             color: kRed,
+          //             fontSize: 16,
+          //             fontWeight: FontWeight.w600,
+          //           ),
+          //         ),
+          // ),
           gapW10
         ],
       ),
@@ -94,9 +133,13 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                 overlayColor: WidgetStateProperty.all(Colors.transparent),
                 onTap: () async {
                   HapticFeedback.lightImpact();
-                  await openPickImageModalSheet(context).then((value) {
-                    print("uploade-img link - $value");
-                  });
+                  if (widget.isEdit!) {
+                    await openPickImageModalSheet(context).then((value) {
+                      print("uploade-img link - $value");
+                      _image = value;
+                      setState(() {});
+                    });
+                  }
                 },
                 child: Stack(
                   alignment: Alignment.bottomRight,
@@ -114,24 +157,28 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                         ),
                       ),
                     ),
-                    const CircleAvatar(
-                      backgroundColor: kWhite,
-                      radius: 16,
-                      child: CircleAvatar(
-                        backgroundColor: kRed,
-                        radius: 14,
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 16,
+                    if (widget.isEdit!)
+                      const CircleAvatar(
+                        backgroundColor: kWhite,
+                        radius: 16,
+                        child: CircleAvatar(
+                          backgroundColor: kRed,
+                          radius: 14,
+                          child: Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                            size: 16,
+                          ),
                         ),
-                      ),
-                    ),
+                      )
+                    else
+                      const SizedBox.shrink(),
                   ],
                 ),
               ),
               gapH25,
               TextFormField(
+                readOnly: !widget.isEdit!,
                 controller: _nameController,
                 cursorColor: primaryColor,
                 keyboardType: TextInputType.name,
@@ -153,7 +200,6 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
               gapH25,
               TextFormField(
                 readOnly: true,
-                // enabled: false,
                 controller: _phoneController,
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(10),
@@ -196,25 +242,27 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                   children: [
                     TextFormField(
                       controller: _dobController,
-                      readOnly: true,
+                      readOnly: !widget.isEdit!,
                       onTap: () {
-                        showDatePicker(
-                          context: context,
-                          initialDatePickerMode: DatePickerMode.year,
-                          initialDate: _dobController.text == ""
-                              ? DateTime.now()
-                              : DateFormat('MM/dd/yyyy')
-                                  .parse(_dobController.text),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime.now(),
-                          onDatePickerModeChange: (value) => print(value),
-                        ).then((value) {
-                          if (value != null) {
-                            _dobController.text =
-                                DateFormat('dd/MM/yyyy').format(value);
-                            setState(() {});
-                          }
-                        });
+                        widget.isEdit!
+                            ? showDatePicker(
+                                context: context,
+                                initialDatePickerMode: DatePickerMode.year,
+                                initialDate: _dobController.text == ""
+                                    ? DateTime.now()
+                                    : DateFormat('MM/dd/yyyy')
+                                        .parse(_dobController.text),
+                                firstDate: DateTime(1900),
+                                lastDate: DateTime.now(),
+                                onDatePickerModeChange: (value) => print(value),
+                              ).then((value) {
+                                if (value != null) {
+                                  _dobController.text =
+                                      DateFormat('dd/MM/yyyy').format(value);
+                                  setState(() {});
+                                }
+                              })
+                            : null;
                       },
                       cursorColor: primaryColor,
                       keyboardType: TextInputType.name,
@@ -239,6 +287,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                     ),
                     gapH25,
                     ProfessionDropdown(
+                      isEdit: widget.isEdit,
                       onChange: (value) {
                         _profession = value;
                         setState(() {});
@@ -253,24 +302,27 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                     Expanded(
                       child: TextFormField(
                         controller: _dobController,
-                        readOnly: true,
+                        readOnly: !widget.isEdit!,
                         onTap: () {
-                          showDatePicker(
-                            context: context,
-                            initialDate: _dobController.text == ""
-                                ? DateTime.now()
-                                : DateFormat('MM/dd/yyyy')
-                                    .parse(_dobController.text),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime.now(),
-                            onDatePickerModeChange: (value) => print(value),
-                          ).then((value) {
-                            if (value != null) {
-                              _dobController.text =
-                                  DateFormat('dd/MM/yyyy').format(value);
-                              setState(() {});
-                            }
-                          });
+                          widget.isEdit!
+                              ? showDatePicker(
+                                  context: context,
+                                  initialDate: _dobController.text == ""
+                                      ? DateTime.now()
+                                      : DateFormat('MM/dd/yyyy')
+                                          .parse(_dobController.text),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime.now(),
+                                  onDatePickerModeChange: (value) =>
+                                      print(value),
+                                ).then((value) {
+                                  if (value != null) {
+                                    _dobController.text =
+                                        DateFormat('dd/MM/yyyy').format(value);
+                                    setState(() {});
+                                  }
+                                })
+                              : null;
                         },
                         cursorColor: primaryColor,
                         keyboardType: TextInputType.name,
@@ -297,6 +349,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                     gapW10,
                     Expanded(
                       child: ProfessionDropdown(
+                        isEdit: widget.isEdit,
                         onChange: (value) {
                           _profession = value;
                           setState(() {});
@@ -312,6 +365,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                 height: 45,
                 child: CustomSlidingSegmentedControl<int>(
                   isStretch: true,
+                  isDisabled: !widget.isEdit!,
                   innerPadding: const EdgeInsets.symmetric(
                     horizontal: 4,
                     vertical: 4,

@@ -5,12 +5,14 @@ import 'package:pull_down_button/pull_down_button.dart';
 class ProfessionDropdown extends StatefulWidget {
   final String initialValue;
   final bool? ismobile;
+  final bool? isEdit;
   final void Function(String selectedValue) onChange;
   const ProfessionDropdown(
       {super.key,
       required this.onChange,
       required this.initialValue,
-      this.ismobile = false});
+      this.ismobile = false,
+      this.isEdit = true});
 
   @override
   State<ProfessionDropdown> createState() => _ProfessionDropdownState();
@@ -21,6 +23,7 @@ class _ProfessionDropdownState extends State<ProfessionDropdown> {
   @override
   void initState() {
     selectedValue = widget.initialValue;
+    print(widget.isEdit);
     super.initState();
   }
 
@@ -38,44 +41,46 @@ class _ProfessionDropdownState extends State<ProfessionDropdown> {
           blurRadius: 10,
         ),
       ),
-      itemBuilder: (context) => [
-        PullDownMenuItem.selectable(
-          title: 'Student',
-          selected: selectedValue == 'Student',
-          onTap: () {
-            selectedValue = 'Student';
-            widget.onChange(selectedValue);
-            setState(() {});
-          },
-        ),
-        PullDownMenuItem.selectable(
-          title: 'Worker',
-          selected: selectedValue == 'Worker',
-          onTap: () {
-            selectedValue = 'Worker';
-            widget.onChange(selectedValue);
-            setState(() {});
-          },
-        ),
-        PullDownMenuItem.selectable(
-          title: 'Business',
-          selected: selectedValue == 'Business',
-          onTap: () {
-            selectedValue = 'Business';
-            widget.onChange(selectedValue);
-            setState(() {});
-          },
-        ),
-        PullDownMenuItem.selectable(
-          title: 'Others',
-          selected: selectedValue == 'Others',
-          onTap: () {
-            selectedValue = 'Others';
-            widget.onChange(selectedValue);
-            setState(() {});
-          },
-        ),
-      ],
+      itemBuilder: (context) => widget.isEdit!
+          ? [
+              PullDownMenuItem.selectable(
+                title: 'Student',
+                selected: selectedValue == 'Student',
+                onTap: () {
+                  selectedValue = 'Student';
+                  widget.onChange(selectedValue);
+                  setState(() {});
+                },
+              ),
+              PullDownMenuItem.selectable(
+                title: 'Worker',
+                selected: selectedValue == 'Worker',
+                onTap: () {
+                  selectedValue = 'Worker';
+                  widget.onChange(selectedValue);
+                  setState(() {});
+                },
+              ),
+              PullDownMenuItem.selectable(
+                title: 'Business',
+                selected: selectedValue == 'Business',
+                onTap: () {
+                  selectedValue = 'Business';
+                  widget.onChange(selectedValue);
+                  setState(() {});
+                },
+              ),
+              PullDownMenuItem.selectable(
+                title: 'Others',
+                selected: selectedValue == 'Others',
+                onTap: () {
+                  selectedValue = 'Others';
+                  widget.onChange(selectedValue);
+                  setState(() {});
+                },
+              ),
+            ]
+          : [],
       buttonBuilder: (context, showMenu) => BouncingWidget(
         onPressed: showMenu,
         child: Container(

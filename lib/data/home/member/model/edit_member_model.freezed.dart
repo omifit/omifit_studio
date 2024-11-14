@@ -24,7 +24,7 @@ mixin _$EditMemberReq {
   String? get otp => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get phoneNumber => throw _privateConstructorUsedError;
-  String? get dateOfBirth => throw _privateConstructorUsedError;
+  DateTime? get dateOfBirth => throw _privateConstructorUsedError;
   String? get gender => throw _privateConstructorUsedError;
   String? get profession => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $EditMemberReqCopyWith<$Res> {
       String? otp,
       String? name,
       String? phoneNumber,
-      String? dateOfBirth,
+      DateTime? dateOfBirth,
       String? gender,
       String? profession,
       String? address,
@@ -105,7 +105,7 @@ class _$EditMemberReqCopyWithImpl<$Res, $Val extends EditMemberReq>
       dateOfBirth: freezed == dateOfBirth
           ? _value.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -159,7 +159,7 @@ abstract class _$$EditMemberReqImplCopyWith<$Res>
       String? otp,
       String? name,
       String? phoneNumber,
-      String? dateOfBirth,
+      DateTime? dateOfBirth,
       String? gender,
       String? profession,
       String? address,
@@ -214,7 +214,7 @@ class __$$EditMemberReqImplCopyWithImpl<$Res>
       dateOfBirth: freezed == dateOfBirth
           ? _value.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       gender: freezed == gender
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
@@ -271,7 +271,7 @@ class _$EditMemberReqImpl implements _EditMemberReq {
   @override
   final String? phoneNumber;
   @override
-  final String? dateOfBirth;
+  final DateTime? dateOfBirth;
   @override
   final String? gender;
   @override
@@ -350,7 +350,7 @@ abstract class _EditMemberReq implements EditMemberReq {
       final String? otp,
       final String? name,
       final String? phoneNumber,
-      final String? dateOfBirth,
+      final DateTime? dateOfBirth,
       final String? gender,
       final String? profession,
       final String? address,
@@ -370,7 +370,7 @@ abstract class _EditMemberReq implements EditMemberReq {
   @override
   String? get phoneNumber;
   @override
-  String? get dateOfBirth;
+  DateTime? get dateOfBirth;
   @override
   String? get gender;
   @override

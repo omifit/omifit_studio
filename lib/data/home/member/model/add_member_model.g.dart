@@ -10,7 +10,9 @@ _$AddMemberReqImpl _$$AddMemberReqImplFromJson(Map<String, dynamic> json) =>
     _$AddMemberReqImpl(
       phoneNumber: json['phoneNumber'] as String?,
       name: json['name'] as String?,
-      dateOfBirth: json['dateOfBirth'] as String?,
+      dateOfBirth: json['dateOfBirth'] == null
+          ? null
+          : DateTime.parse(json['dateOfBirth'] as String),
       profession: json['profession'] as String?,
       gender: json['gender'] as String?,
       profileImage: json['profileImage'] as String?,
@@ -20,7 +22,7 @@ Map<String, dynamic> _$$AddMemberReqImplToJson(_$AddMemberReqImpl instance) =>
     <String, dynamic>{
       'phoneNumber': instance.phoneNumber,
       'name': instance.name,
-      'dateOfBirth': instance.dateOfBirth,
+      'dateOfBirth': instance.dateOfBirth?.toIso8601String(),
       'profession': instance.profession,
       'gender': instance.gender,
       'profileImage': instance.profileImage,

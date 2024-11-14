@@ -18,7 +18,7 @@ class EditMemberReq with _$EditMemberReq {
     String? otp,
     String? name,
     String? phoneNumber,
-    String? dateOfBirth,
+    DateTime? dateOfBirth,
     String? gender,
     String? profession,
     String? address,

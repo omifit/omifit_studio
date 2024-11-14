@@ -22,6 +22,8 @@ class FilledBtn extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
+        surfaceTintColor: color,
+        foregroundColor: color,
         padding: const EdgeInsets.symmetric(vertical: 15),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius!),

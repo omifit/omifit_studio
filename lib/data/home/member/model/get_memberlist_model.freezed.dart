@@ -22,6 +22,7 @@ GetMemberListReq _$GetMemberListReqFromJson(Map<String, dynamic> json) {
 mixin _$GetMemberListReq {
   String? get name => throw _privateConstructorUsedError;
   String? get number => throw _privateConstructorUsedError;
+  String? get status => throw _privateConstructorUsedError;
   String? get nameOrNumber => throw _privateConstructorUsedError;
   String? get joiningDate => throw _privateConstructorUsedError;
   String? get startDate => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $GetMemberListReqCopyWith<$Res> {
   $Res call(
       {String? name,
       String? number,
+      String? status,
       String? nameOrNumber,
       String? joiningDate,
       String? startDate,
@@ -67,6 +69,7 @@ class _$GetMemberListReqCopyWithImpl<$Res, $Val extends GetMemberListReq>
   $Res call({
     Object? name = freezed,
     Object? number = freezed,
+    Object? status = freezed,
     Object? nameOrNumber = freezed,
     Object? joiningDate = freezed,
     Object? startDate = freezed,
@@ -82,6 +85,10 @@ class _$GetMemberListReqCopyWithImpl<$Res, $Val extends GetMemberListReq>
       number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String?,
       nameOrNumber: freezed == nameOrNumber
           ? _value.nameOrNumber
@@ -122,6 +129,7 @@ abstract class _$$GetMemberListReqImplCopyWith<$Res>
   $Res call(
       {String? name,
       String? number,
+      String? status,
       String? nameOrNumber,
       String? joiningDate,
       String? startDate,
@@ -143,6 +151,7 @@ class __$$GetMemberListReqImplCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? number = freezed,
+    Object? status = freezed,
     Object? nameOrNumber = freezed,
     Object? joiningDate = freezed,
     Object? startDate = freezed,
@@ -158,6 +167,10 @@ class __$$GetMemberListReqImplCopyWithImpl<$Res>
       number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
               as String?,
       nameOrNumber: freezed == nameOrNumber
           ? _value.nameOrNumber
@@ -193,6 +206,7 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
   const _$GetMemberListReqImpl(
       {this.name,
       this.number,
+      this.status,
       this.nameOrNumber,
       this.joiningDate,
       this.startDate,
@@ -208,6 +222,8 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
   @override
   final String? number;
   @override
+  final String? status;
+  @override
   final String? nameOrNumber;
   @override
   final String? joiningDate;
@@ -222,7 +238,7 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
 
   @override
   String toString() {
-    return 'GetMemberListReq(name: $name, number: $number, nameOrNumber: $nameOrNumber, joiningDate: $joiningDate, startDate: $startDate, endDate: $endDate, page: $page, limit: $limit)';
+    return 'GetMemberListReq(name: $name, number: $number, status: $status, nameOrNumber: $nameOrNumber, joiningDate: $joiningDate, startDate: $startDate, endDate: $endDate, page: $page, limit: $limit)';
   }
 
   @override
@@ -232,6 +248,7 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
             other is _$GetMemberListReqImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.number, number) || other.number == number) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.nameOrNumber, nameOrNumber) ||
                 other.nameOrNumber == nameOrNumber) &&
             (identical(other.joiningDate, joiningDate) ||
@@ -245,8 +262,8 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, number, nameOrNumber,
-      joiningDate, startDate, endDate, page, limit);
+  int get hashCode => Object.hash(runtimeType, name, number, status,
+      nameOrNumber, joiningDate, startDate, endDate, page, limit);
 
   @JsonKey(ignore: true)
   @override
@@ -267,6 +284,7 @@ abstract class _GetMemberListReq implements GetMemberListReq {
   const factory _GetMemberListReq(
       {final String? name,
       final String? number,
+      final String? status,
       final String? nameOrNumber,
       final String? joiningDate,
       final String? startDate,
@@ -281,6 +299,8 @@ abstract class _GetMemberListReq implements GetMemberListReq {
   String? get name;
   @override
   String? get number;
+  @override
+  String? get status;
   @override
   String? get nameOrNumber;
   @override

@@ -1,14 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_member_details_model.dart';
+part of 'search_user_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$MemberDetailsResImpl _$$MemberDetailsResImplFromJson(
-        Map<String, dynamic> json) =>
-    _$MemberDetailsResImpl(
+_$SearchUserResImpl _$$SearchUserResImplFromJson(Map<String, dynamic> json) =>
+    _$SearchUserResImpl(
       success: json['success'] as bool?,
       message: json['message'] as String?,
       body: json['body'] == null
@@ -16,8 +15,7 @@ _$MemberDetailsResImpl _$$MemberDetailsResImplFromJson(
           : Body.fromJson(json['body'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$MemberDetailsResImplToJson(
-        _$MemberDetailsResImpl instance) =>
+Map<String, dynamic> _$$SearchUserResImplToJson(_$SearchUserResImpl instance) =>
     <String, dynamic>{
       'success': instance.success,
       'message': instance.message,
@@ -25,43 +23,14 @@ Map<String, dynamic> _$$MemberDetailsResImplToJson(
     };
 
 _$BodyImpl _$$BodyImplFromJson(Map<String, dynamic> json) => _$BodyImpl(
-      organizationMember: json['organizationMember'] == null
-          ? null
-          : OrganizationMember.fromJson(
-              json['organizationMember'] as Map<String, dynamic>),
+      user: (json['user'] as List<dynamic>?)
+          ?.map((e) => User.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$BodyImplToJson(_$BodyImpl instance) =>
     <String, dynamic>{
-      'organizationMember': instance.organizationMember,
-    };
-
-_$OrganizationMemberImpl _$$OrganizationMemberImplFromJson(
-        Map<String, dynamic> json) =>
-    _$OrganizationMemberImpl(
-      id: json['_id'] as String?,
-      user: json['user'] == null
-          ? null
-          : User.fromJson(json['user'] as Map<String, dynamic>),
-      organization: json['organization'] as String?,
-      status: json['status'] as String?,
-      coach: json['coach'],
-      joiningDate: json['joiningDate'] as String?,
-      createdAt: json['createdAt'] as String?,
-      updatedAt: json['updatedAt'] as String?,
-    );
-
-Map<String, dynamic> _$$OrganizationMemberImplToJson(
-        _$OrganizationMemberImpl instance) =>
-    <String, dynamic>{
-      '_id': instance.id,
       'user': instance.user,
-      'organization': instance.organization,
-      'status': instance.status,
-      'coach': instance.coach,
-      'joiningDate': instance.joiningDate,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
     };
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
@@ -77,8 +46,6 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       address: json['address'] as String?,
       profileImage: json['profileImage'] as String?,
       isVerified: json['isVerified'] as bool?,
-      createdAt: json['createdAt'] as String?,
-      updatedAt: json['updatedAt'] as String?,
     );
 
 Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
@@ -93,8 +60,6 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'address': instance.address,
       'profileImage': instance.profileImage,
       'isVerified': instance.isVerified,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
     };
 
 _$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>

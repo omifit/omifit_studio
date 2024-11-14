@@ -20,7 +20,7 @@ class AddMemberReq with _$AddMemberReq {
   const factory AddMemberReq({
     String? phoneNumber,
     String? name,
-    String? dateOfBirth,
+    DateTime? dateOfBirth,
     String? profession,
     String? gender,
     String? profileImage,

@@ -1,13 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/web.dart';
-import 'package:omifit/core/api_client.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/core/endpoints.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/data/organization/model/createorg_model.dart';
-import 'package:omifit/data/organization/model/orglistbyuser_model.dart';
-import 'package:omifit/data/organization/model/selectorg_model.dart';
-import 'package:omifit/data/organization/organization_repo.dart';
+import 'package:omifit_studio/core/api_client.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/core/endpoints.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/data/organization/model/createorg_model.dart';
+import 'package:omifit_studio/data/organization/model/orglistbyuser_model.dart';
+import 'package:omifit_studio/data/organization/model/selectorg_model.dart';
+import 'package:omifit_studio/data/organization/organization_repo.dart';
 
 class OrganizationRepoImpl implements OrganizationRepo {
   final ApiClient _apiClient = ApiClient();

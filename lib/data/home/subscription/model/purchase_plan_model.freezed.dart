@@ -666,10 +666,11 @@ mixin _$SelectedPlan {
   String? get planId => throw _privateConstructorUsedError;
   String? get planName => throw _privateConstructorUsedError;
   String? get couponId => throw _privateConstructorUsedError;
-  int? get totalAmount => throw _privateConstructorUsedError;
+  int? get orginalPlanAmount => throw _privateConstructorUsedError;
+  int? get discountAmount => throw _privateConstructorUsedError;
   int? get paidAmount => throw _privateConstructorUsedError;
   int? get dueAmount => throw _privateConstructorUsedError;
-  String? get paymentForm => throw _privateConstructorUsedError;
+  List<PaymentMethod>? get paymentMethod => throw _privateConstructorUsedError;
   DateTime? get membershipStartDate => throw _privateConstructorUsedError;
   DateTime? get membershipEndDate => throw _privateConstructorUsedError;
   int? get durationValue => throw _privateConstructorUsedError;
@@ -692,10 +693,11 @@ abstract class $SelectedPlanCopyWith<$Res> {
       String? planId,
       String? planName,
       String? couponId,
-      int? totalAmount,
+      int? orginalPlanAmount,
+      int? discountAmount,
       int? paidAmount,
       int? dueAmount,
-      String? paymentForm,
+      List<PaymentMethod>? paymentMethod,
       DateTime? membershipStartDate,
       DateTime? membershipEndDate,
       int? durationValue,
@@ -719,10 +721,11 @@ class _$SelectedPlanCopyWithImpl<$Res, $Val extends SelectedPlan>
     Object? planId = freezed,
     Object? planName = freezed,
     Object? couponId = freezed,
-    Object? totalAmount = freezed,
+    Object? orginalPlanAmount = freezed,
+    Object? discountAmount = freezed,
     Object? paidAmount = freezed,
     Object? dueAmount = freezed,
-    Object? paymentForm = freezed,
+    Object? paymentMethod = freezed,
     Object? membershipStartDate = freezed,
     Object? membershipEndDate = freezed,
     Object? durationValue = freezed,
@@ -745,9 +748,13 @@ class _$SelectedPlanCopyWithImpl<$Res, $Val extends SelectedPlan>
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as String?,
-      totalAmount: freezed == totalAmount
-          ? _value.totalAmount
-          : totalAmount // ignore: cast_nullable_to_non_nullable
+      orginalPlanAmount: freezed == orginalPlanAmount
+          ? _value.orginalPlanAmount
+          : orginalPlanAmount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      discountAmount: freezed == discountAmount
+          ? _value.discountAmount
+          : discountAmount // ignore: cast_nullable_to_non_nullable
               as int?,
       paidAmount: freezed == paidAmount
           ? _value.paidAmount
@@ -757,10 +764,10 @@ class _$SelectedPlanCopyWithImpl<$Res, $Val extends SelectedPlan>
           ? _value.dueAmount
           : dueAmount // ignore: cast_nullable_to_non_nullable
               as int?,
-      paymentForm: freezed == paymentForm
-          ? _value.paymentForm
-          : paymentForm // ignore: cast_nullable_to_non_nullable
-              as String?,
+      paymentMethod: freezed == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as List<PaymentMethod>?,
       membershipStartDate: freezed == membershipStartDate
           ? _value.membershipStartDate
           : membershipStartDate // ignore: cast_nullable_to_non_nullable
@@ -794,10 +801,11 @@ abstract class _$$SelectedPlanImplCopyWith<$Res>
       String? planId,
       String? planName,
       String? couponId,
-      int? totalAmount,
+      int? orginalPlanAmount,
+      int? discountAmount,
       int? paidAmount,
       int? dueAmount,
-      String? paymentForm,
+      List<PaymentMethod>? paymentMethod,
       DateTime? membershipStartDate,
       DateTime? membershipEndDate,
       int? durationValue,
@@ -819,10 +827,11 @@ class __$$SelectedPlanImplCopyWithImpl<$Res>
     Object? planId = freezed,
     Object? planName = freezed,
     Object? couponId = freezed,
-    Object? totalAmount = freezed,
+    Object? orginalPlanAmount = freezed,
+    Object? discountAmount = freezed,
     Object? paidAmount = freezed,
     Object? dueAmount = freezed,
-    Object? paymentForm = freezed,
+    Object? paymentMethod = freezed,
     Object? membershipStartDate = freezed,
     Object? membershipEndDate = freezed,
     Object? durationValue = freezed,
@@ -845,9 +854,13 @@ class __$$SelectedPlanImplCopyWithImpl<$Res>
           ? _value.couponId
           : couponId // ignore: cast_nullable_to_non_nullable
               as String?,
-      totalAmount: freezed == totalAmount
-          ? _value.totalAmount
-          : totalAmount // ignore: cast_nullable_to_non_nullable
+      orginalPlanAmount: freezed == orginalPlanAmount
+          ? _value.orginalPlanAmount
+          : orginalPlanAmount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      discountAmount: freezed == discountAmount
+          ? _value.discountAmount
+          : discountAmount // ignore: cast_nullable_to_non_nullable
               as int?,
       paidAmount: freezed == paidAmount
           ? _value.paidAmount
@@ -857,10 +870,10 @@ class __$$SelectedPlanImplCopyWithImpl<$Res>
           ? _value.dueAmount
           : dueAmount // ignore: cast_nullable_to_non_nullable
               as int?,
-      paymentForm: freezed == paymentForm
-          ? _value.paymentForm
-          : paymentForm // ignore: cast_nullable_to_non_nullable
-              as String?,
+      paymentMethod: freezed == paymentMethod
+          ? _value._paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as List<PaymentMethod>?,
       membershipStartDate: freezed == membershipStartDate
           ? _value.membershipStartDate
           : membershipStartDate // ignore: cast_nullable_to_non_nullable
@@ -889,14 +902,16 @@ class _$SelectedPlanImpl implements _SelectedPlan {
       this.planId,
       this.planName,
       this.couponId,
-      this.totalAmount,
+      this.orginalPlanAmount,
+      this.discountAmount,
       this.paidAmount,
       this.dueAmount,
-      this.paymentForm,
+      final List<PaymentMethod>? paymentMethod,
       this.membershipStartDate,
       this.membershipEndDate,
       this.durationValue,
-      this.durationUnit});
+      this.durationUnit})
+      : _paymentMethod = paymentMethod;
 
   factory _$SelectedPlanImpl.fromJson(Map<String, dynamic> json) =>
       _$$SelectedPlanImplFromJson(json);
@@ -910,13 +925,23 @@ class _$SelectedPlanImpl implements _SelectedPlan {
   @override
   final String? couponId;
   @override
-  final int? totalAmount;
+  final int? orginalPlanAmount;
+  @override
+  final int? discountAmount;
   @override
   final int? paidAmount;
   @override
   final int? dueAmount;
+  final List<PaymentMethod>? _paymentMethod;
   @override
-  final String? paymentForm;
+  List<PaymentMethod>? get paymentMethod {
+    final value = _paymentMethod;
+    if (value == null) return null;
+    if (_paymentMethod is EqualUnmodifiableListView) return _paymentMethod;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final DateTime? membershipStartDate;
   @override
@@ -928,7 +953,7 @@ class _$SelectedPlanImpl implements _SelectedPlan {
 
   @override
   String toString() {
-    return 'SelectedPlan(userId: $userId, planId: $planId, planName: $planName, couponId: $couponId, totalAmount: $totalAmount, paidAmount: $paidAmount, dueAmount: $dueAmount, paymentForm: $paymentForm, membershipStartDate: $membershipStartDate, membershipEndDate: $membershipEndDate, durationValue: $durationValue, durationUnit: $durationUnit)';
+    return 'SelectedPlan(userId: $userId, planId: $planId, planName: $planName, couponId: $couponId, orginalPlanAmount: $orginalPlanAmount, discountAmount: $discountAmount, paidAmount: $paidAmount, dueAmount: $dueAmount, paymentMethod: $paymentMethod, membershipStartDate: $membershipStartDate, membershipEndDate: $membershipEndDate, durationValue: $durationValue, durationUnit: $durationUnit)';
   }
 
   @override
@@ -942,14 +967,16 @@ class _$SelectedPlanImpl implements _SelectedPlan {
                 other.planName == planName) &&
             (identical(other.couponId, couponId) ||
                 other.couponId == couponId) &&
-            (identical(other.totalAmount, totalAmount) ||
-                other.totalAmount == totalAmount) &&
+            (identical(other.orginalPlanAmount, orginalPlanAmount) ||
+                other.orginalPlanAmount == orginalPlanAmount) &&
+            (identical(other.discountAmount, discountAmount) ||
+                other.discountAmount == discountAmount) &&
             (identical(other.paidAmount, paidAmount) ||
                 other.paidAmount == paidAmount) &&
             (identical(other.dueAmount, dueAmount) ||
                 other.dueAmount == dueAmount) &&
-            (identical(other.paymentForm, paymentForm) ||
-                other.paymentForm == paymentForm) &&
+            const DeepCollectionEquality()
+                .equals(other._paymentMethod, _paymentMethod) &&
             (identical(other.membershipStartDate, membershipStartDate) ||
                 other.membershipStartDate == membershipStartDate) &&
             (identical(other.membershipEndDate, membershipEndDate) ||
@@ -968,10 +995,11 @@ class _$SelectedPlanImpl implements _SelectedPlan {
       planId,
       planName,
       couponId,
-      totalAmount,
+      orginalPlanAmount,
+      discountAmount,
       paidAmount,
       dueAmount,
-      paymentForm,
+      const DeepCollectionEquality().hash(_paymentMethod),
       membershipStartDate,
       membershipEndDate,
       durationValue,
@@ -997,10 +1025,11 @@ abstract class _SelectedPlan implements SelectedPlan {
       final String? planId,
       final String? planName,
       final String? couponId,
-      final int? totalAmount,
+      final int? orginalPlanAmount,
+      final int? discountAmount,
       final int? paidAmount,
       final int? dueAmount,
-      final String? paymentForm,
+      final List<PaymentMethod>? paymentMethod,
       final DateTime? membershipStartDate,
       final DateTime? membershipEndDate,
       final int? durationValue,
@@ -1018,13 +1047,15 @@ abstract class _SelectedPlan implements SelectedPlan {
   @override
   String? get couponId;
   @override
-  int? get totalAmount;
+  int? get orginalPlanAmount;
+  @override
+  int? get discountAmount;
   @override
   int? get paidAmount;
   @override
   int? get dueAmount;
   @override
-  String? get paymentForm;
+  List<PaymentMethod>? get paymentMethod;
   @override
   DateTime? get membershipStartDate;
   @override
@@ -1036,5 +1067,158 @@ abstract class _SelectedPlan implements SelectedPlan {
   @override
   @JsonKey(ignore: true)
   _$$SelectedPlanImplCopyWith<_$SelectedPlanImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+PaymentMethod _$PaymentMethodFromJson(Map<String, dynamic> json) {
+  return _PaymentMethod.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PaymentMethod {
+  int? get amount => throw _privateConstructorUsedError;
+  String? get type => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $PaymentMethodCopyWith<PaymentMethod> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PaymentMethodCopyWith<$Res> {
+  factory $PaymentMethodCopyWith(
+          PaymentMethod value, $Res Function(PaymentMethod) then) =
+      _$PaymentMethodCopyWithImpl<$Res, PaymentMethod>;
+  @useResult
+  $Res call({int? amount, String? type});
+}
+
+/// @nodoc
+class _$PaymentMethodCopyWithImpl<$Res, $Val extends PaymentMethod>
+    implements $PaymentMethodCopyWith<$Res> {
+  _$PaymentMethodCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? amount = freezed,
+    Object? type = freezed,
+  }) {
+    return _then(_value.copyWith(
+      amount: freezed == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PaymentMethodImplCopyWith<$Res>
+    implements $PaymentMethodCopyWith<$Res> {
+  factory _$$PaymentMethodImplCopyWith(
+          _$PaymentMethodImpl value, $Res Function(_$PaymentMethodImpl) then) =
+      __$$PaymentMethodImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int? amount, String? type});
+}
+
+/// @nodoc
+class __$$PaymentMethodImplCopyWithImpl<$Res>
+    extends _$PaymentMethodCopyWithImpl<$Res, _$PaymentMethodImpl>
+    implements _$$PaymentMethodImplCopyWith<$Res> {
+  __$$PaymentMethodImplCopyWithImpl(
+      _$PaymentMethodImpl _value, $Res Function(_$PaymentMethodImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? amount = freezed,
+    Object? type = freezed,
+  }) {
+    return _then(_$PaymentMethodImpl(
+      amount: freezed == amount
+          ? _value.amount
+          : amount // ignore: cast_nullable_to_non_nullable
+              as int?,
+      type: freezed == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$PaymentMethodImpl implements _PaymentMethod {
+  const _$PaymentMethodImpl({this.amount, this.type});
+
+  factory _$PaymentMethodImpl.fromJson(Map<String, dynamic> json) =>
+      _$$PaymentMethodImplFromJson(json);
+
+  @override
+  final int? amount;
+  @override
+  final String? type;
+
+  @override
+  String toString() {
+    return 'PaymentMethod(amount: $amount, type: $type)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaymentMethodImpl &&
+            (identical(other.amount, amount) || other.amount == amount) &&
+            (identical(other.type, type) || other.type == type));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, amount, type);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaymentMethodImplCopyWith<_$PaymentMethodImpl> get copyWith =>
+      __$$PaymentMethodImplCopyWithImpl<_$PaymentMethodImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PaymentMethodImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PaymentMethod implements PaymentMethod {
+  const factory _PaymentMethod({final int? amount, final String? type}) =
+      _$PaymentMethodImpl;
+
+  factory _PaymentMethod.fromJson(Map<String, dynamic> json) =
+      _$PaymentMethodImpl.fromJson;
+
+  @override
+  int? get amount;
+  @override
+  String? get type;
+  @override
+  @JsonKey(ignore: true)
+  _$$PaymentMethodImplCopyWith<_$PaymentMethodImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

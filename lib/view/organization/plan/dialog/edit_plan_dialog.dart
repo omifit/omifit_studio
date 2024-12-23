@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
-import 'package:omifit/data/home/plan/model/edit_plan_model.dart';
-import 'package:omifit/utils/json_parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/plan/plan_view_model.dart';
-import 'package:omifit/view/organization/plan/widget/duration_dropdown.dart';
+import 'package:omifit_studio/data/home/plan/model/edit_plan_model.dart';
+import 'package:omifit_studio/utils/json_parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/plan/plan_view_model.dart';
+import 'package:omifit_studio/view/organization/plan/widget/duration_dropdown.dart';
 
 class EditPlanDialog extends ConsumerStatefulWidget {
   final String pid;
@@ -323,7 +323,7 @@ class _EditPlanDialogState extends ConsumerState<EditPlanDialog> {
                                         ),
                                       );
                                     });
-                              
+
                                 // showCupertinoCalendarPicker(context,
                                 //     widgetRenderBox: context.findRenderObject()!
                                 //         as RenderBox,

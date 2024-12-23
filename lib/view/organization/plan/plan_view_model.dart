@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/data/home/plan/model/create_plan_model.dart';
-import 'package:omifit/data/home/plan/model/edit_plan_model.dart';
-import 'package:omifit/data/home/plan/model/get_planlist_model.dart';
-import 'package:omifit/data/home/plan/model/plan_details_model.dart';
-import 'package:omifit/data/home/plan/plan_repo_impl.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/data/home/plan/model/create_plan_model.dart';
+import 'package:omifit_studio/data/home/plan/model/edit_plan_model.dart';
+import 'package:omifit_studio/data/home/plan/model/get_planlist_model.dart';
+import 'package:omifit_studio/data/home/plan/model/plan_details_model.dart';
+import 'package:omifit_studio/data/home/plan/plan_repo_impl.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 final planViewModelProvider =
     ChangeNotifierProvider((ref) => PlanViewModelProvider(ref: ref));

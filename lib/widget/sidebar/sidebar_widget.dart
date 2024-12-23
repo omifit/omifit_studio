@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:iconly/iconly.dart';
-import 'package:omifit/utils/colors.dart';
-import 'package:omifit/widget/imageicon/imgicon_widget.dart';
+import 'package:omifit_studio/utils/colors.dart';
+import 'package:omifit_studio/widget/imageicon/imgicon_widget.dart';
 
 class SidebarWidget extends StatefulWidget {
   final int selectedIndex;
@@ -59,23 +60,31 @@ class _SidebarWidgetState extends State<SidebarWidget> {
           icon: Icon(IconlyLight.work, color: kWhite),
           label: Text('Staffs', style: TextStyle(color: kWhite)),
         ),
-        const SizedBox(height: 4),
-        const NavigationDrawerDestination(
-          icon: Icon(IconlyLight.video, color: kWhite),
-          label: Text('Guidance', style: TextStyle(color: kWhite)),
-        ),
+
         const SizedBox(height: 4),
         const NavigationDrawerDestination(
           icon: Icon(IconlyLight.document, color: kWhite),
           label: Text('Plans', style: TextStyle(color: kWhite)),
         ),
         const SizedBox(height: 4),
+        // const NavigationDrawerDestination(
+        //   icon: Icon(
+        //     IconlyLight.discount,
+        //     color: kWhite,
+        //   ),
+        //   label: Text('Discount', style: TextStyle(color: kWhite)),
+        // ),
         const NavigationDrawerDestination(
           icon: Icon(
-            IconlyLight.discount,
+            HugeIcons.strokeRoundedMoneyBag02,
             color: kWhite,
           ),
-          label: Text('Discount', style: TextStyle(color: kWhite)),
+          label: Text('Finance', style: TextStyle(color: kWhite)),
+        ),
+        const SizedBox(height: 4),
+        const NavigationDrawerDestination(
+          icon: Icon(IconlyLight.video, color: kWhite),
+          label: Text('Guidance', style: TextStyle(color: kWhite)),
         ),
       ],
     );

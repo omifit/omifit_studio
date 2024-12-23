@@ -1,9 +1,9 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/auth/auth_view_model.dart';
+import 'package:omifit_studio/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/auth/auth_view_model.dart';
 
 class DesktopSigninView extends ConsumerStatefulWidget {
   const DesktopSigninView({super.key});

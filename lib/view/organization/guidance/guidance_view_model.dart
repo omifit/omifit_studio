@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/data/home/guidance/guidance_repo_impl.dart';
-import 'package:omifit/data/home/guidance/model/document/add_document_model.dart';
-import 'package:omifit/data/home/guidance/model/document/edit_document_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/create_playlist_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/edit_playlist_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/get_playlist_details_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/get_playlist_model.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/data/home/guidance/guidance_repo_impl.dart';
+import 'package:omifit_studio/data/home/guidance/model/document/add_document_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/document/edit_document_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/create_playlist_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/edit_playlist_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/get_playlist_details_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/get_playlist_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 final guidanceViewModelProvider =
     ChangeNotifierProvider((ref) => GuidanceViewModel(ref: ref));

@@ -1,13 +1,13 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:omifit/data/home/subscription/model/purchase_plan_model.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/add_member/payment_view.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
-import 'package:omifit/view/organization/plan/plan_view_model.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/data/home/subscription/model/purchase_plan_model.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/add_member/payment_view.dart';
+import 'package:omifit_studio/view/organization/member/member_view_model.dart';
+import 'package:omifit_studio/view/organization/plan/plan_view_model.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 
 class PlanPickerView extends ConsumerStatefulWidget {
   final String uid;
@@ -194,12 +194,13 @@ class _PlanPickerViewState extends ConsumerState<PlanPickerView> {
                                                           ?.organizationPlans?[
                                                               index]
                                                           .name,
-                                                      totalAmount: planViewModel
-                                                          .getPlanListRes
-                                                          ?.body
-                                                          ?.organizationPlans?[
-                                                              index]
-                                                          .price,
+                                                      orginalPlanAmount:
+                                                          planViewModel
+                                                              .getPlanListRes
+                                                              ?.body
+                                                              ?.organizationPlans?[
+                                                                  index]
+                                                              .price,
                                                       membershipStartDate:
                                                           dateTimeRange.start,
                                                       membershipEndDate:

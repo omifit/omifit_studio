@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:omifit/utils/colors.dart';
+import 'package:omifit_studio/utils/colors.dart';
 
 class FilledBtn extends StatelessWidget {
   final String text;

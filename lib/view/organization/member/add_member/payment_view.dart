@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/data/home/subscription/model/purchase_plan_model.dart';
-import 'package:omifit/utils/json_parse.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
-import 'package:omifit/widget/picker/payment_type_dropdown.dart';
+import 'package:omifit_studio/data/home/subscription/model/purchase_plan_model.dart';
+import 'package:omifit_studio/utils/json_parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/member_view_model.dart';
+import 'package:omifit_studio/widget/picker/payment_type_dropdown.dart';
 
 //! Payment member dialog
 class PaymentView extends ConsumerStatefulWidget {
@@ -26,8 +25,8 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
 
   @override
   void initState() {
-    tempSelectedPlan.addAll(
-        widget.selectedItems.map((e) => e.copyWith(paymentForm: "cash")));
+    // tempSelectedPlan.addAll(
+    //     widget.selectedItems.map((e) => e.copyWith(paymentForm: "cash")));
     super.initState();
   }
 
@@ -42,7 +41,8 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
           height: 52,
           child: FilledBtn(
             color: (tempSelectedPlan.any((plan) =>
-                        (plan.totalAmount ?? 0) >= (plan.paidAmount ?? 0)) &&
+                        (plan.orginalPlanAmount ?? 0) >=
+                        (plan.paidAmount ?? 0)) &&
                     tempSelectedPlan.any((plan) =>
                         plan.paidAmount != 0 || plan.paidAmount != null))
                 ? kRed
@@ -54,7 +54,7 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
               double totalAmount = 0;
               for (final plan in tempSelectedPlan) {
                 totalPaidAmount += plan.paidAmount ?? 0;
-                totalAmount += plan.totalAmount ?? 0;
+                totalAmount += plan.orginalPlanAmount ?? 0;
               }
               if (totalAmount >= totalPaidAmount &&
                   !tempSelectedPlan.any((plan) =>
@@ -111,7 +111,7 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
                     ),
                   ),
                   trailing: Text(
-                    "₹ ${tempSelectedPlan.fold(0, (sum, plan) => sum + plan.totalAmount!)}",
+                    "₹ ${tempSelectedPlan.fold(0, (sum, plan) => sum + plan.orginalPlanAmount!)}",
                     style: const TextStyle(
                       color: kWhite,
                       fontSize: 16,
@@ -191,11 +191,11 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
                     trailing: PaymentTypeDropdown(
                       initialValue: 'Cash',
                       onChange: (value) {
-                        tempSelectedPlan = tempSelectedPlan
-                            .map((e) =>
-                                e.copyWith(paymentForm: lowercaseAll(value)))
-                            .toList();
-                        setState(() {});
+                        // tempSelectedPlan = tempSelectedPlan
+                        //     .map((e) =>
+                        //         e.copyWith(paymentForm: lowercaseAll(value)))
+                        //     .toList();
+                        // setState(() {});
                       },
                     )),
               ],
@@ -241,7 +241,7 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500)),
                                 trailing: Text(
-                                    "₹ ${tempSelectedPlan[index].totalAmount}",
+                                    "₹ ${tempSelectedPlan[index].orginalPlanAmount}",
                                     style: const TextStyle(
                                         color: kWhite,
                                         fontSize: 18,
@@ -366,7 +366,7 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
                                               onChanged: (value) {
                                                 final int totalAmount =
                                                     tempSelectedPlan[index]
-                                                        .totalAmount!;
+                                                        .orginalPlanAmount!;
                                                 final int paidAmount =
                                                     parseInteger(value) ?? 0;
                                                 final int dueAmount =

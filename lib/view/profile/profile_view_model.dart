@@ -1,12 +1,12 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
-import 'package:omifit/data/auth/auth_repo.dart';
-import 'package:omifit/data/auth/auth_repo_impl.dart';
-import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
-import 'package:omifit/data/auth/model/user_details/user_details_model.dart';
-import 'package:omifit/data/auth/model/user_update/user_details_update_model.dart';
-import 'package:omifit/data/auth/model/verify_otp/verifyotp_model.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/dialog/edit_profile/update_phone_dialog.dart';
+import 'package:omifit_studio/data/auth/auth_repo.dart';
+import 'package:omifit_studio/data/auth/auth_repo_impl.dart';
+import 'package:omifit_studio/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit_studio/data/auth/model/user_details/user_details_model.dart';
+import 'package:omifit_studio/data/auth/model/user_update/user_details_update_model.dart';
+import 'package:omifit_studio/data/auth/model/verify_otp/verifyotp_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/profile/dialog/edit_profile/update_phone_dialog.dart';
 
 final profileViewModelProvider =
     ChangeNotifierProvider((ref) => ProfileViewModel(ref: ref));

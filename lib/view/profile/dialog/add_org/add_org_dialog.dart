@@ -1,14 +1,14 @@
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/data/auth/auth_repo_impl.dart';
-import 'package:omifit/data/organization/model/createorg_model.dart';
-import 'package:omifit/utils/file_picker.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/data/auth/auth_repo_impl.dart';
+import 'package:omifit_studio/data/organization/model/createorg_model.dart';
+import 'package:omifit_studio/utils/file_picker.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 
 class AddOrgDialog extends ConsumerStatefulWidget {
   const AddOrgDialog({

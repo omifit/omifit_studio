@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/web.dart';
-import 'package:omifit/core/api_client.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/core/endpoints.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/data/auth/auth_repo.dart';
-import 'package:omifit/data/auth/model/login/login_model.dart';
-import 'package:omifit/data/auth/model/register/register_model.dart';
-import 'package:omifit/data/auth/model/search_user/search_user_model.dart';
-import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
-import 'package:omifit/data/auth/model/user_details/user_details_model.dart';
-import 'package:omifit/data/auth/model/user_update/user_details_update_model.dart';
-import 'package:omifit/data/auth/model/verify_otp/verifyotp_model.dart';
+import 'package:omifit_studio/core/api_client.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/core/endpoints.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/data/auth/auth_repo.dart';
+import 'package:omifit_studio/data/auth/model/login/login_model.dart';
+import 'package:omifit_studio/data/auth/model/register/register_model.dart';
+import 'package:omifit_studio/data/auth/model/search_user/search_user_model.dart';
+import 'package:omifit_studio/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit_studio/data/auth/model/user_details/user_details_model.dart';
+import 'package:omifit_studio/data/auth/model/user_update/user_details_update_model.dart';
+import 'package:omifit_studio/data/auth/model/verify_otp/verifyotp_model.dart';
 
 class AuthRepoImpl implements AuthRepo {
   final ApiClient _apiClient = ApiClient();
@@ -118,11 +118,12 @@ class AuthRepoImpl implements AuthRepo {
 
   @override
   Future<Either<ApiException, SearchUserRes>> searchUser(
-      String phoneNum) async {
+      String phoneNum, String role) async {
     try {
-      final response = await _apiClient.get(
-        "${AppConstants.baseUrl}${usersearchurl(phoneNum)}",
-      );
+      // phoneNum
+      final response = await _apiClient.getwithquery(
+          "${AppConstants.baseUrl}$usersearchurl",
+          {"role": role, "number": phoneNum});
       return Right(SearchUserRes.fromJson(response.data!));
     } catch (e) {
       logger.e(e);

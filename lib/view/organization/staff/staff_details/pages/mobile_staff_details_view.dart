@@ -1,4 +1,4 @@
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class MobileStaffDetailsView extends StatefulWidget {
   const MobileStaffDetailsView({super.key});
@@ -10,8 +10,6 @@ class MobileStaffDetailsView extends StatefulWidget {
 class _MobileStaffDetailsViewState extends State<MobileStaffDetailsView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body : Text("new mason page")
-    );
+    return const Scaffold(body: Text("new mason page"));
   }
 }

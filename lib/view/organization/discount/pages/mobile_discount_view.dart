@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/discount/widget/analysis_coupon_card.dart';
-import 'package:omifit/view/organization/discount/widget/coupon_card.dart';
-import 'package:omifit/view/organization/discount/widget/top_coupon_card.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/discount/widget/analysis_coupon_card.dart';
+import 'package:omifit_studio/view/organization/discount/widget/coupon_card.dart';
+import 'package:omifit_studio/view/organization/discount/widget/top_coupon_card.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
 
 class MobileDiscountView extends ConsumerStatefulWidget {
   const MobileDiscountView({super.key});

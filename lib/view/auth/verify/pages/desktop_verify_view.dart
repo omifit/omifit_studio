@@ -1,9 +1,9 @@
-import 'package:omifit/data/auth/model/login/login_model.dart';
-import 'package:omifit/data/auth/model/register/register_model.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/auth/auth_view_model.dart';
-import 'package:omifit/widget/button/back_btn_widget.dart';
+import 'package:omifit_studio/data/auth/model/login/login_model.dart';
+import 'package:omifit_studio/data/auth/model/register/register_model.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/auth/auth_view_model.dart';
+import 'package:omifit_studio/widget/button/back_btn_widget.dart';
 import 'package:pinput/pinput.dart';
 
 class DesktopVerifyView extends ConsumerStatefulWidget {

@@ -1,15 +1,15 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/data/home/member/model/get_memberlist_model.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/add_member/find_user_view.dart';
-import 'package:omifit/view/organization/member/member/widget/joindate_dropdown.dart';
-import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
-import 'package:omifit/view/organization/member/member/widget/pagination_dropdown.dart';
-import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/add_member/find_user_view.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/joindate_dropdown.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/mem_card.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/pagination_dropdown.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/status_dropdown.dart';
+import 'package:omifit_studio/view/organization/member/member_view_model.dart';
 
 class DesktopMemberView extends ConsumerStatefulWidget {
   const DesktopMemberView({super.key});
@@ -20,10 +20,10 @@ class DesktopMemberView extends ConsumerStatefulWidget {
 
 class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
   GetMemberListReq memberfilter = const GetMemberListReq(
+    joiningDate: "lifetime",
     status: "all",
-    //joiningDate: "lifeTime",
     page: 1,
-    limit: 1,
+    limit: 2,
   );
   @override
   void initState() {
@@ -77,7 +77,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                     onPressed: () {
                       showCupertinoModalSheet(
                         context: context,
-                        builder: (_) => const FindUserView(),
+                        builder: (_) => FindUserView(memberfilter),
                       );
                     },
                     icon: const Icon(CupertinoIcons.add_circled,
@@ -105,6 +105,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                         memberfilter = memberfilter.copyWith(
                           joiningDate: lowercaseAll(value),
                           page: 1,
+                          limit: 2,
                         );
                         setState(() {});
                         getData();
@@ -116,6 +117,7 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                       memberfilter = memberfilter.copyWith(
                         status: lowercaseAll(value),
                         page: 1,
+                        limit: 2,
                       );
                       print(memberfilter);
                       setState(() {});
@@ -131,18 +133,33 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                       thickness: 0.3,
                     ),
                   ),
-                  gapW10,
-                  PaginationDropdown(
-                    onChange: (value) {
-                      memberfilter = memberfilter.copyWith(page: value);
-                      setState(() {});
-                      getData();
-                    },
-                    initialValue: memberfilter.page ?? 1,
-                    pagecount: memberViewModel
-                            .getMemberListRes?.body?.pagination?.totalPages ??
-                        1,
-                  ),
+                  gapW6,
+                  if (!memberViewModel.lodingmemberlist)
+                    PaginationDropdown(
+                      onChange: (value) {
+                        memberfilter = memberfilter.copyWith(page: value);
+                        setState(() {});
+                        getData();
+                      },
+                      initialValue: memberfilter.page ?? 1,
+                      pagecount: memberViewModel
+                              .getMemberListRes?.body?.pagination?.totalPages ??
+                          1,
+                    )
+                  else
+                    Container(
+                        width: 140,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 13,
+                          vertical: 7,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Responsive.isMobile(context)
+                              ? primaryColor
+                              : kyellowbg,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: const CupertinoActivityIndicator(color: kWhite)),
                 ],
               ),
               gapH5,
@@ -286,7 +303,8 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                                           ?.organizationMembers?[index]
                                           .user
                                           ?.id ??
-                                      "");
+                                      "",
+                                  memberfilter);
                             },
                             name: memberViewModel.getMemberListRes?.body
                                     ?.organizationMembers?[index].user?.name ??
@@ -354,16 +372,19 @@ class _DesktopMemberViewState extends ConsumerState<DesktopMemberView> {
                             coachPic: "https://i.imgur.com/UnWWlu3.png",
                             coachName: "vijay thalapathi roudy",
                             onPressed: () {
-                              context.pushNamed(AppRoute.memberDetails.name,
-                                  pathParameters: {
-                                    'uid': memberViewModel
-                                            .getMemberListRes
-                                            ?.body
-                                            ?.organizationMembers?[index]
-                                            .user
-                                            ?.id ??
-                                        ""
-                                  });
+                              context.pushNamed(
+                                AppRoute.memberDetails.name,
+                                pathParameters: {
+                                  'uid': memberViewModel
+                                          .getMemberListRes
+                                          ?.body
+                                          ?.organizationMembers?[index]
+                                          .user
+                                          ?.id ??
+                                      ""
+                                },
+                                extra: memberfilter,
+                              );
                             },
                           ),
                         ),

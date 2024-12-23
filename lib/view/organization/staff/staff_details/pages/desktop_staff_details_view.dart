@@ -1,19 +1,45 @@
+import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/member_details/widget/attendance_memdetails_card.dart';
-import 'package:omifit/view/organization/staff/staff_details/widget/assignedmem_card.dart';
+import 'package:intl/intl.dart';
+import 'package:omifit_studio/data/home/staff/model/get_stafflist_model.dart';
+import 'package:omifit_studio/data/home/staff/model/student/remove_student_model.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/member_details/widget/attendance_memdetails_card.dart';
+import 'package:omifit_studio/view/organization/staff/dialog/add_student/find_member.dart';
+import 'package:omifit_studio/view/organization/staff/staff_details/widget/assignedmem_card.dart';
+import 'package:omifit_studio/view/organization/staff/staff_details/widget/meminfo_card.dart';
+import 'package:omifit_studio/view/organization/staff/staff_view_model.dart';
 
-class DesktopStaffDetailsView extends StatefulWidget {
-  const DesktopStaffDetailsView({super.key});
+class DesktopStaffDetailsView extends ConsumerStatefulWidget {
+  final GetStaffListReq? stafffilter;
+  final String uid;
+  const DesktopStaffDetailsView(this.stafffilter,
+      {super.key, required this.uid});
 
   @override
-  State<DesktopStaffDetailsView> createState() =>
+  ConsumerState<DesktopStaffDetailsView> createState() =>
       _DesktopStaffDetailsViewState();
 }
 
-class _DesktopStaffDetailsViewState extends State<DesktopStaffDetailsView> {
+class _DesktopStaffDetailsViewState
+    extends ConsumerState<DesktopStaffDetailsView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getData();
+    });
+    super.initState();
+  }
+
+  void getData() {
+    ref.read(staffViewModelProvider).staffdetails(context, widget.uid);
+    ref.read(staffViewModelProvider).getstudentlist(context, widget.uid);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final StaffViewModel staffViewModel = ref.watch(staffViewModelProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Staff Details"),
@@ -23,7 +49,44 @@ class _DesktopStaffDetailsViewState extends State<DesktopStaffDetailsView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
             children: [
-              // const MeminfoCard(),
+              StaffnfoCard(
+                uid: staffViewModel
+                        .staffDetailsRes?.body?.organizationMember?.user?.id ??
+                    "",
+                name: staffViewModel.staffDetailsRes?.body?.organizationMember
+                        ?.user?.name ??
+                    "",
+                phone: staffViewModel.staffDetailsRes?.body?.organizationMember
+                        ?.user?.phoneNumber ??
+                    "",
+                age: calculateAge(staffViewModel.staffDetailsRes?.body
+                            ?.organizationMember?.user?.dateOfBirth ??
+                        "") ??
+                    "",
+                gender: capitalizeFirst(staffViewModel
+                    .staffDetailsRes?.body?.organizationMember?.user?.gender),
+                profession: capitalizeFirst(staffViewModel.staffDetailsRes?.body
+                    ?.organizationMember?.user?.profession),
+                joinDate: staffViewModel.staffDetailsRes?.body
+                        ?.organizationMember?.joiningDate ??
+                    "",
+                picture: staffViewModel.staffDetailsRes?.body
+                        ?.organizationMember?.user?.profileImage ??
+                    damiProfile(
+                        stringTogender(staffViewModel.staffDetailsRes?.body
+                            ?.organizationMember?.user?.gender),
+                        staffViewModel.staffDetailsRes?.body?.organizationMember
+                                ?.user?.dateOfBirth ??
+                            ""),
+                isVerify: staffViewModel.staffDetailsRes?.body
+                        ?.organizationMember?.user?.isVerified ??
+                    false,
+                onRemove: () {
+                  staffViewModel.deleteStaff(
+                      context, widget.uid, widget.stafffilter);
+                },
+                onEdit: () {},
+              ),
               gapW20,
               Expanded(
                   child: PaddedColumn(
@@ -60,7 +123,14 @@ class _DesktopStaffDetailsViewState extends State<DesktopStaffDetailsView> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                showCupertinoModalSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return FindMemberView(
+                                          widget.stafffilter, widget.uid);
+                                    });
+                              },
                               icon: const Icon(CupertinoIcons.add_circled,
                                   color: secondaryColor),
                               label: const Text(
@@ -171,20 +241,95 @@ class _DesktopStaffDetailsViewState extends State<DesktopStaffDetailsView> {
                           child: PaddedColumn(
                             children: [
                               ...List.generate(
-                                10,
+                                staffViewModel
+                                        .getStudentListRes?.body?.length ??
+                                    0,
                                 (index) => Padding(
                                   padding: const EdgeInsets.only(bottom: 12),
                                   child: AssignedMemCard(
-                                    onPressed: () {
+                                    onviewProfile: () {
                                       context.pushNamed(
-                                          AppRoute.memberDetails.name);
+                                        AppRoute.memberDetails.name,
+                                        pathParameters: {
+                                          'uid': staffViewModel
+                                                  .getStudentListRes
+                                                  ?.body?[index]
+                                                  .memberDetails
+                                                  ?.id ??
+                                              "",
+                                        },
+                                      );
                                     },
-                                    memid: '12',
-                                    profilePic: '',
-                                    name: 'Ayush Maji',
-                                    status: 'Active',
-                                    assignDate: '27/02/2001',
-                                    phone: '9749003015',
+                                    onRemove: () {
+                                      staffViewModel.removeStudent(
+                                        context,
+                                        RemoveStudentReq(
+                                          teacherId: widget.uid,
+                                          studentId: staffViewModel
+                                              .getStudentListRes
+                                              ?.body?[index]
+                                              .memberDetails
+                                              ?.id,
+                                        ),
+                                        widget.uid,
+                                        widget.stafffilter,
+                                      );
+                                    },
+                                    memid: '$index',
+                                    profilePic: (staffViewModel
+                                                    .getStudentListRes
+                                                    ?.body?[index]
+                                                    .memberDetails
+                                                    ?.profileImage ==
+                                                null ||
+                                            staffViewModel
+                                                    .getStudentListRes
+                                                    ?.body?[index]
+                                                    .memberDetails
+                                                    ?.profileImage ==
+                                                '')
+                                        ? damiProfile(
+                                            stringTogender(staffViewModel
+                                                .getStudentListRes
+                                                ?.body?[index]
+                                                .memberDetails
+                                                ?.gender),
+                                            staffViewModel
+                                                    .getStudentListRes
+                                                    ?.body?[index]
+                                                    .memberDetails
+                                                    ?.dateOfBirth ??
+                                                "")
+                                        : staffViewModel
+                                            .getStudentListRes!
+                                            .body![index]
+                                            .memberDetails!
+                                            .profileImage!,
+                                    name: staffViewModel
+                                            .getStudentListRes
+                                            ?.body?[index]
+                                            .memberDetails
+                                            ?.name ??
+                                        "",
+                                    status: staffViewModel
+                                            .getStudentListRes
+                                            ?.body?[index]
+                                            .memberDetails
+                                            ?.status ??
+                                        " -- ",
+                                    assignDate: staffViewModel.getStudentListRes
+                                                ?.body?[index].assignDate !=
+                                            null
+                                        ? DateFormat('dd MMM yyyy').format(
+                                            DateTime.parse(
+                                                "${staffViewModel.getStudentListRes?.body?[index].assignDate}"))
+                                        : " -- ",
+                                    phone: remove91(staffViewModel
+                                            .getStudentListRes
+                                            ?.body?[index]
+                                            .memberDetails
+                                            ?.phoneNumber) ??
+                                        " -- ",
                                   ),
                                 ),
                               ),

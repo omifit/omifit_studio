@@ -1,7 +1,7 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/pages/desktop_profile_view.dart';
-import 'package:omifit/view/profile/pages/mobile_profile_view.dart';
-import 'package:omifit/view/profile/pages/tablet_profile_view.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/profile/pages/desktop_profile_view.dart';
+import 'package:omifit_studio/view/profile/pages/mobile_profile_view.dart';
+import 'package:omifit_studio/view/profile/pages/tablet_profile_view.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   final bool isBack;

@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/web.dart';
-import 'package:omifit/core/api_client.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/core/endpoints.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/data/home/member/member_repo.dart';
-import 'package:omifit/data/home/member/model/add_member_model.dart';
-import 'package:omifit/data/home/member/model/delete_member_model.dart';
-import 'package:omifit/data/home/member/model/edit_member_model.dart';
-import 'package:omifit/data/home/member/model/get_member_details_model.dart';
-import 'package:omifit/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/core/api_client.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/core/endpoints.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/data/home/member/member_repo.dart';
+import 'package:omifit_studio/data/home/member/model/add_member_model.dart';
+import 'package:omifit_studio/data/home/member/model/delete_member_model.dart';
+import 'package:omifit_studio/data/home/member/model/edit_member_model.dart';
+import 'package:omifit_studio/data/home/member/model/get_member_details_model.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
 
 class MemberRepoImpl implements MemberRepo {
   final ApiClient _apiClient = ApiClient();

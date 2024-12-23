@@ -1,11 +1,11 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/discount/dialog/create_coupon_dialog.dart';
-import 'package:omifit/view/organization/discount/widget/analysis_coupon_card.dart';
-import 'package:omifit/view/organization/discount/widget/coupon_card.dart';
-import 'package:omifit/view/organization/discount/widget/top_coupon_card.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/discount/dialog/create_coupon_dialog.dart';
+import 'package:omifit_studio/view/organization/discount/widget/analysis_coupon_card.dart';
+import 'package:omifit_studio/view/organization/discount/widget/coupon_card.dart';
+import 'package:omifit_studio/view/organization/discount/widget/top_coupon_card.dart';
 
 class DesktopDiscountView extends StatefulWidget {
   const DesktopDiscountView({super.key});

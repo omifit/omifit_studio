@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:omifit/provider/router_provider.dart';
-import 'package:omifit/provider/theme_provider.dart';
-import 'package:omifit/utils/responsive.dart';
-import 'package:omifit/utils/theme.dart';
+import 'package:omifit_studio/provider/router_provider.dart';
+import 'package:omifit_studio/provider/theme_provider.dart';
+import 'package:omifit_studio/utils/responsive.dart';
+import 'package:omifit_studio/utils/theme.dart';
 import 'package:paged_datatable/l10n/generated/l10n.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 

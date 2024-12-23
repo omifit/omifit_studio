@@ -2,20 +2,21 @@ import 'package:animations/animations.dart';
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:iconly/iconly.dart';
-import 'package:omifit/services/shared_preference_service.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/attendance/attendance_view.dart';
-import 'package:omifit/view/organization/dashboard/dashboard_view.dart';
-import 'package:omifit/view/organization/discount/discount_view.dart';
-import 'package:omifit/view/organization/guidance/guidance_view.dart';
-import 'package:omifit/view/organization/member/member/member_view.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:omifit/view/organization/plan/plan_view.dart';
-import 'package:omifit/view/organization/staff/staff/staff_view.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
-import 'package:omifit/widget/appbar/appbar_widget.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
-import 'package:omifit/widget/sidebar/sidebar_widget.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/attendance/attendance_view.dart';
+import 'package:omifit_studio/view/organization/dashboard/dashboard_view.dart';
+import 'package:omifit_studio/view/organization/finance/finance_view.dart';
+import 'package:omifit_studio/view/organization/guidance/guidance_view.dart';
+import 'package:omifit_studio/view/organization/member/member/member_view.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/view/organization/plan/plan_view.dart';
+import 'package:omifit_studio/view/organization/staff/staff/staff_view.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/widget/appbar/appbar_widget.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/widget/sidebar/sidebar_widget.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class HomeView extends ConsumerStatefulWidget {
@@ -30,15 +31,23 @@ class _HomeViewState extends ConsumerState<HomeView> {
     const AttendanceView(),
     const MemberView(),
     const StaffView(),
-    const GuidanceView(),
     const PlanView(),
-    const DiscountView(),
+    // const DiscountView(),
+    const FinanceView(),
+    const GuidanceView(),
   ];
 
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       ref.read(profileViewModelProvider).userDetails(context);
+      ref.read(organizationViewModelProvider).searchMember(
+          const GetMemberListReq(
+            nameORNumber: '',
+            page: 1,
+            limit: 50,
+          ),
+          context);
     });
     super.initState();
   }
@@ -145,7 +154,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ],
             )
           : PreferredSize(
-              preferredSize: const Size.fromHeight(70.0),
+              preferredSize: const Size.fromHeight(80.0),
               child: AppbarWidget(
                 tittle: switchCase(organizationViewModel.selectedIndex),
               ),
@@ -182,9 +191,9 @@ String switchCase(int index) {
     case 3:
       return 'Staff';
     case 4:
-      return 'Guidance';
-    case 5:
       return 'Plan';
+    case 5:
+      return 'Finance';
     case 6:
       return 'Discount';
     default:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:omifit/utils/colors.dart';
-import 'package:omifit/utils/responsive.dart';
+import 'package:omifit_studio/utils/colors.dart';
+import 'package:omifit_studio/utils/responsive.dart';
 import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
 class CustomProgressBar extends StatelessWidget {

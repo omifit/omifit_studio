@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/attendance/dialog/mark_attendance_dialogbox.dart';
-import 'package:omifit/view/organization/attendance/widget/attendance_mem_card.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/attendance/dialog/mark_attendance_dialogbox.dart';
+import 'package:omifit_studio/view/organization/attendance/widget/attendance_mem_card.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class DesktopAttendanceView extends StatefulWidget {

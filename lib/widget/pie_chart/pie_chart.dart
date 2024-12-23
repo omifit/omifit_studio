@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:omifit/utils/colors.dart';
+import 'package:omifit_studio/utils/colors.dart';
 
 class PieChartSample2 extends StatefulWidget {
   const PieChartSample2({super.key});

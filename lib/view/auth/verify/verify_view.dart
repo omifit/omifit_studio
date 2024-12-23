@@ -1,7 +1,7 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/auth/verify/pages/desktop_verify_view.dart';
-import 'package:omifit/view/auth/verify/pages/mobile_verify_view.dart';
-import 'package:omifit/view/auth/verify/pages/tablet_verify_view.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/auth/verify/pages/desktop_verify_view.dart';
+import 'package:omifit_studio/view/auth/verify/pages/mobile_verify_view.dart';
+import 'package:omifit_studio/view/auth/verify/pages/tablet_verify_view.dart';
 
 class VerifyView extends StatelessWidget {
   final bool isLogin;

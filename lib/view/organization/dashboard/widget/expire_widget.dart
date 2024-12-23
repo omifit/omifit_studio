@@ -3,9 +3,9 @@ import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconly/iconly.dart';
-import 'package:omifit/utils/colors.dart';
-import 'package:omifit/utils/responsive.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/utils/colors.dart';
+import 'package:omifit_studio/utils/responsive.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 
 class ExpireWidget extends StatelessWidget {
   final double width;

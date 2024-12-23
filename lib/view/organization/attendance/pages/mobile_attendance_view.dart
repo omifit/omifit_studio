@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/attendance/widget/attendance_dropdown.dart';
-import 'package:omifit/view/organization/attendance/widget/attendance_info.dart';
-import 'package:omifit/view/organization/attendance/widget/attendance_mem_card.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/attendance/widget/attendance_dropdown.dart';
+import 'package:omifit_studio/view/organization/attendance/widget/attendance_info.dart';
+import 'package:omifit_studio/view/organization/attendance/widget/attendance_mem_card.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
 
 class MobileAttendanceView extends ConsumerStatefulWidget {
   const MobileAttendanceView({super.key});

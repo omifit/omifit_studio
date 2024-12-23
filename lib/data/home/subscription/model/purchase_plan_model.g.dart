@@ -74,10 +74,13 @@ _$SelectedPlanImpl _$$SelectedPlanImplFromJson(Map<String, dynamic> json) =>
       planId: json['planId'] as String?,
       planName: json['planName'] as String?,
       couponId: json['couponId'] as String?,
-      totalAmount: (json['totalAmount'] as num?)?.toInt(),
+      orginalPlanAmount: (json['orginalPlanAmount'] as num?)?.toInt(),
+      discountAmount: (json['discountAmount'] as num?)?.toInt(),
       paidAmount: (json['paidAmount'] as num?)?.toInt(),
       dueAmount: (json['dueAmount'] as num?)?.toInt(),
-      paymentForm: json['paymentForm'] as String?,
+      paymentMethod: (json['paymentMethod'] as List<dynamic>?)
+          ?.map((e) => PaymentMethod.fromJson(e as Map<String, dynamic>))
+          .toList(),
       membershipStartDate: json['membershipStartDate'] == null
           ? null
           : DateTime.parse(json['membershipStartDate'] as String),
@@ -94,12 +97,25 @@ Map<String, dynamic> _$$SelectedPlanImplToJson(_$SelectedPlanImpl instance) =>
       'planId': instance.planId,
       'planName': instance.planName,
       'couponId': instance.couponId,
-      'totalAmount': instance.totalAmount,
+      'orginalPlanAmount': instance.orginalPlanAmount,
+      'discountAmount': instance.discountAmount,
       'paidAmount': instance.paidAmount,
       'dueAmount': instance.dueAmount,
-      'paymentForm': instance.paymentForm,
+      'paymentMethod': instance.paymentMethod,
       'membershipStartDate': instance.membershipStartDate?.toIso8601String(),
       'membershipEndDate': instance.membershipEndDate?.toIso8601String(),
       'durationValue': instance.durationValue,
       'durationUnit': instance.durationUnit,
+    };
+
+_$PaymentMethodImpl _$$PaymentMethodImplFromJson(Map<String, dynamic> json) =>
+    _$PaymentMethodImpl(
+      amount: (json['amount'] as num?)?.toInt(),
+      type: json['type'] as String?,
+    );
+
+Map<String, dynamic> _$$PaymentMethodImplToJson(_$PaymentMethodImpl instance) =>
+    <String, dynamic>{
+      'amount': instance.amount,
+      'type': instance.type,
     };

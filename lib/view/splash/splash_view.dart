@@ -1,7 +1,7 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:omifit/services/shared_preference_service.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
+import 'package:omifit_studio/utils/utils.dart';
 import 'package:pwa_update_listener/pwa_update_listener.dart';
 
 class SplashView extends StatefulWidget {

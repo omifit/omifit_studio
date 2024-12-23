@@ -30,7 +30,7 @@ class SearchUserRes with _$SearchUserRes {
 @freezed
 class Body with _$Body {
   const factory Body({
-    List<User>? user,
+    List<User>? users,
   }) = _Body;
 
   factory Body.fromJson(Map<String, dynamic> json) => _$BodyFromJson(json);

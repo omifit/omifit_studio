@@ -208,7 +208,7 @@ Body _$BodyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Body {
-  List<User>? get user => throw _privateConstructorUsedError;
+  List<User>? get users => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -220,7 +220,7 @@ abstract class $BodyCopyWith<$Res> {
   factory $BodyCopyWith(Body value, $Res Function(Body) then) =
       _$BodyCopyWithImpl<$Res, Body>;
   @useResult
-  $Res call({List<User>? user});
+  $Res call({List<User>? users});
 }
 
 /// @nodoc
@@ -236,12 +236,12 @@ class _$BodyCopyWithImpl<$Res, $Val extends Body>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? users = freezed,
   }) {
     return _then(_value.copyWith(
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
+      users: freezed == users
+          ? _value.users
+          : users // ignore: cast_nullable_to_non_nullable
               as List<User>?,
     ) as $Val);
   }
@@ -254,7 +254,7 @@ abstract class _$$BodyImplCopyWith<$Res> implements $BodyCopyWith<$Res> {
       __$$BodyImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<User>? user});
+  $Res call({List<User>? users});
 }
 
 /// @nodoc
@@ -267,12 +267,12 @@ class __$$BodyImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
+    Object? users = freezed,
   }) {
     return _then(_$BodyImpl(
-      user: freezed == user
-          ? _value._user
-          : user // ignore: cast_nullable_to_non_nullable
+      users: freezed == users
+          ? _value._users
+          : users // ignore: cast_nullable_to_non_nullable
               as List<User>?,
     ));
   }
@@ -281,24 +281,24 @@ class __$$BodyImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$BodyImpl implements _Body {
-  const _$BodyImpl({final List<User>? user}) : _user = user;
+  const _$BodyImpl({final List<User>? users}) : _users = users;
 
   factory _$BodyImpl.fromJson(Map<String, dynamic> json) =>
       _$$BodyImplFromJson(json);
 
-  final List<User>? _user;
+  final List<User>? _users;
   @override
-  List<User>? get user {
-    final value = _user;
+  List<User>? get users {
+    final value = _users;
     if (value == null) return null;
-    if (_user is EqualUnmodifiableListView) return _user;
+    if (_users is EqualUnmodifiableListView) return _users;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(value);
   }
 
   @override
   String toString() {
-    return 'Body(user: $user)';
+    return 'Body(users: $users)';
   }
 
   @override
@@ -306,13 +306,13 @@ class _$BodyImpl implements _Body {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BodyImpl &&
-            const DeepCollectionEquality().equals(other._user, _user));
+            const DeepCollectionEquality().equals(other._users, _users));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_user));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_users));
 
   @JsonKey(ignore: true)
   @override
@@ -329,12 +329,12 @@ class _$BodyImpl implements _Body {
 }
 
 abstract class _Body implements Body {
-  const factory _Body({final List<User>? user}) = _$BodyImpl;
+  const factory _Body({final List<User>? users}) = _$BodyImpl;
 
   factory _Body.fromJson(Map<String, dynamic> json) = _$BodyImpl.fromJson;
 
   @override
-  List<User>? get user;
+  List<User>? get users;
   @override
   @JsonKey(ignore: true)
   _$$BodyImplCopyWith<_$BodyImpl> get copyWith =>

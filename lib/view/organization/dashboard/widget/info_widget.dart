@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class InfoWidget extends StatelessWidget {
   const InfoWidget({

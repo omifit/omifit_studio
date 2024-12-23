@@ -5,24 +5,31 @@ import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconly/iconly.dart';
-import 'package:omifit/services/shared_preference_service.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/attendance/dialog/mark_attendance_dialogbox.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:omifit/view/organization/settings/dialog/settings_dialog.dart';
-import 'package:omifit/widget/chips/chip_widget.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/attendance/dialog/mark_attendance_dialogbox.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/view/organization/settings/dialog/settings_dialog.dart';
+import 'package:omifit_studio/view/profile/dialog/edit_profile/editprofile_dialog.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class AppbarWidget extends ConsumerWidget {
   final String tittle;
+
   const AppbarWidget({required this.tittle, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final OrganizationViewModel orgViewModel =
+    final OrganizationViewModel organizationViewModel =
         ref.watch(organizationViewModelProvider);
+    final ProfileViewModel profileViewModel =
+        ref.watch(profileViewModelProvider);
 
     final Size size = MediaQuery.of(context).size;
     return size.width > 1000
@@ -37,7 +44,7 @@ class AppbarWidget extends ConsumerWidget {
                     Icons.menu,
                     color: kWhite,
                   ),
-                  onPressed: () => orgViewModel.openDrawer(),
+                  onPressed: () => organizationViewModel.openDrawer(),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -50,22 +57,51 @@ class AppbarWidget extends ConsumerWidget {
                 ),
                 const SizedBox(width: 100),
                 SizedBox(
-                    width: 500,
-                    child: TypeAheadField<City>(
-                      constraints: const BoxConstraints(
+                    width: 180.w,
+                    child: TypeAheadField<User>(
+                      constraints: BoxConstraints(
                         maxHeight: 900,
-                        maxWidth: 1400,
-                        minWidth: 1400,
+                        maxWidth: 1500.w,
+                        minWidth: 1500.w,
                       ),
                       suggestionsCallback: (search) => [
                         ...List.generate(
-                            5, (index) => City("Ayush Maji", "member"))
+                            organizationViewModel.getMemberListRes?.body
+                                    ?.organizationMembers?.length ??
+                                0,
+                            (index) => User(
+                                dateOfBirth: organizationViewModel
+                                    .getMemberListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.dateOfBirth,
+                                phoneNumber: organizationViewModel
+                                    .getMemberListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.phoneNumber,
+                                profileImage: organizationViewModel
+                                    .getMemberListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.profileImage,
+                                name: organizationViewModel
+                                    .getMemberListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.name,
+                                id: organizationViewModel.getMemberListRes?.body
+                                    ?.organizationMembers?[index].user?.id
+                                    .toString()))
                       ],
                       builder: (context, controller, focusNode) {
                         return TextField(
                           controller: controller,
                           focusNode: focusNode,
-                          onTap: () {},
                           decoration: const InputDecoration(
                             hintText: 'Search',
                             hintStyle: TextStyle(color: kWhite),
@@ -90,37 +126,52 @@ class AppbarWidget extends ConsumerWidget {
                                   BorderRadius.all(Radius.circular(30)),
                             ),
                           ),
+                          onChanged: (value) {
+                            organizationViewModel.searchMember(
+                                GetMemberListReq(
+                                    nameORNumber: value.trim(),
+                                    page: 1,
+                                    limit: 20),
+                                context);
+                          },
                         );
                       },
-                      itemBuilder: (context, city) {
+                      itemBuilder: (context, user) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: ListTile(
                             style: ListTileStyle.list,
                             visualDensity: VisualDensity.compact,
                             contentPadding: EdgeInsets.zero,
-                            leading: const ProfileImg(
-                                url: 'https://i.imgur.com/UnWWlu3.png'),
+                            leading: ProfileImg(
+                              url: (user.profileImage == null ||
+                                      user.profileImage == '')
+                                  ? damiProfile(stringTogender(user.gender),
+                                      user.dateOfBirth ?? "")
+                                  : user.profileImage!,
+                            ),
                             title: Text(
-                              city.name,
+                              user.name ?? "",
                               style: const TextStyle(
                                   color: kWhite,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14),
                             ),
-                            trailing: const ChipWidget(
-                                tittle: "member",
-                                color: primaryColor,
-                                bgColor: kyellowbg),
-                            subtitle: const Text("Mem123",
-                                style: TextStyle(
-                                    color: kGrey,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 12)),
+                            subtitle: Text(remove91(user.phoneNumber) ?? "",
+                                style: const TextStyle(
+                                  color: kGrey,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14,
+                                )),
                           ),
                         );
                       },
-                      onSelected: (city) {},
+                      onSelected: (user) {
+                        context.pushNamed(
+                          AppRoute.memberDetails.name,
+                          pathParameters: {'uid': user.id ?? ""},
+                        );
+                      },
                     )),
                 const Spacer(),
                 Container(
@@ -160,76 +211,124 @@ class AppbarWidget extends ConsumerWidget {
                         },
                       ),
                       const SizedBox(width: 5),
-                      PullDownButton(
-                        routeTheme: PullDownMenuRouteTheme(
-                          backgroundColor: const Color.fromARGB(8, 52, 52, 52),
-                          borderRadius: BorderRadius.circular(10),
-                          shadow: BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 10,
+                      if (profileViewModel.lodinguserdetails &&
+                          profileViewModel.userDetailsRes == null)
+                        Shimmer.fromColors(
+                          baseColor: darkBlack.withOpacity(0.2),
+                          highlightColor:
+                              const Color.fromARGB(89, 255, 255, 255)
+                                  .withOpacity(0.4),
+                          child: const CircleAvatar(),
+                        )
+                      else
+                        PullDownButton(
+                          routeTheme: PullDownMenuRouteTheme(
+                            backgroundColor:
+                                const Color.fromARGB(8, 52, 52, 52),
+                            borderRadius: BorderRadius.circular(10),
+                            shadow: BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              blurRadius: 10,
+                            ),
+                          ),
+                          itemBuilder: (context) => [
+                            PullDownMenuHeader(
+                              leading: ProfileImg(
+                                url: ((profileViewModel.userDetailsRes?.body
+                                                ?.user?.profileImage ==
+                                            null ||
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.profileImage ==
+                                            '')
+                                    ? damiProfile(
+                                        stringTogender(profileViewModel
+                                            .userDetailsRes
+                                            ?.body
+                                            ?.user
+                                            ?.gender),
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.dateOfBirth ??
+                                            "")
+                                    : profileViewModel.userDetailsRes!.body!
+                                        .user!.profileImage!),
+                              ),
+                              title: (profileViewModel
+                                          .userDetailsRes?.body?.user?.name ??
+                                      "User")
+                                  .trim()
+                                  .split(RegExp(r'\s+'))
+                                  .first,
+                              subtitle: 'Tap to view',
+                              icon: IconlyLight.arrow_right_2,
+                              onTap: () {
+                                showCupertinoModalSheet(
+                                    context: context,
+                                    builder: (context) =>
+                                        const EditProfileDialog());
+                              },
+                              itemTheme: const PullDownMenuItemTheme(
+                                subtitleStyle: TextStyle(
+                                  color: kGrey,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            PullDownMenuItem.selectable(
+                              onTap: () {
+                                context.pushNamed(
+                                    AppRoute.organizationDetails.name);
+                              },
+                              title: 'Sweat n Smile',
+                              subtitle: 'organization',
+                              icon: IconlyLight.arrow_right_2,
+                              itemTheme: const PullDownMenuItemTheme(
+                                subtitleStyle: TextStyle(
+                                  color: primaryColor,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                            PullDownMenuItem(
+                              onTap: () {
+                                SharedPreferenceService.clearAll();
+                                context.pushNamed(AppRoute.splash.name);
+                              },
+                              title: 'Logout',
+                              isDestructive: true,
+                              icon: IconlyLight.logout,
+                              itemTheme: const PullDownMenuItemTheme(
+                                textStyle: TextStyle(
+                                  color: primaryColor,
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ],
+                          buttonBuilder: (context, showMenu) => BouncingWidget(
+                            onPressed: showMenu,
+                            child: ProfileImg(
+                                url: ((profileViewModel.userDetailsRes?.body
+                                                ?.user?.profileImage ==
+                                            null ||
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.profileImage ==
+                                            '')
+                                    ? damiProfile(
+                                        stringTogender(profileViewModel
+                                            .userDetailsRes
+                                            ?.body
+                                            ?.user
+                                            ?.gender),
+                                        profileViewModel.userDetailsRes?.body
+                                                ?.user?.dateOfBirth ??
+                                            "")
+                                    : profileViewModel.userDetailsRes!.body!
+                                        .user!.profileImage!)),
                           ),
                         ),
-                        itemBuilder: (context) => [
-                          PullDownMenuHeader(
-                            leading: const ProfileImg(
-                                url: 'https://i.imgur.com/UnWWlu3.png'),
-                            title: 'Ayush Maji',
-                            subtitle: 'Tap to view',
-                            icon: IconlyLight.arrow_right_2,
-                            onTap: () {
-                              showCupertinoModalSheet(
-                                  context: context,
-                                  builder: (context) => const SettingsDialog());
-                              // context.pushNamed(AppRoute.profile.name,
-                              //     pathParameters: {'isBack': 'true'});
-                            },
-                            itemTheme: const PullDownMenuItemTheme(
-                              subtitleStyle: TextStyle(
-                                color: kGrey,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          PullDownMenuItem.selectable(
-                            onTap: () {
-                              context
-                                  .pushNamed(AppRoute.organizationDetails.name);
-                            },
-                            title: 'Sweat n Smile',
-                            subtitle: 'Admin',
-                            icon: IconlyLight.arrow_right_2,
-                            itemTheme: const PullDownMenuItemTheme(
-                              subtitleStyle: TextStyle(
-                                color: primaryColor,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          PullDownMenuItem(
-                            onTap: () {
-                              SharedPreferenceService.clearAll();
-                              context.pushNamed(AppRoute.splash.name);
-                            },
-                            title: 'Logout',
-                            isDestructive: true,
-                            icon: IconlyLight.logout,
-                            itemTheme: const PullDownMenuItemTheme(
-                              textStyle: TextStyle(
-                                color: primaryColor,
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ],
-                        buttonBuilder: (context, showMenu) => BouncingWidget(
-                          onPressed: showMenu,
-                          child: const ProfileImg(
-                              url: "https://i.imgur.com/UnWWlu3.png"),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -247,7 +346,7 @@ class AppbarWidget extends ConsumerWidget {
                     Icons.menu,
                     color: kWhite,
                   ),
-                  onPressed: () => orgViewModel.openDrawer(),
+                  onPressed: () => organizationViewModel.openDrawer(),
                 ),
                 const SizedBox(width: 10),
                 Text(
@@ -359,11 +458,4 @@ class AppbarWidget extends ConsumerWidget {
             ),
           );
   }
-}
-
-class City {
-  final String name;
-  final String country;
-
-  City(this.name, this.country);
 }

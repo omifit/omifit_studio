@@ -12,10 +12,14 @@ _$GetMemberListReqImpl _$$GetMemberListReqImplFromJson(
       name: json['name'] as String?,
       number: json['number'] as String?,
       status: json['status'] as String?,
-      nameOrNumber: json['nameOrNumber'] as String?,
+      nameORNumber: json['nameORNumber'] as String?,
       joiningDate: json['joiningDate'] as String?,
-      startDate: json['startDate'] as String?,
-      endDate: json['endDate'] as String?,
+      startDate: json['startDate'] == null
+          ? null
+          : DateTime.parse(json['startDate'] as String),
+      endDate: json['endDate'] == null
+          ? null
+          : DateTime.parse(json['endDate'] as String),
       page: (json['page'] as num?)?.toInt(),
       limit: (json['limit'] as num?)?.toInt(),
     );
@@ -26,10 +30,10 @@ Map<String, dynamic> _$$GetMemberListReqImplToJson(
       'name': instance.name,
       'number': instance.number,
       'status': instance.status,
-      'nameOrNumber': instance.nameOrNumber,
+      'nameORNumber': instance.nameORNumber,
       'joiningDate': instance.joiningDate,
-      'startDate': instance.startDate,
-      'endDate': instance.endDate,
+      'startDate': instance.startDate?.toIso8601String(),
+      'endDate': instance.endDate?.toIso8601String(),
       'page': instance.page,
       'limit': instance.limit,
     };

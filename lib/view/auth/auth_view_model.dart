@@ -1,12 +1,12 @@
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/data/auth/auth_repo.dart';
-import 'package:omifit/data/auth/auth_repo_impl.dart';
-import 'package:omifit/data/auth/model/login/login_model.dart';
-import 'package:omifit/data/auth/model/register/register_model.dart';
-import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
-import 'package:omifit/services/shared_preference_service.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/data/auth/auth_repo.dart';
+import 'package:omifit_studio/data/auth/auth_repo_impl.dart';
+import 'package:omifit_studio/data/auth/model/login/login_model.dart';
+import 'package:omifit_studio/data/auth/model/register/register_model.dart';
+import 'package:omifit_studio/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
 
 final authViewModelProvider =
     ChangeNotifierProvider((ref) => AuthViewModel(ref: ref));

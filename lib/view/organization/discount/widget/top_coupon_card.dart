@@ -1,5 +1,5 @@
 import 'package:avatar_stack/avatar_stack.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class TopCouponCard extends StatelessWidget {
   const TopCouponCard({super.key});

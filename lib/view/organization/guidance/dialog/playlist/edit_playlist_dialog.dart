@@ -1,9 +1,9 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/gestures.dart';
 import 'package:lottie/lottie.dart';
-import 'package:omifit/data/home/guidance/model/playlist/edit_playlist_model.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/guidance/guidance_view_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/edit_playlist_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/guidance/guidance_view_model.dart';
 
 class EditPlaylistDialog extends ConsumerStatefulWidget {
   final String playlistid;

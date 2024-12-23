@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/web.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/services/shared_preference_service.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
 
 class ApiClient {
   final Dio dio = Dio();
@@ -55,9 +55,21 @@ class ApiClient {
   Future<Response<Map<String, dynamic>>> get(String path) async {
     final String? token = SharedPreferenceService.getToken();
     try {
+      return await dio.get(path,
+          options: Options(headers: {"Authorization": "Bearer $token"}));
+    } on DioException catch (e) {
+      throw ApiException(e.response!.data["message"].toString());
+    }
+  }
+
+  Future<Response<Map<String, dynamic>>> getwithquery(
+      String path, dynamic query) async {
+    final String? token = SharedPreferenceService.getToken();
+    try {
       return await dio.get(
         path,
         options: Options(headers: {"Authorization": "Bearer $token"}),
+        queryParameters: query,
       );
     } on DioException catch (e) {
       throw ApiException(e.response!.data["message"].toString());

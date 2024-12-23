@@ -2,8 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:omifit/utils/colors.dart';
-import 'package:omifit/utils/responsive.dart';
+import 'package:omifit_studio/utils/colors.dart';
+import 'package:omifit_studio/utils/responsive.dart';
 
 class TimeStats extends StatelessWidget {
   const TimeStats({super.key});

@@ -3,15 +3,16 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
-import 'package:omifit/data/auth/model/user_update/user_details_update_model.dart';
-import 'package:omifit/utils/file_picker.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
-import 'package:omifit/widget/picker/profession_dropdown.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit_studio/data/auth/model/user_update/user_details_update_model.dart';
+import 'package:omifit_studio/utils/file_picker.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/widget/picker/profession_dropdown.dart';
+
 // // EditMemberView
 class EditProfileDialog extends ConsumerStatefulWidget {
   const EditProfileDialog({super.key});

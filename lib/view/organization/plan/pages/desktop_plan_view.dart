@@ -1,11 +1,11 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/plan/dialog/add_plan_dialog.dart';
-import 'package:omifit/view/organization/plan/dialog/edit_plan_dialog.dart';
-import 'package:omifit/view/organization/plan/plan_view_model.dart';
-import 'package:omifit/view/organization/plan/widget/plantile_widget.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/plan/dialog/add_plan_dialog.dart';
+import 'package:omifit_studio/view/organization/plan/dialog/edit_plan_dialog.dart';
+import 'package:omifit_studio/view/organization/plan/plan_view_model.dart';
+import 'package:omifit_studio/view/organization/plan/widget/plantile_widget.dart';
 
 class DesktopPlanView extends ConsumerStatefulWidget {
   const DesktopPlanView({super.key});
@@ -38,7 +38,7 @@ class _DesktopPlanViewState extends ConsumerState<DesktopPlanView> {
         children: [
           gapH20,
           Container(
-            constraints: BoxConstraints(minHeight: 620.h),
+            constraints: BoxConstraints(minHeight: 610.h),
             width: double.infinity,
             decoration: const BoxDecoration(
               color: darkBlack,

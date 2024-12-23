@@ -1,8 +1,9 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/widget/chips/chip_widget.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/widget/chips/chip_widget.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class SubscriptionMemCard extends StatelessWidget {
@@ -282,7 +283,7 @@ class SubscriptionMemCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: 50.w,
+              width: 45.w,
               child: Text(
                 planName,
                 style: const TextStyle(color: kWhite),
@@ -315,7 +316,7 @@ class SubscriptionMemCard extends StatelessWidget {
                   tittle: status ?? '', color: kRed, bgColor: kRedbg),
             ),
             SizedBox(
-              width: 130,
+              width: 100,
               child: Text(
                 paymentMode ?? "--",
                 style: const TextStyle(color: kWhite),
@@ -324,37 +325,32 @@ class SubscriptionMemCard extends StatelessWidget {
             SizedBox(
               width: 50,
               child: PullDownButton(
-                routeTheme: const PullDownMenuRouteTheme(
-                  width: 200,
-                  accessibilityWidth: 200,
+                routeTheme: PullDownMenuRouteTheme(
+                  backgroundColor: const Color.fromARGB(73, 72, 72, 72),
+                  borderRadius: BorderRadius.circular(10),
                   shadow: BoxShadow(
-                    color: Color.fromARGB(12, 0, 0, 0),
+                    color: Colors.black.withOpacity(0.2),
                     blurRadius: 10,
-                    spreadRadius: 2,
-                    offset: Offset(0, 2),
                   ),
+                  width: 130,
+                  accessibilityWidth: 200,
                 ),
                 itemBuilder: (context) => [
                   PullDownMenuItem(
                     onTap: () {},
-                    title: 'View Membership',
-                    icon: CupertinoIcons.person_crop_circle,
+                    title: 'View',
+                    icon: HugeIcons.strokeRoundedFolderShared01,
                   ),
                   PullDownMenuItem(
                     onTap: () {},
-                    title: 'Invoice',
-                    icon: CupertinoIcons.person_crop_circle,
-                  ),
-                  PullDownMenuItem(
-                    title: 'Pause',
-                    onTap: () {},
-                    icon: CupertinoIcons.pencil,
+                    title: 'Edit',
+                    icon: HugeIcons.strokeRoundedFolderEdit,
                   ),
                   PullDownMenuItem(
                     onTap: () {},
-                    title: 'Cancel',
+                    title: 'Remove',
                     isDestructive: true,
-                    icon: CupertinoIcons.delete,
+                    icon: HugeIcons.strokeRoundedDelete02,
                   ),
                 ],
                 buttonBuilder: (context, showMenu) => BouncingWidget(

@@ -1,5 +1,5 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class PaginationDropdown extends StatefulWidget {

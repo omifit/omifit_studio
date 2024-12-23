@@ -1,18 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/web.dart';
-import 'package:omifit/core/api_client.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/core/endpoints.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/data/home/guidance/guidance_repo.dart';
-import 'package:omifit/data/home/guidance/model/document/add_document_model.dart';
-import 'package:omifit/data/home/guidance/model/document/delete_document_model.dart';
-import 'package:omifit/data/home/guidance/model/document/edit_document_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/create_playlist_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/delete_playlist_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/edit_playlist_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/get_playlist_details_model.dart';
-import 'package:omifit/data/home/guidance/model/playlist/get_playlist_model.dart';
+import 'package:omifit_studio/core/api_client.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/core/endpoints.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/data/home/guidance/guidance_repo.dart';
+import 'package:omifit_studio/data/home/guidance/model/document/add_document_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/document/delete_document_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/document/edit_document_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/create_playlist_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/delete_playlist_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/edit_playlist_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/get_playlist_details_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/get_playlist_model.dart';
 
 class GuidanceRepoImpl implements GuidanceRepo {
   final ApiClient _apiClient = ApiClient();

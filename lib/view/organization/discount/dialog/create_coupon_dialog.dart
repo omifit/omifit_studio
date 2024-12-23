@@ -1,7 +1,7 @@
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
 
 class CreateCouponDialog extends ConsumerStatefulWidget {
   const CreateCouponDialog({super.key});

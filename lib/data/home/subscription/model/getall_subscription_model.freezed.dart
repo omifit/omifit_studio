@@ -354,6 +354,7 @@ Subscription _$SubscriptionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Subscription {
+  @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
   String? get user => throw _privateConstructorUsedError;
   String? get organization => throw _privateConstructorUsedError;
@@ -389,7 +390,7 @@ abstract class $SubscriptionCopyWith<$Res> {
       _$SubscriptionCopyWithImpl<$Res, Subscription>;
   @useResult
   $Res call(
-      {String? id,
+      {@JsonKey(name: '_id') String? id,
       String? user,
       String? organization,
       String? plan,
@@ -527,7 +528,7 @@ abstract class _$$SubscriptionImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? id,
+      {@JsonKey(name: '_id') String? id,
       String? user,
       String? organization,
       String? plan,
@@ -658,7 +659,7 @@ class __$$SubscriptionImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SubscriptionImpl implements _Subscription {
   const _$SubscriptionImpl(
-      {this.id,
+      {@JsonKey(name: '_id') this.id,
       this.user,
       this.organization,
       this.plan,
@@ -681,6 +682,7 @@ class _$SubscriptionImpl implements _Subscription {
       _$$SubscriptionImplFromJson(json);
 
   @override
+  @JsonKey(name: '_id')
   final String? id;
   @override
   final String? user;
@@ -802,7 +804,7 @@ class _$SubscriptionImpl implements _Subscription {
 
 abstract class _Subscription implements Subscription {
   const factory _Subscription(
-      {final String? id,
+      {@JsonKey(name: '_id') final String? id,
       final String? user,
       final String? organization,
       final String? plan,
@@ -828,6 +830,7 @@ abstract class _Subscription implements Subscription {
       _$SubscriptionImpl.fromJson;
 
   @override
+  @JsonKey(name: '_id')
   String? get id;
   @override
   String? get user;

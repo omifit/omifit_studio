@@ -1,8 +1,8 @@
 import 'package:custom_sliding_segmented_control/custom_sliding_segmented_control.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
-import 'package:omifit/widget/imageicon/banner_image.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/widget/imageicon/banner_image.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class MarkAttendanceDialog {

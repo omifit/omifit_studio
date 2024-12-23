@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:omifit/view/organization/staff/staff/widget/staff_card.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/view/organization/staff/staff/widget/staff_card.dart';
 
 class MobileStaffView extends ConsumerStatefulWidget {
   const MobileStaffView({super.key});

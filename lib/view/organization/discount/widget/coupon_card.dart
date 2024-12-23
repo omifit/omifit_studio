@@ -1,5 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class CouponCard extends StatelessWidget {
   const CouponCard({super.key});

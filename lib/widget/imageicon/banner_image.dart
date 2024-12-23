@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 import 'package:shimmer/shimmer.dart';
 
 class BannerImg extends StatelessWidget {

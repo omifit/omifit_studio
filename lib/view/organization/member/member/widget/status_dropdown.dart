@@ -1,6 +1,6 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class StatusDropdown extends StatefulWidget {
@@ -75,23 +75,6 @@ class _TimeDropdown1State extends State<StatusDropdown> {
             setState(() {});
           },
         ),
-        PullDownMenuItem.selectable(
-          title: 'Paused',
-          selected: selectedValue == 'Paused',
-          onTap: () {
-            selectedValue = 'Paused';
-            widget.onChange('Paused');
-            setState(() {});
-          },
-        ),
-        PullDownMenuItem.selectable(
-            title: 'Risk Member',
-            selected: selectedValue == 'Risk Member',
-            onTap: () {
-              selectedValue = 'Risk Member';
-              widget.onChange('Risk Member');
-              setState(() {});
-            }),
       ],
       buttonBuilder: (context, showMenu) => BouncingWidget(
         onPressed: showMenu,

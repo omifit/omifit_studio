@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/data/organization/model/createorg_model.dart';
-import 'package:omifit/data/organization/model/orglistbyuser_model.dart';
-import 'package:omifit/data/organization/model/selectorg_model.dart';
-import 'package:omifit/data/organization/organization_repo_impl.dart';
-import 'package:omifit/services/shared_preference_service.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/data/home/member/member_repo_impl.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/data/organization/model/createorg_model.dart';
+import 'package:omifit_studio/data/organization/model/orglistbyuser_model.dart';
+import 'package:omifit_studio/data/organization/model/selectorg_model.dart';
+import 'package:omifit_studio/data/organization/organization_repo_impl.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 final organizationViewModelProvider =
     ChangeNotifierProvider((ref) => OrganizationViewModel(ref: ref));
@@ -14,6 +16,7 @@ class OrganizationViewModel extends ChangeNotifier {
   OrganizationViewModel({required this.ref});
 
   final _orgRepo = OrganizationRepoImpl();
+  final _memberRepo = MemberRepoImpl();
 
   final GlobalKey<ScaffoldState> _key = GlobalKey();
   GlobalKey<ScaffoldState> get key => _key;
@@ -142,6 +145,28 @@ class OrganizationViewModel extends ChangeNotifier {
             .showSnackBar(SnackBar(content: Text(l.message ?? "")));
       }, (r) {
         _orglistbyuserRes = r;
+        notifyListeners();
+      });
+    });
+  }
+
+  // search member apis
+  bool _lodingsearchmember = false;
+  bool get lodingsearchmember => _lodingsearchmember;
+  GetMemberListRes? _getMemberListRes;
+  GetMemberListRes? get getMemberListRes => _getMemberListRes;
+
+  Future<void> searchMember(GetMemberListReq req, BuildContext ctx) async {
+    _lodingsearchmember = true;
+    notifyListeners();
+    await _memberRepo.getmemberlist(req).then((value) {
+      _lodingsearchmember = false;
+      notifyListeners();
+      value.fold((l) {
+        ScaffoldMessenger.of(ctx)
+            .showSnackBar(SnackBar(content: Text(l.message ?? "")));
+      }, (r) {
+        _getMemberListRes = r;
         notifyListeners();
       });
     });

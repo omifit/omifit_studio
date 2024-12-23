@@ -69,10 +69,11 @@ class SelectedPlan with _$SelectedPlan {
     String? planId,
     String? planName,
     String? couponId,
-    int? totalAmount,
+    int? orginalPlanAmount,
+    int? discountAmount,
     int? paidAmount,
     int? dueAmount,
-    String? paymentForm,
+    List<PaymentMethod>? paymentMethod,
     DateTime? membershipStartDate,
     DateTime? membershipEndDate,
     int? durationValue,
@@ -81,4 +82,15 @@ class SelectedPlan with _$SelectedPlan {
 
   factory SelectedPlan.fromJson(Map<String, dynamic> json) =>
       _$SelectedPlanFromJson(json);
+}
+
+@freezed
+class PaymentMethod with _$PaymentMethod {
+  const factory PaymentMethod({
+    int? amount,
+    String? type,
+  }) = _PaymentMethod;
+
+  factory PaymentMethod.fromJson(Map<String, dynamic> json) =>
+      _$PaymentMethodFromJson(json);
 }

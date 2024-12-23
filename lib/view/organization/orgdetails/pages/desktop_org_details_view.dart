@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 
 class DesktopOrgDetailsView extends StatefulWidget {
   const DesktopOrgDetailsView({super.key});

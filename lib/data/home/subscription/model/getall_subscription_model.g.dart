@@ -37,7 +37,7 @@ Map<String, dynamic> _$$BodyImplToJson(_$BodyImpl instance) =>
 
 _$SubscriptionImpl _$$SubscriptionImplFromJson(Map<String, dynamic> json) =>
     _$SubscriptionImpl(
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       user: json['user'] as String?,
       organization: json['organization'] as String?,
       plan: json['plan'] as String?,
@@ -59,7 +59,7 @@ _$SubscriptionImpl _$$SubscriptionImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$SubscriptionImplToJson(_$SubscriptionImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'user': instance.user,
       'organization': instance.organization,
       'plan': instance.plan,

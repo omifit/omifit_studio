@@ -1,8 +1,8 @@
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:omifit/data/home/guidance/model/document/add_document_model.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/guidance/guidance_view_model.dart';
-import 'package:omifit/view/organization/guidance/widget/document_dropdown.dart';
+import 'package:omifit_studio/data/home/guidance/model/document/add_document_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/guidance/guidance_view_model.dart';
+import 'package:omifit_studio/view/organization/guidance/widget/document_dropdown.dart';
 
 class EditDocumentDialog extends ConsumerStatefulWidget {
   final String playlistid;

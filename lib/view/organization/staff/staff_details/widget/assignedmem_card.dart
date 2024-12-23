@@ -1,11 +1,11 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/widget/chips/chip_widget.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:hugeicons/hugeicons.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/widget/chips/chip_widget.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class AssignedMemCard extends StatelessWidget {
   final String memid;
@@ -14,11 +14,12 @@ class AssignedMemCard extends StatelessWidget {
   final String phone;
   final String? status;
   final String? assignDate;
-  final Function()? onPressed;
-
+  final Function()? onRemove;
+  final Function()? onviewProfile;
   const AssignedMemCard({
     super.key,
-    this.onPressed,
+    this.onRemove,
+    this.onviewProfile,
     required this.memid,
     required this.profilePic,
     required this.name,
@@ -31,7 +32,6 @@ class AssignedMemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveMember(
       mobile: InkWell(
-        onTap: onPressed,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 0),
           decoration: const BoxDecoration(
@@ -170,189 +170,159 @@ class AssignedMemCard extends StatelessWidget {
               ],
             )),
       ),
-      desktop: GestureDetector(
-        onTap: onPressed,
-        child: HoverContainer(
-          hoverDecoration: BoxDecoration(
-            color: const Color.fromARGB(18, 173, 162, 162),
-            borderRadius: BorderRadius.circular(32),
-          ),
-          cursor: SystemMouseCursors.click,
-          child: PaddedRow(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 30,
-                child: Text(
-                  memid,
-                  style: const TextStyle(color: kWhite),
+      desktop: HoverContainer(
+        hoverDecoration: BoxDecoration(
+          color: const Color.fromARGB(18, 173, 162, 162),
+          borderRadius: BorderRadius.circular(32),
+        ),
+        cursor: SystemMouseCursors.click,
+        child: PaddedRow(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 30,
+              child: Text(
+                memid,
+                style: const TextStyle(color: kWhite),
+              ),
+            ),
+            SizedBox(
+              width: 48,
+              child: ProfileImg(
+                url: profilePic,
+                height: 48,
+              ),
+            ),
+            SizedBox(
+              width: 40.w,
+              child: Text(
+                name,
+                style: const TextStyle(color: kWhite),
+              ),
+            ),
+            SizedBox(
+              width: 90,
+              child: Text(
+                phone,
+                style: const TextStyle(color: kWhite),
+              ),
+            ),
+            const SizedBox(
+              width: 80,
+              child: ChipWidget(
+                tittle: "Active",
+                color: kyellow,
+                bgColor: kyellowbg,
+              ),
+            ),
+            SizedBox(
+              width: 120,
+              child: Text(
+                assignDate ?? "--",
+                style: const TextStyle(
+                  color: kWhite,
+                  fontSize: 16,
                 ),
               ),
-              SizedBox(
-                width: 48,
-                child: ProfileImg(
-                  url: profilePic,
-                  height: 48,
+            ),
+            SizedBox(
+              width: 50,
+              child: PullDownButton(
+                routeTheme: PullDownMenuRouteTheme(
+                  backgroundColor: const Color.fromARGB(72, 72, 72, 72),
+                  borderRadius: BorderRadius.circular(10),
+                  width: 180,
+                  accessibilityWidth: 200,
                 ),
-              ),
-              SizedBox(
-                width: 40.w,
-                child: Text(
-                  name,
-                  style: const TextStyle(color: kWhite),
-                ),
-              ),
-              SizedBox(
-                width: 90,
-                child: Text(
-                  phone,
-                  style: const TextStyle(color: kWhite),
-                ),
-              ),
-              const SizedBox(
-                width: 80,
-                child: ChipWidget(
-                  tittle: "Active",
-                  color: kyellow,
-                  bgColor: kyellowbg,
-                ),
-              ),
-              SizedBox(
-                width: 120,
-                child: Text(
-                  assignDate ?? "--",
-                  style: const TextStyle(
-                    color: kWhite,
-                    fontSize: 16,
+                itemBuilder: (context) => [
+                  PullDownMenuItem(
+                    onTap: () {},
+                    tapHandler: (context, onTap) {
+                      context.pop();
+                      onviewProfile!();
+                    },
+                    title: 'View Profile',
+                    icon: HugeIcons.strokeRoundedUserCircle,
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 50,
-                child: PullDownButton(
-                  itemBuilder: (context) => [
-                    PullDownMenuItem(
-                      onTap: () {},
-                      tapHandler: (context, onTap) {
-                        context.pop();
-                        onPressed!();
-                      },
-                      title: 'View Details',
-                      icon: CupertinoIcons.person_crop_circle,
-                    ),
-                    PullDownMenuItem(
-                      title: 'Edit Member',
-                      onTap: () {},
-                      tapHandler: (context, onTap) {
-                        context.pop();
-                        WoltModalSheet.show(
-                            context: context,
-                            barrierDismissible: false,
-                            minDialogWidth: 750,
-                            maxDialogWidth: 1000,
-                            pageListBuilder: (BuildContext context) {
-                              return [];
-                            });
-                      },
-                      icon: CupertinoIcons.pencil,
-                    ),
-                    PullDownMenuItem(
-                      onTap: () {},
-                      tapHandler: (context, onTap) {
-                        context.pop();
-                        showDialog(
-                            barrierColor: kGrey.withOpacity(0.05),
-                            context: context,
-                            builder: (BuildContext context) =>
-                                CupertinoAlertDialog(
-                                  content: Column(
-                                    children: [
-                                      PaddedColumn(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            "Are you sure you want to delete this member?",
-                                            style: TextStyle(
-                                                color: kWhite,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          gapH10,
-                                          const Text(
-                                            "This action cannot be undone.",
-                                            style: TextStyle(
-                                                color: kGrey,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  actions: <Widget>[
-                                    CupertinoDialogAction(
-                                      child: const Text(
-                                        'Cancel',
-                                        style: TextStyle(
-                                            color: kGrey,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    CupertinoDialogAction(
-                                      child: const Text(
-                                        'Delete',
-                                        style: TextStyle(
-                                            color: kRed,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
+                  PullDownMenuItem(
+                    onTap: () {},
+                    tapHandler: (context, onTap) {
+                      context.pop();
+                      showDialog(
+                          barrierColor: kGrey.withOpacity(0.05),
+                          context: context,
+                          builder: (BuildContext context) =>
+                              CupertinoAlertDialog(
+                                content: Column(
+                                  children: [
+                                    PaddedColumn(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16),
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          "Are you sure you want to remove this member?",
+                                          style: TextStyle(
+                                              color: kWhite,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                        gapH10,
+                                        const Text(
+                                          "This action cannot be undone.",
+                                          style: TextStyle(
+                                              color: kGrey,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    )
                                   ],
-                                ));
-                      },
-                      title: 'Delete',
-                      isDestructive: true,
-                      icon: CupertinoIcons.delete,
-                    ),
-                    PullDownMenuActionsRow.medium(
-                      items: [
-                        PullDownMenuItem(
-                          onTap: () {},
-                          tapHandler: (context, onTap) {},
-                          title: 'Message',
-                          icon: CupertinoIcons.paperplane_fill,
-                        ),
-                        PullDownMenuItem(
-                          onTap: () {},
-                          title: 'Attendance',
-                          icon: CupertinoIcons.qrcode_viewfinder,
-                        ),
-                      ],
-                    ),
-                  ],
-                  buttonBuilder: (context, showMenu) => BouncingWidget(
-                    onPressed: showMenu,
-                    scaleFactor: 4,
-                    child: const Icon(
-                      CupertinoIcons.ellipsis_circle,
-                      color: primaryColor,
-                    ),
+                                ),
+                                actions: <Widget>[
+                                  CupertinoDialogAction(
+                                    child: const Text(
+                                      'Cancel',
+                                      style: TextStyle(
+                                          color: kGrey,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                    onPressed: () {
+                                      context.pop();
+                                    },
+                                  ),
+                                  CupertinoDialogAction(
+                                    onPressed: onRemove,
+                                    child: const Text(
+                                      'Remove',
+                                      style: TextStyle(
+                                          color: kRed,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                                ],
+                              ));
+                    },
+                    title: 'Remove Student',
+                    isDestructive: true,
+                    icon: CupertinoIcons.delete,
+                  ),
+                ],
+                buttonBuilder: (context, showMenu) => BouncingWidget(
+                  onPressed: showMenu,
+                  scaleFactor: 4,
+                  child: const Icon(
+                    CupertinoIcons.ellipsis_circle,
+                    color: primaryColor,
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );

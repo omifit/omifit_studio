@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/member/widget/joindate_dropdown.dart';
-import 'package:omifit/view/organization/member/member/widget/mem_card.dart';
-import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/joindate_dropdown.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/mem_card.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/status_dropdown.dart';
+import 'package:omifit_studio/view/organization/member/member_view_model.dart';
 
 class TabletMemberView extends ConsumerStatefulWidget {
   const TabletMemberView({super.key});

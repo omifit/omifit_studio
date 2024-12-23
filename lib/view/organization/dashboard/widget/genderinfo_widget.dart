@@ -1,10 +1,10 @@
 import 'package:flextras/flextras.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:omifit/utils/colors.dart';
-import 'package:omifit/utils/responsive.dart';
-import 'package:omifit/widget/pie_chart/pie_chart.dart';
-import 'package:omifit/widget/picker/time_dropdown1.dart';
+import 'package:omifit_studio/utils/colors.dart';
+import 'package:omifit_studio/utils/responsive.dart';
+import 'package:omifit_studio/widget/picker/time_dropdown1.dart';
+import 'package:omifit_studio/widget/pie_chart/pie_chart.dart';
 
 class GenderInfo extends StatelessWidget {
   const GenderInfo({super.key});

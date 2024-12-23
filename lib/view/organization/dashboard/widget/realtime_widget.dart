@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/dashboard/dialog/activemem_dialog.dart';
-import 'package:omifit/view/organization/dashboard/dialog/livecount_dialog.dart';
-import 'package:omifit/view/organization/dashboard/dialog/riskmem_dialog.dart';
-import 'package:omifit/view/organization/dashboard/dialog/totalmem_dialog.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/dashboard/dialog/activemem_dialog.dart';
+import 'package:omifit_studio/view/organization/dashboard/dialog/livecount_dialog.dart';
+import 'package:omifit_studio/view/organization/dashboard/dialog/riskmem_dialog.dart';
+import 'package:omifit_studio/view/organization/dashboard/dialog/totalmem_dialog.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class RealTimeMemberWidget extends StatelessWidget {

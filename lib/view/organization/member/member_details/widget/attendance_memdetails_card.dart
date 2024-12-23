@@ -1,5 +1,5 @@
 import 'package:hovering/hovering.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class AttendanceMemberDetailsCard extends StatelessWidget {
   final String date;

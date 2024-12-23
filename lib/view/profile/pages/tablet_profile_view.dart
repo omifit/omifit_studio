@@ -1,16 +1,16 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
-import 'package:omifit/view/profile/dialog/add_org/add_org_dialog.dart';
-import 'package:omifit/view/profile/dialog/edit_profile/editprofile_dialog.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
-import 'package:omifit/view/profile/widget/org_add.dart';
-import 'package:omifit/view/profile/widget/org_card.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/view/profile/dialog/add_org/add_org_dialog.dart';
+import 'package:omifit_studio/view/profile/dialog/edit_profile/editprofile_dialog.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/view/profile/widget/org_add.dart';
+import 'package:omifit_studio/view/profile/widget/org_card.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 
 class TabletProfileView extends ConsumerStatefulWidget {
   final bool isBack;

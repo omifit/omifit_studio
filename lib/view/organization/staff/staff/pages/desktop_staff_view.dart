@@ -1,19 +1,42 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/staff/dialog/add_staff_dialog.dart';
-import 'package:omifit/view/organization/staff/staff/widget/staff_card.dart';
+import 'package:intl/intl.dart';
+import 'package:omifit_studio/data/home/staff/model/get_stafflist_model.dart';
+import 'package:omifit_studio/utils/json_parse.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/pagination_dropdown.dart';
+import 'package:omifit_studio/view/organization/staff/dialog/add_staff/find_user_view.dart';
+import 'package:omifit_studio/view/organization/staff/staff/widget/staff_card.dart';
+import 'package:omifit_studio/view/organization/staff/staff_view_model.dart';
 
-class DesktopStaffView extends StatefulWidget {
+class DesktopStaffView extends ConsumerStatefulWidget {
   const DesktopStaffView({super.key});
 
   @override
-  State<DesktopStaffView> createState() => _DesktopStaffViewState();
+  ConsumerState<DesktopStaffView> createState() => _DesktopStaffViewState();
 }
 
-class _DesktopStaffViewState extends State<DesktopStaffView> {
+class _DesktopStaffViewState extends ConsumerState<DesktopStaffView> {
+  GetStaffListReq stafffilter = const GetStaffListReq(
+    page: 1,
+    limit: 30,
+  );
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      getData();
+    });
+    super.initState();
+  }
+
+  void getData() {
+    ref.read(staffViewModelProvider).getstafflist(context, stafffilter);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final StaffViewModel staffViewModel = ref.watch(staffViewModelProvider);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -50,9 +73,9 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                     ),
                     onPressed: () {
                       showCupertinoModalSheet(
-                        context: context,
-                        builder: (_) => const AddStaffDialog(),
-                      );
+                          context: context,
+                          builder: (_) =>
+                              const FindUserStaffView(GetStaffListReq()));
                     },
                     icon: const Icon(CupertinoIcons.add_circled,
                         color: secondaryColor),
@@ -64,6 +87,33 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                       ),
                     ),
                   ),
+                  const Spacer(),
+                  if (!staffViewModel.lodingstafflist)
+                    PaginationDropdown(
+                      onChange: (value) {
+                        stafffilter = stafffilter.copyWith(page: value);
+                        setState(() {});
+                        getData();
+                      },
+                      initialValue: stafffilter.page ?? 1,
+                      pagecount: staffViewModel
+                              .geStaffListRes?.body?.pagination?.totalPages ??
+                          1,
+                    )
+                  else
+                    Container(
+                        width: 140,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 13,
+                          vertical: 7,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Responsive.isMobile(context)
+                              ? primaryColor
+                              : kyellowbg,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: const CupertinoActivityIndicator(color: kWhite)),
                 ],
               ),
               gapH5,
@@ -188,19 +238,107 @@ class _DesktopStaffViewState extends State<DesktopStaffView> {
                   child: PaddedColumn(
                     children: [
                       ...List.generate(
-                        50,
+                        staffViewModel.geStaffListRes?.body?.organizationMembers
+                                ?.length ??
+                            0,
                         (index) => Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: StaffCard(
                             staffid: '101',
-                            name: "Ayush Maji",
-                            profilePic: "https://i.imgur.com/UnWWlu3.png",
-                            phone: "9876543210",
-                            age: "25",
-                            joinDate: "12/12/2021",
-                            totalMember: "10",
+                            role: "Staff",
+                            name: staffViewModel.geStaffListRes?.body
+                                    ?.organizationMembers?[index].user?.name ??
+                                " -- ",
+                            profilePic: (staffViewModel
+                                            .geStaffListRes
+                                            ?.body
+                                            ?.organizationMembers?[index]
+                                            .user
+                                            ?.profileImage ==
+                                        null ||
+                                    staffViewModel
+                                            .geStaffListRes
+                                            ?.body
+                                            ?.organizationMembers?[index]
+                                            .user
+                                            ?.profileImage ==
+                                        '')
+                                ? damiProfile(
+                                    stringTogender(staffViewModel
+                                        .geStaffListRes
+                                        ?.body
+                                        ?.organizationMembers?[index]
+                                        .user
+                                        ?.gender),
+                                    staffViewModel
+                                            .geStaffListRes
+                                            ?.body
+                                            ?.organizationMembers?[index]
+                                            .user
+                                            ?.dateOfBirth ??
+                                        "")
+                                : staffViewModel
+                                    .geStaffListRes!
+                                    .body!
+                                    .organizationMembers![index]
+                                    .user!
+                                    .profileImage!,
+                            phone: remove91(staffViewModel
+                                    .geStaffListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.phoneNumber) ??
+                                " -- ",
+                            age: calculateAge(staffViewModel
+                                    .geStaffListRes
+                                    ?.body
+                                    ?.organizationMembers?[index]
+                                    .user
+                                    ?.dateOfBirth) ??
+                                " -- ",
+                            joinDate: staffViewModel
+                                        .geStaffListRes
+                                        ?.body
+                                        ?.organizationMembers?[index]
+                                        .joiningDate !=
+                                    null
+                                ? DateFormat('dd MMM yyyy').format(DateTime.parse(
+                                    "${staffViewModel.geStaffListRes?.body?.organizationMembers?[index].joiningDate}"))
+                                : " -- ",
+                            totalMember: parseString(staffViewModel
+                                .geStaffListRes
+                                ?.body
+                                ?.organizationMembers?[index]
+                                .students
+                                ?.length),
                             onPressed: () {
-                              context.pushNamed(AppRoute.staffDetails.name);
+                              context.pushNamed(
+                                AppRoute.staffDetails.name,
+                                pathParameters: {
+                                  'uid': staffViewModel
+                                          .geStaffListRes
+                                          ?.body
+                                          ?.organizationMembers?[index]
+                                          .user
+                                          ?.id ??
+                                      ""
+                                },
+                                extra: stafffilter,
+                              );
+                            },
+                            onEdit: () {},
+                            onRemove: () {
+                              staffViewModel.deleteStaff(
+                                  context,
+                                  staffViewModel
+                                          .geStaffListRes
+                                          ?.body
+                                          ?.organizationMembers?[index]
+                                          .user
+                                          ?.id ??
+                                      "",
+                                  stafffilter);
                             },
                           ),
                         ),

@@ -23,10 +23,10 @@ mixin _$GetMemberListReq {
   String? get name => throw _privateConstructorUsedError;
   String? get number => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
-  String? get nameOrNumber => throw _privateConstructorUsedError;
+  String? get nameORNumber => throw _privateConstructorUsedError;
   String? get joiningDate => throw _privateConstructorUsedError;
-  String? get startDate => throw _privateConstructorUsedError;
-  String? get endDate => throw _privateConstructorUsedError;
+  DateTime? get startDate => throw _privateConstructorUsedError;
+  DateTime? get endDate => throw _privateConstructorUsedError;
   int? get page => throw _privateConstructorUsedError;
   int? get limit => throw _privateConstructorUsedError;
 
@@ -46,10 +46,10 @@ abstract class $GetMemberListReqCopyWith<$Res> {
       {String? name,
       String? number,
       String? status,
-      String? nameOrNumber,
+      String? nameORNumber,
       String? joiningDate,
-      String? startDate,
-      String? endDate,
+      DateTime? startDate,
+      DateTime? endDate,
       int? page,
       int? limit});
 }
@@ -70,7 +70,7 @@ class _$GetMemberListReqCopyWithImpl<$Res, $Val extends GetMemberListReq>
     Object? name = freezed,
     Object? number = freezed,
     Object? status = freezed,
-    Object? nameOrNumber = freezed,
+    Object? nameORNumber = freezed,
     Object? joiningDate = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
@@ -90,9 +90,9 @@ class _$GetMemberListReqCopyWithImpl<$Res, $Val extends GetMemberListReq>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      nameOrNumber: freezed == nameOrNumber
-          ? _value.nameOrNumber
-          : nameOrNumber // ignore: cast_nullable_to_non_nullable
+      nameORNumber: freezed == nameORNumber
+          ? _value.nameORNumber
+          : nameORNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       joiningDate: freezed == joiningDate
           ? _value.joiningDate
@@ -101,11 +101,11 @@ class _$GetMemberListReqCopyWithImpl<$Res, $Val extends GetMemberListReq>
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       endDate: freezed == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       page: freezed == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -130,10 +130,10 @@ abstract class _$$GetMemberListReqImplCopyWith<$Res>
       {String? name,
       String? number,
       String? status,
-      String? nameOrNumber,
+      String? nameORNumber,
       String? joiningDate,
-      String? startDate,
-      String? endDate,
+      DateTime? startDate,
+      DateTime? endDate,
       int? page,
       int? limit});
 }
@@ -152,7 +152,7 @@ class __$$GetMemberListReqImplCopyWithImpl<$Res>
     Object? name = freezed,
     Object? number = freezed,
     Object? status = freezed,
-    Object? nameOrNumber = freezed,
+    Object? nameORNumber = freezed,
     Object? joiningDate = freezed,
     Object? startDate = freezed,
     Object? endDate = freezed,
@@ -172,9 +172,9 @@ class __$$GetMemberListReqImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String?,
-      nameOrNumber: freezed == nameOrNumber
-          ? _value.nameOrNumber
-          : nameOrNumber // ignore: cast_nullable_to_non_nullable
+      nameORNumber: freezed == nameORNumber
+          ? _value.nameORNumber
+          : nameORNumber // ignore: cast_nullable_to_non_nullable
               as String?,
       joiningDate: freezed == joiningDate
           ? _value.joiningDate
@@ -183,11 +183,11 @@ class __$$GetMemberListReqImplCopyWithImpl<$Res>
       startDate: freezed == startDate
           ? _value.startDate
           : startDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       endDate: freezed == endDate
           ? _value.endDate
           : endDate // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as DateTime?,
       page: freezed == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
@@ -207,7 +207,7 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
       {this.name,
       this.number,
       this.status,
-      this.nameOrNumber,
+      this.nameORNumber,
       this.joiningDate,
       this.startDate,
       this.endDate,
@@ -224,13 +224,13 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
   @override
   final String? status;
   @override
-  final String? nameOrNumber;
+  final String? nameORNumber;
   @override
   final String? joiningDate;
   @override
-  final String? startDate;
+  final DateTime? startDate;
   @override
-  final String? endDate;
+  final DateTime? endDate;
   @override
   final int? page;
   @override
@@ -238,7 +238,7 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
 
   @override
   String toString() {
-    return 'GetMemberListReq(name: $name, number: $number, status: $status, nameOrNumber: $nameOrNumber, joiningDate: $joiningDate, startDate: $startDate, endDate: $endDate, page: $page, limit: $limit)';
+    return 'GetMemberListReq(name: $name, number: $number, status: $status, nameORNumber: $nameORNumber, joiningDate: $joiningDate, startDate: $startDate, endDate: $endDate, page: $page, limit: $limit)';
   }
 
   @override
@@ -249,8 +249,8 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.number, number) || other.number == number) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.nameOrNumber, nameOrNumber) ||
-                other.nameOrNumber == nameOrNumber) &&
+            (identical(other.nameORNumber, nameORNumber) ||
+                other.nameORNumber == nameORNumber) &&
             (identical(other.joiningDate, joiningDate) ||
                 other.joiningDate == joiningDate) &&
             (identical(other.startDate, startDate) ||
@@ -263,7 +263,7 @@ class _$GetMemberListReqImpl implements _GetMemberListReq {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, number, status,
-      nameOrNumber, joiningDate, startDate, endDate, page, limit);
+      nameORNumber, joiningDate, startDate, endDate, page, limit);
 
   @JsonKey(ignore: true)
   @override
@@ -285,10 +285,10 @@ abstract class _GetMemberListReq implements GetMemberListReq {
       {final String? name,
       final String? number,
       final String? status,
-      final String? nameOrNumber,
+      final String? nameORNumber,
       final String? joiningDate,
-      final String? startDate,
-      final String? endDate,
+      final DateTime? startDate,
+      final DateTime? endDate,
       final int? page,
       final int? limit}) = _$GetMemberListReqImpl;
 
@@ -302,13 +302,13 @@ abstract class _GetMemberListReq implements GetMemberListReq {
   @override
   String? get status;
   @override
-  String? get nameOrNumber;
+  String? get nameORNumber;
   @override
   String? get joiningDate;
   @override
-  String? get startDate;
+  DateTime? get startDate;
   @override
-  String? get endDate;
+  DateTime? get endDate;
   @override
   int? get page;
   @override

@@ -23,10 +23,10 @@ class GetMemberListReq with _$GetMemberListReq {
     String? name,
     String? number,
     String? status,
-    String? nameOrNumber,
+    String? nameORNumber,
     String? joiningDate,
-    String? startDate,
-    String? endDate,
+    DateTime? startDate,
+    DateTime? endDate,
     int? page,
     int? limit,
   }) = _GetMemberListReq;

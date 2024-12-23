@@ -3,12 +3,12 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/auth/auth_view_model.dart';
-import 'package:omifit/widget/picker/profession_dropdown.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/auth/auth_view_model.dart';
+import 'package:omifit_studio/widget/picker/profession_dropdown.dart';
 
 class MobileSignupView extends ConsumerStatefulWidget {
   const MobileSignupView({super.key});

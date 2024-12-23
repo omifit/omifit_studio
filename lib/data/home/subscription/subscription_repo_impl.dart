@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/web.dart';
-import 'package:omifit/core/api_client.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/core/endpoints.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/data/home/subscription/model/cancel_subscription_model.dart';
-import 'package:omifit/data/home/subscription/model/edit_subscription_model.dart';
-import 'package:omifit/data/home/subscription/model/getall_subscription_model.dart';
-import 'package:omifit/data/home/subscription/model/paused_subscription_model.dart';
-import 'package:omifit/data/home/subscription/model/purchase_plan_model.dart';
-import 'package:omifit/data/home/subscription/subscription_repo.dart';
+import 'package:omifit_studio/core/api_client.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/core/endpoints.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/data/home/subscription/model/cancel_subscription_model.dart';
+import 'package:omifit_studio/data/home/subscription/model/edit_subscription_model.dart';
+import 'package:omifit_studio/data/home/subscription/model/get_subscription_byuser_model.dart';
+import 'package:omifit_studio/data/home/subscription/model/getall_subscription_model.dart';
+import 'package:omifit_studio/data/home/subscription/model/purchase_plan_model.dart';
+import 'package:omifit_studio/data/home/subscription/subscription_repo.dart';
 
 class SubscriptionRepoImpl implements SubscriptionRepo {
   final ApiClient _apiClient = ApiClient();
@@ -59,13 +59,12 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   }
 
   @override
-  Future<Either<ApiException, PausedSubscriptionRes>> pausedsubscription(
+  Future<Either<ApiException, CancelSubscriptionRes>> cancelsubscription(
       String subscriptionid) async {
     try {
-      final response = await _apiClient.put(
-          "${AppConstants.baseUrl}${pausedsubscriptionurl(subscriptionid)}",
-          null);
-      return Right(PausedSubscriptionRes.fromJson(response.data!));
+      final response = await _apiClient.delete(
+          "${AppConstants.baseUrl}${cancelsubscriptionurl(subscriptionid)}");
+      return Right(CancelSubscriptionRes.fromJson(response.data!));
     } catch (e) {
       logger.e(e);
       return Left(ApiException(e.toString()));
@@ -73,12 +72,13 @@ class SubscriptionRepoImpl implements SubscriptionRepo {
   }
 
   @override
-  Future<Either<ApiException, CancelSubscriptionRes>> cancelsubscription(
-      String subscriptionid) async {
+  Future<Either<ApiException, GetallsubscriptionByUserRes>>
+      getallsubscriptionbyuser(String user, String status) async {
     try {
-      final response = await _apiClient.delete(
-          "${AppConstants.baseUrl}${cancelsubscriptionurl(subscriptionid)}");
-      return Right(CancelSubscriptionRes.fromJson(response.data!));
+      final response = await _apiClient.getwithquery(
+          "${AppConstants.baseUrl}$getallsubscriptionbyuserurl",
+          {"user": user, "filter": status});
+      return Right(GetallsubscriptionByUserRes.fromJson(response.data!));
     } catch (e) {
       logger.e(e);
       return Left(ApiException(e.toString()));

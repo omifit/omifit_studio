@@ -1,22 +1,27 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:omifit/data/auth/auth_repo_impl.dart';
-import 'package:omifit/data/auth/model/send_otp/sendotp_model.dart';
-import 'package:omifit/data/auth/model/verify_otp/verifyotp_model.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/edit_member/editmember_view.dart';
-import 'package:omifit/view/organization/member/member/widget/status_dropdown.dart';
-import 'package:omifit/view/organization/member/member_details/widget/analysis_mem_card.dart';
-import 'package:omifit/view/organization/member/member_details/widget/attendance_memdetails_card.dart';
-import 'package:omifit/view/organization/member/member_details/widget/meminfo_card.dart';
-import 'package:omifit/view/organization/member/member_details/widget/subscription_mem_card.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
+import 'package:omifit_studio/data/auth/auth_repo_impl.dart';
+import 'package:omifit_studio/data/auth/model/send_otp/sendotp_model.dart';
+import 'package:omifit_studio/data/auth/model/verify_otp/verifyotp_model.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/add_member/plan_picker_view.dart';
+import 'package:omifit_studio/view/organization/member/add_trainer/find_trainer.dart';
+import 'package:omifit_studio/view/organization/member/edit_member/editmember_view.dart';
+import 'package:omifit_studio/view/organization/member/member/widget/status_dropdown.dart';
+import 'package:omifit_studio/view/organization/member/member_details/widget/analysis_mem_card.dart';
+import 'package:omifit_studio/view/organization/member/member_details/widget/attendance_memdetails_card.dart';
+import 'package:omifit_studio/view/organization/member/member_details/widget/meminfo_card.dart';
+import 'package:omifit_studio/view/organization/member/member_details/widget/subscription_mem_card.dart';
+import 'package:omifit_studio/view/organization/member/member_view_model.dart';
 import 'package:pinput/pinput.dart';
 
 class DesktopMemberDetailsView extends ConsumerStatefulWidget {
+  final GetMemberListReq? memberfilter;
   final String uid;
-  const DesktopMemberDetailsView({super.key, required this.uid});
+  const DesktopMemberDetailsView(this.memberfilter,
+      {super.key, required this.uid});
 
   @override
   ConsumerState<DesktopMemberDetailsView> createState() =>
@@ -35,6 +40,9 @@ class _DesktopMemberDetailsViewState
 
   void getData() {
     ref.read(memberViewModelProvider).memberdetails(context, widget.uid);
+    ref
+        .read(memberViewModelProvider)
+        .getallsubscriptionbyuser(context, widget.uid, "");
   }
 
   @override
@@ -49,6 +57,7 @@ class _DesktopMemberDetailsViewState
             crossAxisAlignment: CrossAxisAlignment.start,
             padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
             children: [
+              // member card
               MeminfoCard(
                 uid: memberViewModel
                         .memberDetailsRes?.body?.organizationMember?.user?.id ??
@@ -221,7 +230,8 @@ class _DesktopMemberDetailsViewState
                                                           barrierDismissible:
                                                               false,
                                                           builder: (_) =>
-                                                              const EditMemberView(),
+                                                              EditMemberView(widget
+                                                                  .memberfilter),
                                                         );
                                                       }));
                                             },
@@ -238,11 +248,12 @@ class _DesktopMemberDetailsViewState
                       },
                     );
                   } else {
+                    print("memberfilter ${widget.memberfilter}");
                     // not verified
                     showCupertinoModalSheet(
                       context: context,
                       barrierDismissible: false,
-                      builder: (_) => const EditMemberView(),
+                      builder: (_) => EditMemberView(widget.memberfilter),
                     );
                   }
                 },
@@ -251,14 +262,25 @@ class _DesktopMemberDetailsViewState
                       context,
                       memberViewModel.memberDetailsRes?.body?.organizationMember
                               ?.user?.id ??
-                          "");
+                          "",
+                      widget.memberfilter);
                 },
               ),
               gapW20,
               Expanded(
                   child: PaddedColumn(
                 children: [
-                  const AnalysisMemCard(),
+                  AnalysisMemCard(
+                    uid: widget.uid,
+                    onAddTrainer: () {
+                      showCupertinoModalSheet(
+                          context: context,
+                          builder: (_) => FindTrainerView(
+                                widget.memberfilter,
+                                widget.uid,
+                              ));
+                    },
+                  ),
                   gapH20,
                   Container(
                     width: double.infinity,
@@ -283,7 +305,7 @@ class _DesktopMemberDetailsViewState
                             ),
                             const Spacer(),
                             StatusDropdown(
-                                onChange: (value) {}, initialValue: "Active"),
+                                onChange: (value) {}, initialValue: "All"),
                             gapW10,
                             ElevatedButton.icon(
                               style: ElevatedButton.styleFrom(
@@ -296,20 +318,11 @@ class _DesktopMemberDetailsViewState
                                 ),
                               ),
                               onPressed: () {
-                                // WoltModalSheet.show(
-                                //     minDialogWidth: 900,
-                                //     maxDialogWidth: 900,
-                                //     context: context,
-                                //     barrierDismissible: false,
-                                //     pageIndexNotifier:
-                                //         memberViewModel.addMemberDialogPage,
-                                //     pageListBuilder: (BuildContext context) {
-                                //       return [
-                                //         AddMemberDialog.build(context),
-                                //         PlanAddMemberDialog.build(context, ref),
-                                //         PaymentAddMemberDialog.build(context, ref),
-                                //       ];
-                                //     });
+                                showCupertinoModalSheet(
+                                    context: context,
+                                    builder: (_) => PlanPickerView(
+                                          uid: widget.uid,
+                                        ));
                               },
                               icon: const Icon(CupertinoIcons.add_circled,
                                   color: secondaryColor),
@@ -336,12 +349,12 @@ class _DesktopMemberDetailsViewState
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 50.w,
+                                width: 45.w,
                                 child: const Text(
                                   "Plan Name",
                                   style: TextStyle(
                                     color: primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -352,7 +365,7 @@ class _DesktopMemberDetailsViewState
                                   "Start Date",
                                   style: TextStyle(
                                     color: primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -363,7 +376,7 @@ class _DesktopMemberDetailsViewState
                                   "End Date",
                                   style: TextStyle(
                                     color: primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -374,7 +387,7 @@ class _DesktopMemberDetailsViewState
                                   "Price",
                                   style: TextStyle(
                                     color: primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -385,18 +398,18 @@ class _DesktopMemberDetailsViewState
                                   "Status",
                                   style: TextStyle(
                                     color: primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
                               ),
                               const SizedBox(
-                                width: 130,
+                                width: 100,
                                 child: Text(
-                                  "Payment-Status",
+                                  "Status",
                                   style: TextStyle(
                                     color: primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -407,7 +420,7 @@ class _DesktopMemberDetailsViewState
                                   "Action",
                                   style: TextStyle(
                                     color: primaryColor,
-                                    fontWeight: FontWeight.w800,
+                                    fontWeight: FontWeight.w600,
                                     fontSize: 16,
                                   ),
                                 ),
@@ -421,16 +434,42 @@ class _DesktopMemberDetailsViewState
                           child: PaddedColumn(
                             children: [
                               ...List.generate(
-                                3,
+                                memberViewModel.getallsubscriptionByUserRes
+                                        ?.body?.subscriptions?.length ??
+                                    0,
                                 (index) => Padding(
                                   padding: const EdgeInsets.only(bottom: 12),
                                   child: SubscriptionMemCard(
-                                    planName: "Gym membership for 3 months",
+                                    planName: memberViewModel
+                                            .getallsubscriptionByUserRes
+                                            ?.body
+                                            ?.subscriptions?[index]
+                                            .plan
+                                            ?.name ??
+                                        "",
                                     startDate: "27/02/2001",
                                     endDate: "27/03/2001",
-                                    price: "200000",
-                                    status: "in-comming",
-                                    paymentMode: "Pending",
+                                    price: memberViewModel
+                                            .getallsubscriptionByUserRes
+                                            ?.body
+                                            ?.subscriptions?[index]
+                                            .totalAmount
+                                            .toString() ??
+                                        "",
+                                    status: memberViewModel
+                                            .getallsubscriptionByUserRes
+                                            ?.body
+                                            ?.subscriptions?[index]
+                                            .status ??
+                                        "--",
+                                    paymentMode: memberViewModel
+                                                .getallsubscriptionByUserRes
+                                                ?.body
+                                                ?.subscriptions?[index]
+                                                .pendingAmount ==
+                                            0
+                                        ? "Paid"
+                                        : "Due",
                                     onPressed: () {},
                                   ),
                                 ),

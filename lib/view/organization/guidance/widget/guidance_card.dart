@@ -1,4 +1,4 @@
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class GuidanceCard extends StatelessWidget {
   final String tittle;

@@ -1,10 +1,10 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/guidance/dialog/document/add_document_dialog.dart';
-import 'package:omifit/view/organization/guidance/dialog/playlist/edit_playlist_dialog.dart';
-import 'package:omifit/view/organization/guidance/guidance_view_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/guidance/dialog/document/add_document_dialog.dart';
+import 'package:omifit_studio/view/organization/guidance/dialog/playlist/edit_playlist_dialog.dart';
+import 'package:omifit_studio/view/organization/guidance/guidance_view_model.dart';
 
 class PlaylistDetailsDialog extends ConsumerStatefulWidget {
   final String playlistid;

@@ -1,6 +1,6 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/attendance/widget/attendance_mem_card.dart';
-import 'package:omifit/view/organization/organization_view_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/attendance/widget/attendance_mem_card.dart';
+import 'package:omifit_studio/view/organization/organization_view_model.dart';
 
 class TabletAttendanceView extends ConsumerStatefulWidget {
   const TabletAttendanceView({super.key});

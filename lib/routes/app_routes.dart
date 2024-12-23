@@ -1,13 +1,15 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/auth/signin/signin_view.dart';
-import 'package:omifit/view/auth/signup/signup_view.dart';
-import 'package:omifit/view/auth/verify/verify_view.dart';
-import 'package:omifit/view/organization/member/member_details/member_details_view.dart';
-import 'package:omifit/view/organization/organization_view.dart';
-import 'package:omifit/view/organization/orgdetails/orgdetails_view.dart';
-import 'package:omifit/view/organization/staff/staff_details/staff_details_view.dart';
-import 'package:omifit/view/profile/profile_view.dart';
-import 'package:omifit/view/splash/splash_view.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/data/home/staff/model/get_stafflist_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/auth/signin/signin_view.dart';
+import 'package:omifit_studio/view/auth/signup/signup_view.dart';
+import 'package:omifit_studio/view/auth/verify/verify_view.dart';
+import 'package:omifit_studio/view/organization/member/member_details/member_details_view.dart';
+import 'package:omifit_studio/view/organization/organization_view.dart';
+import 'package:omifit_studio/view/organization/orgdetails/orgdetails_view.dart';
+import 'package:omifit_studio/view/organization/staff/staff_details/staff_details_view.dart';
+import 'package:omifit_studio/view/profile/profile_view.dart';
+import 'package:omifit_studio/view/splash/splash_view.dart';
 
 enum AppRoute {
   splash,
@@ -60,13 +62,24 @@ final routers = [
   GoRoute(
     path: '/memberDetails/:uid',
     name: AppRoute.memberDetails.name,
-    builder: (context, state) =>
-        MemberDetailsView(uid: state.pathParameters['uid']!),
+    builder: (context, state) {
+      final memberFilter = state.extra as GetMemberListReq?;
+      return MemberDetailsView(
+        uid: state.pathParameters['uid']!,
+        memberfilter: memberFilter,
+      );
+    },
   ),
   GoRoute(
-    path: '/staffDetails',
+    path: '/staffDetails/:uid',
     name: AppRoute.staffDetails.name,
-    builder: (context, state) => const StaffDetailsView(),
+    builder: (context, state) {
+      final staffFilter = state.extra as GetStaffListReq?;
+      return StaffDetailsView(
+        uid: state.pathParameters['uid']!,
+        stafffilter: staffFilter,
+      );
+    },
   ),
   GoRoute(
     path: '/organizationDetails',

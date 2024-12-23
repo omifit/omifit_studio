@@ -5,7 +5,7 @@
 import 'dart:convert';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:omifit/utils/json_parse.dart';
+import 'package:omifit_studio/utils/json_parse.dart';
 
 part 'plan_details_model.freezed.dart';
 part 'plan_details_model.g.dart';

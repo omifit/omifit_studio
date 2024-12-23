@@ -1,0 +1,103 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:omifit_studio/utils/utils.dart';
+
+class FinanceInfoWidget extends StatelessWidget {
+  const FinanceInfoWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlignedGridView.count(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: MediaQuery.of(context).size.width > 1000
+          ? 4
+          : MediaQuery.of(context).size.width > 500
+              ? 2
+              : 1,
+      mainAxisSpacing: MediaQuery.of(context).size.width > 500 ? 25 : 12,
+      crossAxisSpacing: 25,
+      itemCount: 4,
+      itemBuilder: (context, index) {
+        return Container(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 14,
+          ),
+          decoration: BoxDecoration(
+            color: kyellowbg,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: ListTile(
+            title: index == 3
+                ? Text(
+                    "₹ 30,000",
+                    style: TextStyle(
+                      color: kWhite,
+                      fontSize:
+                          ResponsiveDashboard.isMobile(context) ? 24.sp : 35,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  )
+                : Row(
+                    children: [
+                      Icon(
+                        index == 0
+                            ? CupertinoIcons.qrcode
+                            : index == 1
+                                ? CupertinoIcons.person_crop_circle
+                                : index == 2
+                                    ? Icons.rotate_left
+                                    : Icons.person,
+                        color: ResponsiveDashboard.isMobile(context)
+                            ? kWhite
+                            : kWhite,
+                        size:
+                            ResponsiveDashboard.isMobile(context) ? 20.sp : 28,
+                      ),
+                      gapW10,
+                      Expanded(
+                        child: Text(
+                          "30",
+                          style: TextStyle(
+                            color: kWhite,
+                            fontSize: ResponsiveDashboard.isMobile(context)
+                                ? 24.sp
+                                : 32,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+            subtitle: Text(
+              getTitle(index),
+              style: TextStyle(
+                color: secondaryColor,
+                fontSize: ResponsiveDashboard.isMobile(context) ? 14.sp : 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  String getTitle(int index) {
+    switch (index) {
+      case 0:
+        return "Total Product Sold";
+      case 1:
+        return "Total Product Cost";
+      case 2:
+        return "Total Product Revenue";
+      case 3:
+        return "Due Amount";
+      default:
+        return "";
+    }
+  }
+}

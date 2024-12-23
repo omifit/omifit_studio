@@ -1,6 +1,6 @@
-import 'package:omifit/data/home/guidance/model/playlist/create_playlist_model.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/guidance/guidance_view_model.dart';
+import 'package:omifit_studio/data/home/guidance/model/playlist/create_playlist_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/guidance/guidance_view_model.dart';
 
 class CreatePlaylistDialog extends ConsumerStatefulWidget {
   const CreatePlaylistDialog({

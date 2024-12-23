@@ -1,4 +1,4 @@
-import 'package:omifit/environment.dart';
+import 'package:omifit_studio/environment.dart';
 
 void main() {
   Environment();

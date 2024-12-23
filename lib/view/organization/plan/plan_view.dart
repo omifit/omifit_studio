@@ -1,8 +1,7 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/plan/pages/desktop_plan_view.dart';
-import 'package:omifit/view/organization/plan/pages/mobile_plan_view.dart';
-import 'package:omifit/view/organization/plan/pages/tablet_plan_view.dart';
-
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/plan/pages/desktop_plan_view.dart';
+import 'package:omifit_studio/view/organization/plan/pages/mobile_plan_view.dart';
+import 'package:omifit_studio/view/organization/plan/pages/tablet_plan_view.dart';
 
 class PlanView extends StatelessWidget {
   const PlanView({super.key});
@@ -10,10 +9,10 @@ class PlanView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Responsive(
-        mobile: MobilePlanView(),
-        tablet: TabletPlanView(),
-        desktop: DesktopPlanView(),
-        tv: DesktopPlanView(),
-      );
+      mobile: MobilePlanView(),
+      tablet: TabletPlanView(),
+      desktop: DesktopPlanView(),
+      tv: DesktopPlanView(),
+    );
   }
 }

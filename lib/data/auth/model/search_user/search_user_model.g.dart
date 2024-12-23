@@ -23,14 +23,14 @@ Map<String, dynamic> _$$SearchUserResImplToJson(_$SearchUserResImpl instance) =>
     };
 
 _$BodyImpl _$$BodyImplFromJson(Map<String, dynamic> json) => _$BodyImpl(
-      user: (json['user'] as List<dynamic>?)
+      users: (json['users'] as List<dynamic>?)
           ?.map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$BodyImplToJson(_$BodyImpl instance) =>
     <String, dynamic>{
-      'user': instance.user,
+      'users': instance.users,
     };
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(

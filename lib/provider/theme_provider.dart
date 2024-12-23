@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:omifit/services/shared_preference_service.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
 
 final themeProvider = ChangeNotifierProvider.autoDispose<ThemeProvider>((ref) {
   return ThemeProvider();

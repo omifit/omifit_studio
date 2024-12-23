@@ -1,6 +1,6 @@
-import 'package:omifit/app.dart';
-import 'package:omifit/services/shared_preference_service.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/app.dart';
+import 'package:omifit_studio/services/shared_preference_service.dart';
+import 'package:omifit_studio/utils/utils.dart';
 import 'package:pwa_install/pwa_install.dart';
 import 'package:url_strategy/url_strategy.dart';
 

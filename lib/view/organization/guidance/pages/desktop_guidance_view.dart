@@ -1,11 +1,11 @@
 import 'package:cupertino_modal_sheet/cupertino_modal_sheet.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/guidance/dialog/playlist/create_playlist_dialog.dart';
-import 'package:omifit/view/organization/guidance/dialog/playlist/playlist_details_dialog.dart';
-import 'package:omifit/view/organization/guidance/guidance_view_model.dart';
-import 'package:omifit/view/organization/guidance/widget/guidance_add.dart';
-import 'package:omifit/view/organization/guidance/widget/guidance_card.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/guidance/dialog/playlist/create_playlist_dialog.dart';
+import 'package:omifit_studio/view/organization/guidance/dialog/playlist/playlist_details_dialog.dart';
+import 'package:omifit_studio/view/organization/guidance/guidance_view_model.dart';
+import 'package:omifit_studio/view/organization/guidance/widget/guidance_add.dart';
+import 'package:omifit_studio/view/organization/guidance/widget/guidance_card.dart';
 
 class DesktopGuidanceView extends ConsumerStatefulWidget {
   const DesktopGuidanceView({super.key});

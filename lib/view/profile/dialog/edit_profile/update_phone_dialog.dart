@@ -1,5 +1,5 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/profile/profile_view_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/profile/profile_view_model.dart';
 
 class UpdatePhoneDialog extends ConsumerStatefulWidget {
   const UpdatePhoneDialog({super.key});
@@ -10,7 +10,6 @@ class UpdatePhoneDialog extends ConsumerStatefulWidget {
 class _UpdatePhoneDialogState extends ConsumerState<UpdatePhoneDialog> {
   final formkey = GlobalKey<FormState>();
   final TextEditingController otpCtrl = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
   final FocusNode otpFocus = FocusNode();
   @override
   Widget build(BuildContext context) {

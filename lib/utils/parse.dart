@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:omifit/core/constants.dart';
+import 'package:omifit_studio/core/constants.dart';
 
 String remove91(String? phone) {
   if (phone == null) {

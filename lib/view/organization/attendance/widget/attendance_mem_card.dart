@@ -1,9 +1,9 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hovering/hovering.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/widget/chips/chip_widget.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/widget/chips/chip_widget.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class AttendanceMemCard extends StatelessWidget {

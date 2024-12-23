@@ -1,4 +1,4 @@
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class TabletStaffDetailsView extends StatefulWidget {
   const TabletStaffDetailsView({super.key});
@@ -10,8 +10,6 @@ class TabletStaffDetailsView extends StatefulWidget {
 class _TabletStaffDetailsViewState extends State<TabletStaffDetailsView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body : Text("new mason page")
-    );
+    return const Scaffold(body: Text("new mason page"));
   }
 }

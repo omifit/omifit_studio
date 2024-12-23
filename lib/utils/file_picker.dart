@@ -12,7 +12,7 @@ import 'package:gif_view/gif_view.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 import "package:universal_html/html.dart" as html;
 
 //! step-1 // pick img from gallery or camera

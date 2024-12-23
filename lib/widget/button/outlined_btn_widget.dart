@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:omifit/utils/colors.dart';
+import 'package:omifit_studio/utils/colors.dart';
 
 class OutlinedBtn extends StatelessWidget {
   final String text;

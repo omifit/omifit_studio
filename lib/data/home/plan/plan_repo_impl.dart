@@ -1,15 +1,15 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/web.dart';
-import 'package:omifit/core/api_client.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/core/endpoints.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/data/home/plan/model/create_plan_model.dart';
-import 'package:omifit/data/home/plan/model/delete_plan_model.dart';
-import 'package:omifit/data/home/plan/model/edit_plan_model.dart';
-import 'package:omifit/data/home/plan/model/get_planlist_model.dart';
-import 'package:omifit/data/home/plan/model/plan_details_model.dart';
-import 'package:omifit/data/home/plan/plan_repo.dart';
+import 'package:omifit_studio/core/api_client.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/core/endpoints.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/data/home/plan/model/create_plan_model.dart';
+import 'package:omifit_studio/data/home/plan/model/delete_plan_model.dart';
+import 'package:omifit_studio/data/home/plan/model/edit_plan_model.dart';
+import 'package:omifit_studio/data/home/plan/model/get_planlist_model.dart';
+import 'package:omifit_studio/data/home/plan/model/plan_details_model.dart';
+import 'package:omifit_studio/data/home/plan/plan_repo.dart';
 
 class PlanRepoImpl implements PlanRepo {
   final ApiClient _apiClient = ApiClient();

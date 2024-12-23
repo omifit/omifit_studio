@@ -1,4 +1,4 @@
-import 'package:omifit/utils/utils.dart';
+import 'package:omifit_studio/utils/utils.dart';
 
 class TabletOrgDetailsView extends StatefulWidget {
   const TabletOrgDetailsView({super.key});

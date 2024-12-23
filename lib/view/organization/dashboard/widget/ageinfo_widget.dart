@@ -1,5 +1,5 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/widget/picker/time_dropdown1.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/widget/picker/time_dropdown1.dart';
 import 'package:primer_progress_bar/primer_progress_bar.dart';
 
 class AgeInfo extends StatelessWidget {

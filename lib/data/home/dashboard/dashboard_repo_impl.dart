@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:logger/web.dart';
-import 'package:omifit/core/api_client.dart';
-import 'package:omifit/core/exceptions.dart';
-import 'package:omifit/data/home/dashboard/dashboard_repo.dart';
+import 'package:omifit_studio/core/api_client.dart';
+import 'package:omifit_studio/core/exceptions.dart';
+import 'package:omifit_studio/data/home/dashboard/dashboard_repo.dart';
 
 class DashboardRepoImpl implements DashboardRepo {
   final ApiClient _apiClient = ApiClient();

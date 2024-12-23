@@ -1,11 +1,12 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/member_view_model.dart';
 
 class FindUserView extends ConsumerStatefulWidget {
-  const FindUserView({super.key});
+  final GetMemberListReq? memberfilter;
+  const FindUserView(this.memberfilter, {super.key});
   @override
   ConsumerState<FindUserView> createState() => _FindUserViewState();
 }
@@ -114,7 +115,10 @@ class _FindUserViewState extends ConsumerState<FindUserView> {
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             memberViewModel.searchUser(
-                                context, add91(_phoneController.text));
+                              context,
+                              "91${_phoneController.text}",
+                              widget.memberfilter,
+                            );
                           }
                         },
                       ),

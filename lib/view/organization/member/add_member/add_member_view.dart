@@ -3,14 +3,15 @@ import 'package:custom_sliding_segmented_control/custom_sliding_segmented_contro
 import 'package:flutter/services.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
-import 'package:omifit/core/constants.dart';
-import 'package:omifit/data/home/member/model/add_member_model.dart';
-import 'package:omifit/utils/file_picker.dart';
-import 'package:omifit/utils/parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/member/member_view_model.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
-import 'package:omifit/widget/picker/profession_dropdown.dart';
+import 'package:omifit_studio/core/constants.dart';
+import 'package:omifit_studio/data/home/member/model/add_member_model.dart';
+import 'package:omifit_studio/data/home/member/model/get_memberlist_model.dart';
+import 'package:omifit_studio/utils/file_picker.dart';
+import 'package:omifit_studio/utils/parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/member/member_view_model.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/widget/picker/profession_dropdown.dart';
 
 class AddMemberView extends ConsumerStatefulWidget {
   final bool? isEdit;
@@ -21,8 +22,9 @@ class AddMemberView extends ConsumerStatefulWidget {
   final String? gender;
   final String? profession;
   final String? image;
+  final GetMemberListReq? memberfilter;
   const AddMemberView(this.name, this.dob, this.gender, this.profession,
-      this.image, this.isEdit, this.uid,
+      this.image, this.isEdit, this.uid, this.memberfilter,
       {super.key, required this.phonenumber});
   @override
   ConsumerState<AddMemberView> createState() => _AddMemberViewState();
@@ -64,16 +66,17 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
             text: "Add Member",
             onPressed: () {
               if (_formkey.currentState!.validate()) {
-                print(_dobController.text);
                 memberViewModel.createmember(
-                    context,
-                    AddMemberReq(
-                      name: _nameController.text.trim(),
-                      phoneNumber: add91(_phoneController.text),
-                      dateOfBirth: stringToDateTime(_dobController.text),
-                      gender: genderToString(_gender),
-                      profession: lowercaseAll(_profession),
-                    ));
+                  context,
+                  AddMemberReq(
+                    name: _nameController.text.trim(),
+                    phoneNumber: add91(_phoneController.text),
+                    dateOfBirth: stringToDateTime(_dobController.text),
+                    gender: genderToString(_gender),
+                    profession: lowercaseAll(_profession),
+                  ),
+                  widget.memberfilter,
+                );
               }
             },
           ),
@@ -302,7 +305,7 @@ class _AddMemberViewState extends ConsumerState<AddMemberView> {
                     Expanded(
                       child: TextFormField(
                         controller: _dobController,
-                        readOnly: !widget.isEdit!,
+                        readOnly: true,
                         onTap: () {
                           widget.isEdit!
                               ? showDatePicker(

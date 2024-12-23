@@ -1,7 +1,7 @@
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/dashboard/pages/desktop_dashboard_view.dart';
-import 'package:omifit/view/organization/dashboard/pages/mobile_dashboard_view.dart';
-import 'package:omifit/view/organization/dashboard/pages/tablet_dashboard_view.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/dashboard/pages/desktop_dashboard_view.dart';
+import 'package:omifit_studio/view/organization/dashboard/pages/mobile_dashboard_view.dart';
+import 'package:omifit_studio/view/organization/dashboard/pages/tablet_dashboard_view.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});

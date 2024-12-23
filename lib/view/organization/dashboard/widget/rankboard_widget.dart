@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/widget/imageicon/profile_img.dart';
-import 'package:omifit/widget/picker/time_dropdown2.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/widget/imageicon/profile_img.dart';
+import 'package:omifit_studio/widget/picker/time_dropdown2.dart';
 
 class RankboardWidget extends StatelessWidget {
   final double width;

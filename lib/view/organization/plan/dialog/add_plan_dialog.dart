@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
-import 'package:omifit/data/home/plan/model/create_plan_model.dart';
-import 'package:omifit/utils/json_parse.dart';
-import 'package:omifit/utils/utils.dart';
-import 'package:omifit/view/organization/plan/plan_view_model.dart';
-import 'package:omifit/view/organization/plan/widget/duration_dropdown.dart';
+import 'package:omifit_studio/data/home/plan/model/create_plan_model.dart';
+import 'package:omifit_studio/utils/json_parse.dart';
+import 'package:omifit_studio/utils/utils.dart';
+import 'package:omifit_studio/view/organization/plan/plan_view_model.dart';
+import 'package:omifit_studio/view/organization/plan/widget/duration_dropdown.dart';
 
 class AddPlanDialog extends ConsumerStatefulWidget {
   const AddPlanDialog({

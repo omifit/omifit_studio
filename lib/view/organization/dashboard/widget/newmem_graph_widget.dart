@@ -1,8 +1,8 @@
 import 'package:bouncing_widget/bouncing_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:omifit/utils/app_sizes.dart';
-import 'package:omifit/utils/colors.dart';
+import 'package:omifit_studio/utils/app_sizes.dart';
+import 'package:omifit_studio/utils/colors.dart';
 import 'package:pull_down_button/pull_down_button.dart';
 
 class NewMemberGraph extends StatefulWidget {
